@@ -1,0 +1,28 @@
+{
+  "name": "proogle_geeks",
+  "version": "1.0.0",
+  "description": "An anime site designed to keep anime fans up to date with the latest news and trending shows.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proogle-Geeks/paradis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Proogle-Geeks/paradis/issues"
+  },
+  "homepage": "https://github.com/Proogle-Geeks/paradis#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "pg": "^8.5.1",
+    "superagent": "^6.1.0"
+  }
+}
