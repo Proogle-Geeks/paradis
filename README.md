@@ -34,4 +34,8 @@ Features Tasks:
 * [Anime API](https://api.jikan.moe/v3/search/anime) 
 
 
+# Domain modeling
+
+![domain-modeling](public/img/paradis.png)
+
 
