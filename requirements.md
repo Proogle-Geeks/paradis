@@ -37,4 +37,6 @@ What will your MVP functionality be?
 
 ## Non-Functional Requirements
 * Wish list
+Security: log in and resigeter, using session to safe the user sessions, encrbte the password and saved 
+Usability: a statci heaser and footer that will re0use it in mulitple page 
 
