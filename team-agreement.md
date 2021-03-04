@@ -1,4 +1,5 @@
 # Team Agreement:
+
 1.	Communication plan:
  * We will communicate with each other through Zoom, Slack, and, at camps if necessary.
  * Our communication includes sketches, visuals, or, any means necessary to communicate ideas correctly.
@@ -16,12 +17,14 @@
  * First, we will try to understand the cause and the source of the conflict.
  * Try to list the possible solution depending on the type of conflict.
  * Keeping in mind that our main goal is to gain experience in teamwork and make a successful project, so nothing should be taken personal.
+
 ![](https://png.pngtree.com/png-vector/20190624/ourlarge/pngtree-conflictinpeoplemind--business-flat-line-filled-icon-vecto-png-image_1492666.jpg)
 
 3.	Work plan:
  * Tasks will be identifying and assigned based on the team`s best interest
  * We will be using Trello for managing the work and tasks in general.
  * A report on everyone`s work will be reported daily to the team for feedback.
+ 
 ![](https://img.pngio.com/work-plan-vector-material-notebook-png-and-vector-for-free-download-plan-png-650_591.png)
 
 4.	Git process:
