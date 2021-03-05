@@ -53,7 +53,7 @@ function handelHomePage(req, res) {
         res.status(500).send('Sorry, an error happened in Home Page' + error);
     }
 }
-=======
+
 
 ///////////////
 //Routes///////
@@ -165,3 +165,4 @@ function Anime(anime) {
 app.listen(PORT, () => {
     console.log('the app is listening to port ' + PORT);
 });
+
