@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -183,3 +184,41 @@
   </script>
 </body>
 </html>
+
+ <!-- <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paradis</title>
+  </head>
+  <body>
+    <form action="/search" method="GET">
+      <label for="anime">
+        <input type="text" name="anime" id="anime" />
+      </label>
+      <button type="submit">search</button>
+    </form>
+    <% anime.forEach(element => { %>
+    <img src="<%= element.img_url %>" />
+    <h1><%= element.title %></h1>
+    <p>Type: <%= element.type %></p>
+    <p>Score: <%= element.score %></p>
+    <p>Start Date: <%= element.start_date %></p>
+    <p>End Date<%= element.end_date %></p>
+    <p>Rate: <%= element.rated %></p>
+    <form action="/search/details" method="GET">
+      <label for="anime">
+        <input
+          hidden
+          type="text"
+          name="anime"
+          id="anime"
+          value="<%= element.title %> "
+        />
+      </label>
+      <button type="submit">Read More</button>
+    </form>
+    <% }) %>
+  </body>
+</html>-->
+
