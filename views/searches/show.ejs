@@ -4,15 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paradis</title>
+    <title>Search</title>
   </head>
   <body>
-    <form action="/search" method="GET">
-      <label for="anime">
-        <input type="text" name="anime" id="anime" />
-      </label>
-      <button type="submit">search</button>
-    </form>
     <% anime.forEach(element => { %>
     <img src="<%= element.img_url %>" />
     <h1><%= element.title %></h1>
