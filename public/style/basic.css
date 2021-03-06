@@ -1,9 +1,10 @@
 body{
-    background-image: url('/img/background.jpg');
+    background-image: url('/public/img/background.jpg');
     background-repeat: no-repeat;
     background-position: contain;
     background-position: top;
     background-size: 170vh;
+
 }
 a{
     display: block;
@@ -17,8 +18,14 @@ header{
     grid-template-rows: 1fr 1fr;
 }
 .logo{
-    width: 100px;
-    height: 70;
+    position: relative;
+    width: 200px;
+    right: 20px;
+    bottom: 70px;
+
+}
+.logo img{
+    box-shadow: 0 10px 10px 0 rgb(0, 0, 0), 0 6px 20px 0 rgb(3, 3, 3);
 }
 nav{
     margin: 5px;
@@ -30,6 +37,7 @@ nav{
     display: grid;
     grid-template-columns: 9fr 1fr;
     color: black;
+    overflow: hidden;
 }
 .in:hover{
     color: white;
@@ -124,7 +132,7 @@ nav{
 .mainSection{
 
     width: 100%;
-    /* height: 500px; */
+    height: 500px;
     display: grid;
     grid-template-columns:  1fr 10fr 1fr;
     grid-template-rows: 1fr 10fr 1fr;
@@ -171,7 +179,7 @@ nav{
 .title{
     font-size: 28px;
     font-weight: 800;
-    padding: 15px;
+    padding: 8px;
 }
 .not-title{
     padding: 10px 0 10px 50px;
@@ -179,23 +187,68 @@ nav{
 }
 .s-news{
     background-color: #191c2a;
+
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    padding-bottom: 40px;
 }
 .d-news{
 
-
+    margin-top: 50px;
     display: grid;
-    grid-template-columns:  1fr 10fr 1fr;
+    grid-column: 2 / 3;
+    overflow: hidden;
+    opacity: 0.9;
+
+}
+.d-news:hover{
+    border: black 2px solid;
+    zoom: 1;
+    opacity: 1;
+
+    
+}
+.img-news-img{  
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.text-news{
+    background-color: #eeeeeec0;
+    border-radius: 0 0 5px 5px;
+    font-size: 18px;
+    padding: 10px;
+}
+.news-author{
+    padding: 12px;
+    font-size: 26px;
+    font-weight: 800;
+}
+.news-title{
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 600;
 }
 .u-news{
-
-    grid-column: 2 / 3;
+    grid-column: 3 / 4;
+}
+.btn-more{
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+    background-color: #121212;
+    border: solid 1px #eeeeee;
+    color: #eeeeee;
+}
+.btn-more:hover{
+    background-color: #eeeeee;
+    border: solid 1px #121212;
+    color: #121212;
 }
 .l-news{
-
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 20px;
-    background-color: #eeeeeeb6;
+    height: 180px;
+    overflow: scroll;
 }
 
 

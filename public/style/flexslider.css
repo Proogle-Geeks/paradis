@@ -140,7 +140,7 @@ html[xmlns] .flexslider .slides {
   font-family: "flexslider-icon";
   font-size: 40px;
   display: inline-block;
-  content: url('/img/l-arrow.png');
+  content: url('/public/img/l-arrow.png');
   color: rgba(0, 0, 0, 0.8);
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
@@ -149,7 +149,7 @@ img{
 }
 .flex-direction-nav a.flex-next:before {
 
-  content:url('/img/r-arrow.png');
+  content:url('/public/img/r-arrow.png');
 
 }
 .flex-direction-nav .flex-prev {
