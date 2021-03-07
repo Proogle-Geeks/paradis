@@ -4,7 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
-const pg = require('pg');
+// const pg = require('pg');
 const override = require('method-override');
 
 // installing - configration
@@ -129,7 +129,7 @@ function getNewsData() {
       console.log('error in getting news from News API: ', error)
     );
 }
-
+// get only the date from string
 function dateFormat(date) {
   return date.split('T')[0];
 }
