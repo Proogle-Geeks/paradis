@@ -1,208 +1,81 @@
+<%- include("partials/head.ejs")%> <%- include("partials/header.ejs")%>
 
-    <%- include("partials/head.ejs")%>
-
-    <%- include("partials/header.ejs")%>
-
-    <main id="slide">
-
-
-        <section class="slider">
-            <div class="flexslider">
-                <ul class="slides">
-
+<main id="slide">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+        <% anime.forEach(element=> { %>
+        <li>
+          <section class="mainSection">
+            <div class="main-div">
+              <div class="anime-des">
+                <form action="">
+                  <ul>
                     <li>
-                        
-                        <section class="mainSection">
-                            
-                            <div class="main-div">
-                                
-                                <div class="anime-des">
-
-
-                                    
-                                    <form action="">
-
-                                        <ul>
-                                            <li><h1 class="title">Anime Title Anime TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime  TitleAnime TitleAnime Title</h1></li>
-                                            <li class="not-title">Anime score</li>
-                                            <li class="not-title">Anime description</li>
-                                            <li class="not-title">Anime airing</li>
-                                            <li class="not-title">Anime url</li>
-                                            <li><button class="btn-title"><span class="text">See More</span> </button></li>
-                                        </ul>
-
-                                    </form>
-                                    
-                                </div>
-                                <div class="anime-img">
-                                    <img class="list-img" src="/img/test.jpg" alt="">
-                                </div>
-                            </div>
-                
-                        </section>
+                      <h1 class="title"><%= element.title %></h1>
                     </li>
-
-
+                    <li class="not-title">Score: <%= element.score %></li>
+                    <li class="not-title">Rank: <%= element.rank %></li>
+                    <li class="not-title">Type: <%= element.type %></li>
+                    <li class="not-title">
+                      Start Date: <%= element.start_date %>
+                    </li>
+                    <li class="not-title">End Date: <%= element.end_date %></li>
                     <li>
-                        <section class="mainSection">
-
-                            <div class="main-div">
-                                <div class="anime-des">
-                                    <form action="">
-
-                                        <ul>
-                                            <li><h1 class="title"> TitleAnime TitleAnime TitleAnime  TitleAnime TitleAnime Title</h1></li>
-                                            <li class="not-title">Anime score</li>
-                                            <li class="not-title">Anime description</li>
-                                            <li class="not-title">Anime airing</li>
-                                            <li class="not-title">Anime url</li>
-                                            <li><button class="btn-title"><span class="text">See More</span> </button></li>
-                                        </ul>
-                                        
-                                    </form>
-                                    
-                                </div>
-                                <div class="anime-img">
-                                    <img class="list-img" src="/img/test.jpg" alt="">
-                                </div>
-                            </div>
-                
-                        </section>
+                      <button class="btn-title">
+                        <span class="text">See More</span>
+                      </button>
                     </li>
-
-
-                    <li>
-                        <section class="mainSection">
-
-                            <div class="main-div">
-                                <div class="anime-des">
-                                    <form action="">
-
-                                        <ul>
-                                            <li><h1 class="title"> TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime TitleAnime  TitleAnime TitleAnime Title</h1></li>
-                                            <li class="not-title">Anime score</li>
-                                            <li class="not-title">Anime description</li>
-                                            <li class="not-title">Anime airing</li>
-                                            <li class="not-title">Anime url</li>
-                                            <li><button class="btn-title"><span class="text">See More</span> </button></li>
-                                        </ul>
-                                        
-                                    </form>
-                                    
-                                </div>
-                                <div class="anime-img">
-                                    <img class="list-img" src="/img/test.jpg" alt="">
-                                </div>
-                            </div>
-                
-                        </section>
-                    </li>
-
-                </ul>
-            </div>
-        </section>
-    
-
-        <section class="s-news">
-
-            <div class="d-news">
-                    <div class="img-news">
-                        <img class="img-news-img" src="/img/news-t.jpg" alt="">
-                    </div>
-                    <div class="text-news">
-                        <form action="">
-                        <ul class="u-news">
-
-                            <li class="news-author">
-                                 <h2 >Ibrahim</h2> 
-                            </li>
-                            <li class="news-title">
-                                <h2 >Love Is War</h2> 
-                            </li>
-                            <li class="l-news"><p>The official website for the television anime of Kawo Tanuki and artist Choco Aya's Dragon Goes House-Hunting (Dragon, Ie o Kau. or Dragon's House-Hunting) manga revealed on Friday the third promotional video, more cast members, the ending theme song, and the April 4 premiere. </p></li>
-                            <li class="news-data">
-                                <h2 >Date:</h2> 
-                            </li>
-                        
-                        <button class="btn-more"><span class="text">Resources </span> </button>
-                        <button type="submit" class="btn-more2"><span class="text">Continue Reading</span> </button>
-                    </ul>
+                  </ul>
                 </form>
-                   </div>                
+              </div>
+              <div class="anime-img">
+                <img class="list-img" src="<%= element.img_url %>" alt="" />
+              </div>
             </div>
+          </section>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
 
-        </section>
+  <!-- Adding news data from API  -->
+  <% news.forEach(element=> { %>
+  <section class="s-news">
+    <div class="d-news">
+      <div class="img-news">
+        <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
+      </div>
+      <div class="text-news">
+        <form action="">
+          <ul class="u-news">
+            <li class="news-author">
+              <h2>Author: <%= element.author %></h2>
+            </li>
+            <li class="news-title">
+              <h2>Title: <%= element.title %></h2>
+            </li>
+            <li class="l-news">
+              <p><%= element.content %></p>
+            </li>
+            <li class="news-data">
+              <h2>Published at: <%= element.publishedAt %></h2>
+            </li>
+            <button class="btn-more">
+              <span class="text">
+                <a href="<%= element.url %>">Resources</a>
+              </span>
+            </button>
+            <button type="submit" class="btn-more2">
+              <span class="text">Continue Reading</span>
+            </button>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </section>
+  <% }); %>
+</main>
 
-
-        <section class="s-news">
-
-            <div class="d-news">
-                    <div class="img-news">
-                        <img class="img-news-img" src="/img/news-t.jpg" alt="">
-                    </div>
-                    <div class="text-news">
-                        <form action="">
-                        <ul class="u-news">
-
-                            <li class="news-author">
-                                 <h2 >Ibrahim</h2> 
-                            </li>
-                            <li class="news-title">
-                                <h2 >Love Is War</h2> 
-                            </li>
-                            <li class="l-news"><p>The official website for the television anime of Kawo Tanuki and artist Choco Aya's Dragon Goes House-Hunting (Dragon, Ie o Kau. or Dragon's House-Hunting) manga revealed on Friday the third promotional video, more cast members, the ending theme song, and the April 4 premiere. </p></li>
-                            <li class="news-data">
-                                <h2 >Date:</h2> 
-                            </li>
-                        
-                        <button class="btn-more"><span class="text">Resources </span> </button>
-                        <button type="submit" class="btn-more2"><span class="text">Continue Reading</span> </button>
-                    </ul>
-                </form>
-                   </div>                
-            </div>
-
-        </section>
-
-
-        <section class="s-news">
-
-            <div class="d-news">
-                    <div class="img-news">
-                        <img class="img-news-img" src="/img/news-t.jpg" alt="">
-                    </div>
-                    <div class="text-news">
-                        <form action="">
-                        <ul class="u-news">
-
-                            <li class="news-author">
-                                 <h2 >Ibrahim</h2> 
-                            </li>
-                            <li class="news-title">
-                                <h2 >Love Is War</h2> 
-                            </li>
-                            <li class="l-news"><p>The official website for the television anime of Kawo Tanuki and artist Choco Aya's Dragon Goes House-Hunting (Dragon, Ie o Kau. or Dragon's House-Hunting) manga revealed on Friday the third promotional video, more cast members, the ending theme song, and the April 4 premiere. </p></li>
-                            <li class="news-data">
-                                <h2 >Date:</h2> 
-                            </li>
-                        
-                        <button class="btn-more"><span class="text">Resources </span> </button>
-                        <button type="submit" class="btn-more2"><span class="text">Continue Reading</span> </button>
-                    </ul>
-                </form>
-                   </div>                
-            </div>
-
-        </section>
-  
-
-    </main>
-
-
-    
-   
-    <%- include("partials/footer.ejs")%>
-
-
- 
-    
+<%- include("partials/footer.ejs")%>
