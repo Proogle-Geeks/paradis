@@ -130,6 +130,10 @@ function getNewsData() {
     );
 }
 
+function dateFormat(date){
+  return date.split('T')[0];
+}
+
 // Constructors
 
 function Anime(anime) {
@@ -143,12 +147,12 @@ function Anime(anime) {
 }
 
 function News(author, title, url, urlToImage, content,publishedAt) {
-  this.author = author;
-  this.title = title;
-  this.url = url;
-  this.urlToImage = urlToImage;
-  this.content = content;
-  this.publishedAt=publishedAt;
+  this.author = author || "Author Unknown";
+  this.title = title || "No title available";
+  this.url = url || "Not available";
+  this.urlToImage = urlToImage || "No image available";
+  this.content = content || "No content available";
+  this.publishedAt=dateFormat(publishedAt) || "Publish Date unknown";
 }
 app.listen(PORT, () => {
   console.log('The app is listening on port: ', PORT);
