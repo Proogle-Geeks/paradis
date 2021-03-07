@@ -37,12 +37,24 @@ const renderHome = (req, res) => {
 // show result of search in the search page
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
-  getAnimeData(anime).then((data) => {
-    console.log(data);
-    res.render('show', { anime: data });
-  });
+  checkSearchQuery (anime,res); 
+  console.log(anime);
+ 
 };
 
+
+function checkSearchQuery(searchEntry, res){
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  if(regex.test(searchEntry)) {
+    console.log("you searched for an image");
+    getImageSearchData(searchEntry, res)
+  } else {
+    console.log("you searched for an name");
+    getAnimeData(searchEntry).then((data) => {
+      res.render('show', { anime: data });
+    });
+  }
+}
 // handle the details for anime
 
 const handleDetails = (req, res) => {
@@ -59,7 +71,17 @@ app.get('/search/details', handleDetails);
 
 // functions
 // get anime data that the user search for
+function getImageSearchData(anime, res) {
+  const imageSearchQuery = {  url: anime  }
+  const imageSearchURl = 'https://trace.moe/api/search';
+  superagent.get(imageSearchURl).query(imageSearchQuery).then(data => {
+    console.log(data.body.docs)
+  })
+}
+
 const getAnimeData = (anime) => {
+  
+  // check if search entry is a url or an anime name
   const query = { q: anime };
   const url = 'https://api.jikan.moe/v3/search/anime';
   return superagent
