@@ -1,7 +1,7 @@
 body{
 
     background-color: #142946;
-    background-image: url(/public/img/background.jpg);
+    background-image: url(/img/background.jpg);
     background-repeat: no-repeat;
     background-position: top;
     background-size: 170vh;
@@ -25,7 +25,6 @@ header{
     width: 200px;
     right: 20px;
     bottom: 70px;
-
 }
 .logo img{
     box-shadow: 0 10px 10px 0 rgb(0, 0, 0), 0 6px 20px 0 rgb(3, 3, 3);
@@ -504,8 +503,22 @@ i{
 .search-title,.u-search{
     padding-bottom: 10px;
 }
+iframe{
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+}
+.details-title{
 
-
+}
+.details-time{
+    
+}
+.details-author{
+    
+}
+.details-date{
+    
+}
 
 
 
