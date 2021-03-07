@@ -120,7 +120,7 @@ function getNewsData() {
             article.title,
             article.url,
             article.urlToImage,
-            article.content,
+            article.content,//.split('[')[0],
             article.publishedAt
           )
       );
