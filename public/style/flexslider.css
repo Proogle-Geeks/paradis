@@ -231,6 +231,7 @@ img{
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
+  display: none;
 }
 .flex-control-paging li a:hover {
   background: #333;
