@@ -38,7 +38,8 @@ const renderHome = (req, res) => {
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
   getAnimeData(anime).then((data) => {
-    res.render('searches/show', { anime: data });
+    console.log(data);
+    res.render('show', { anime: data });
   });
 };
 
@@ -98,7 +99,6 @@ const getAnimeTrailer = (anime) => {
     });
 };
 function getNewsData() {
-  
   let newsQuery = {
     apiKey: process.env.apiKey,
     q: 'anime',
@@ -130,7 +130,7 @@ function getNewsData() {
     );
 }
 
-function dateFormat(date){
+function dateFormat(date) {
   return date.split('T')[0];
 }
 
@@ -146,13 +146,13 @@ function Anime(anime) {
   this.rank = anime.rank;
 }
 
-function News(author, title, url, urlToImage, content,publishedAt) {
-  this.author = author || "Author Unknown";
-  this.title = title || "No title available";
-  this.url = url || "Not available";
-  this.urlToImage = urlToImage || "No image available";
-  this.content = content || "No content available";
-  this.publishedAt=dateFormat(publishedAt) || "Publish Date unknown";
+function News(author, title, url, urlToImage, content, publishedAt) {
+  this.author = author || 'Author Unknown';
+  this.title = title || 'No title available';
+  this.url = url || 'Not available';
+  this.urlToImage = urlToImage || 'No image available';
+  this.content = content || 'No content available';
+  this.publishedAt = dateFormat(publishedAt) || 'Publish Date unknown';
 }
 app.listen(PORT, () => {
   console.log('The app is listening on port: ', PORT);
