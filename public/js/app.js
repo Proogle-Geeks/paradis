@@ -15,6 +15,3 @@ $( document ).ready(function() {
     $(".burger-outer-big").toggle(1000);
   });
 });
-
-
-

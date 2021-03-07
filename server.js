@@ -112,6 +112,7 @@ function getNewsData() {
     .get(newsUrl)
     .query(newsQuery)
     .then((data) => {
+      // console.log(data.body.articles);
       let articles = data.body.articles;
       return articles.map(
         (article) =>
@@ -120,7 +121,7 @@ function getNewsData() {
             article.title,
             article.url,
             article.urlToImage,
-            article.content,//.split('[')[0],
+            article.description,
             article.publishedAt
           )
       );
@@ -146,12 +147,12 @@ function Anime(anime) {
   this.rank = anime.rank;
 }
 
-function News(author, title, url, urlToImage, content, publishedAt) {
+function News(author, title, url, urlToImage, description, publishedAt) {
   this.author = author || 'Author Unknown';
   this.title = title || 'No title available';
   this.url = url || 'Not available';
   this.urlToImage = urlToImage || 'No image available';
-  this.content = content || 'No content available';
+  this.description = description || 'No description available';
   this.publishedAt = dateFormat(publishedAt) || 'Publish Date unknown';
 }
 app.listen(PORT, () => {
