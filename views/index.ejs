@@ -47,15 +47,14 @@
       <div class="img-news">
         <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
       </div>
-
       <div class="text-news">
         <form action="">
           <ul class="u-news">
             <li class="news-author">
-              <h2><%= element.author %></h2>
+              <h2>Author: <%= element.author %></h2>
             </li>
             <li class="news-title">
-              <h2><%= element.title %></h2>
+              <h2>Title: <%= element.title %></h2>
             </li>
             <li class="l-news">
               <p><%= element.content %></p>
@@ -63,7 +62,6 @@
             <li class="news-data">
               <h2>Published at: <%= element.publishedAt %></h2>
             </li>
-
             <button class="btn-more">
               <span class="text">
                 <a href="<%= element.url %>">Resources</a>
