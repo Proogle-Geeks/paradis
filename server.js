@@ -8,23 +8,23 @@ const ejs = require('ejs');
 
 
 
+
 require('dotenv').config();
 const app = express();
 app.use(cors());
-app.use('/public', express.static('./public'));
+app.use(express.static('./public'));
 
 
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 const PORT = process.env.PORT;
-
-
-
 app.set('view engine', 'ejs');
 app.get('/',renderHome);
 
 
+
+
 function renderHome(req,res) {
-  res.render('index');
+  res.render('searches/detail');
 }
 
 
