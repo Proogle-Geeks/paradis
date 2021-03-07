@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 const renderHome = (req, res) => {
   getTopAnimes().then((data) => {
     getNewsData().then((animeNews) => {
-      console.log(data);
+      // console.log(data);
       res.render('index', { anime: data, news: animeNews });
     });
   });
@@ -98,8 +98,7 @@ const getAnimeTrailer = (anime) => {
     });
 };
 function getNewsData() {
-  // console.log(req);
-
+  
   let newsQuery = {
     apiKey: process.env.apiKey,
     q: 'anime',
@@ -121,7 +120,8 @@ function getNewsData() {
             article.title,
             article.url,
             article.urlToImage,
-            article.content
+            article.content,
+            article.publishedAt
           )
       );
     })
@@ -142,12 +142,13 @@ function Anime(anime) {
   this.rank = anime.rank;
 }
 
-function News(author, title, url, urlToImage, content) {
+function News(author, title, url, urlToImage, content,publishedAt) {
   this.author = author;
   this.title = title;
   this.url = url;
   this.urlToImage = urlToImage;
   this.content = content;
+  this.publishedAt=publishedAt;
 }
 app.listen(PORT, () => {
   console.log('The app is listening on port: ', PORT);
