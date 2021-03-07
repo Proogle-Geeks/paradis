@@ -38,17 +38,22 @@ const renderHome = (req, res) => {
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
   getAnimeData(anime).then((data) => {
-    console.log(data);
-    res.render('show', { anime: data });
+    // console.log(data);
+    res.render('searches/show', { anime: data });
   });
 };
 
 // handle the details for anime
 
 const handleDetails = (req, res) => {
-  let anime = req.query.anime;
-  getAnimeTrailer(anime).then((data) => {
-    res.render('searches/detail', { anime: data });
+  let query = req.query;
+  let animeData = {};
+  for (const [key, value] of Object.entries(query)) {
+    animeData[key] = value;
+  }
+  console.log(animeData);
+  getAnimeTrailer(animeData['anime']).then((data) => {
+    res.render('searches/detail', { videoId: data, animeObject: animeData });
   });
 };
 
@@ -131,7 +136,7 @@ function getNewsData() {
 }
 // get only the date from string
 function dateFormat(date) {
-  return date.split('T')[0];
+  return date ? date.split('T')[0] : date;
 }
 
 // Constructors
@@ -141,8 +146,9 @@ function Anime(anime) {
   this.img_url = anime.image_url;
   this.type = anime.type;
   this.score = anime.score;
-  this.start_date = anime.start_date;
-  this.end_date = anime.end_date || 'Until Now';
+  this.description = anime.synopsis;
+  this.start_date = dateFormat(anime.start_date);
+  this.end_date = dateFormat(anime.end_date) || 'Until Now';
   this.rank = anime.rank;
 }
 
