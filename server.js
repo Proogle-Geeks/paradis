@@ -45,6 +45,7 @@ const handleSearch = (req, res) => {
 
 function checkSearchQuery(searchEntry, res){
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  // I got the regex from stack overflow
   if(regex.test(searchEntry)) {
     console.log("you searched for an image");
     getImageSearchData(searchEntry, res)
@@ -75,8 +76,15 @@ function getImageSearchData(anime, res) {
   const imageSearchQuery = {  url: anime  }
   const imageSearchURl = 'https://trace.moe/api/search';
   superagent.get(imageSearchURl).query(imageSearchQuery).then(data => {
-    console.log(data.body.docs)
-  })
+    // console.log(data.body.docs)
+    let similarResults = [];
+    return data.body.docs.map(element=> {
+     similarResults.push(new AnimeImageSearch(element))
+     console.log(similarResults);
+    });
+  }).catch((error) => {
+    console.log('Error in getting data from trace.moe API: ', error);
+  });
 }
 
 const getAnimeData = (anime) => {
@@ -167,6 +175,17 @@ function Anime(anime) {
   this.start_date = anime.start_date;
   this.end_date = anime.end_date || 'Until Now';
   this.rank = anime.rank;
+}
+
+function AnimeImageSearch(animeImage){
+  this.similarity= animeImage.similarity;
+  this.filename= animeImage.filename;
+  this.at = animeImage.at;
+  this.season = animeImage.season,
+  this.episode= animeImage.episode;
+  this.title_native =  animeImage.title_native
+  this.title_english = animeImage.title_english
+
 }
 
 function News(author, title, url, urlToImage, description, publishedAt) {
