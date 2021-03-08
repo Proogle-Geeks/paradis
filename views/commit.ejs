@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <form action="/commitData" method="POST">
+          <input type="text" name="first_name" />
+          <input type="text" name="last_name" />
+          <input type="email" name="email" />
+          <input type="text" name="subject" />
+          <textarea name="message" id="" cols="30" rows="10"></textarea>
+          <button type="submit">submit</button>
+        </form>
+      </div>
+
+      <div>
+        <% if (commit) { %> <% commit.forEach(element => { %>
+        <h1><%= element.first_name%></h1>
+        <h1><%= element.last_name%></h1>
+        <h1><%= element.email%></h1>
+        <h1><%= element.subject%></h1>
+        <h1><%= element.message%></h1>
+        <% }) %> <% } %>
+      </div>
+    </div>
+  </body>
+</html>
