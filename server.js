@@ -39,24 +39,21 @@ const handleSearch = (req, res) => {
   let anime = req.query.anime;
   checkSearchQuery(anime, res);
   console.log(anime);
-
 };
-
 
 function checkSearchQuery(searchEntry, res) {
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
   // I got the regex from stack overflow
   if (regex.test(searchEntry)) {
-    console.log("you searched for an image");
-    getImageSearchData(searchEntry, res).then(data => {
+    console.log('you searched for an image');
+    getImageSearchData(searchEntry, res).then((data) => {
       console.log(data);
-      res.render('showImage', { anime: data })
-    })
-
+      res.render('showImage', { anime: data });
+    });
   } else {
-    console.log("you searched for an name");
+    console.log('you searched for an name');
     getAnimeData(searchEntry).then((data) => {
-      res.render('show', { anime: data });
+      res.render('searches/show', { anime: data });
     });
   }
 }
@@ -82,24 +79,26 @@ app.get('/search/details', handleDetails);
 // functions
 // get anime data that the user search for
 function getImageSearchData(anime, res) {
-  const imageSearchQuery = { url: anime }
+  const imageSearchQuery = { url: anime };
   const imageSearchURl = 'https://trace.moe/api/search';
-  return superagent.get(imageSearchURl).query(imageSearchQuery).then(data => {
-    // console.log(data.body.docs)
-    let similarResults = [];
-    data.body.docs.map(element => {
-      similarResults.push(new AnimeImageSearch(element))
-       console.log(similarResults);
-      
+  return superagent
+    .get(imageSearchURl)
+    .query(imageSearchQuery)
+    .then((data) => {
+      // console.log(data.body.docs)
+      let similarResults = [];
+      data.body.docs.map((element) => {
+        similarResults.push(new AnimeImageSearch(element));
+        console.log(similarResults);
+      });
+      return similarResults.slice(0, 3);
+    })
+    .catch((error) => {
+      console.log('Error in getting data from trace.moe API: ', error);
     });
-    return similarResults.slice(0, 3);
-  }).catch((error) => {
-    console.log('Error in getting data from trace.moe API: ', error);
-  });
 }
 
 const getAnimeData = (anime) => {
-
   // check if search entry is a url or an anime name
   const query = { q: anime };
   const url = 'https://api.jikan.moe/v3/search/anime';
@@ -176,18 +175,18 @@ function dateFormat(date) {
   return date ? date.split('T')[0] : date;
 }
 function percentFormat(num) {
-  return Math.round(num * 100) + '%'
+  return Math.round(num * 100) + '%';
 }
 function timeFormat(time) {
   time = Number(time);
   var hour = Math.floor(time / 3600);
-  var min = Math.floor(time % 3600 / 60);
-  var sec = Math.floor(time % 3600 % 60);
-// organize how the format is displayed
-  var hours= hour > 0 ? hour + (hour == 1 ? " hour, " : " hours, ") : "";
-  var minutes = min > 0 ? min + (min == 1 ? " min, " : " min, ") : "";
-  var seconds = sec > 0 ? sec + (sec == 1 ? " sec" : " sec") : "";
-  return hours + minutes + seconds; 
+  var min = Math.floor((time % 3600) / 60);
+  var sec = Math.floor((time % 3600) % 60);
+  // organize how the format is displayed
+  var hours = hour > 0 ? hour + (hour == 1 ? ' hour, ' : ' hours, ') : '';
+  var minutes = min > 0 ? min + (min == 1 ? ' min, ' : ' min, ') : '';
+  var seconds = sec > 0 ? sec + (sec == 1 ? ' sec' : ' sec') : '';
+  return hours + minutes + seconds;
 }
 // function secure(url) {
 //   if (url[5] != 's') {
@@ -212,16 +211,19 @@ function Anime(anime) {
 
 function AnimeImageSearch(animeImage) {
   this.similarity = percentFormat(animeImage.similarity);
-  this.filename = animeImage.filename || "Unknown";
-  this.at = timeFormat(animeImage.at) || "Unknown";
-  this.season = animeImage.season || "Unknown",
-    this.episode = animeImage.episode || "Unknown";
-  this.title_native = animeImage.title_native || "Unavailable";
-  this.title_english = animeImage.title_english || "Unavailable";
-  this.from = timeFormat(animeImage.from)|| "Unknown";
-  this.to= timeFormat(animeImage.to)|| "Unknown";
-  this.video = `https://media.trace.moe/video/${animeImage.anilist_id}/${encodeURIComponent(animeImage.filename)}?t=${animeImage.at}&token=${animeImage.tokenthumb}`
-  
+  this.filename = animeImage.filename || 'Unknown';
+  this.at = timeFormat(animeImage.at) || 'Unknown';
+  (this.season = animeImage.season || 'Unknown'),
+    (this.episode = animeImage.episode || 'Unknown');
+  this.title_native = animeImage.title_native || 'Unavailable';
+  this.title_english = animeImage.title_english || 'Unavailable';
+  this.from = timeFormat(animeImage.from) || 'Unknown';
+  this.to = timeFormat(animeImage.to) || 'Unknown';
+  this.video = `https://media.trace.moe/video/${
+    animeImage.anilist_id
+  }/${encodeURIComponent(animeImage.filename)}?t=${animeImage.at}&token=${
+    animeImage.tokenthumb
+  }`;
 }
 
 function News(author, title, url, urlToImage, content, publishedAt) {
@@ -229,7 +231,7 @@ function News(author, title, url, urlToImage, content, publishedAt) {
   this.title = title || 'No title available';
   this.url = url || 'Not available';
   this.urlToImage = urlToImage || 'No image available';
-  this.content = content.split("…") || 'No content available';
+  this.content = content.split('…') || 'No content available';
   this.publishedAt = dateFormat(publishedAt) || 'Publish Date unknown';
 }
 app.listen(PORT, () => {
