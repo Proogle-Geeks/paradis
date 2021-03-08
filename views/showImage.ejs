@@ -1,0 +1,68 @@
+<%- include("partials/head.ejs")%>
+
+    <%- include("partials/header.ejs")%>
+
+        <main class="search-main">
+            <h2>Possible Results: </h2>
+            <% anime.forEach(element=>{ %>
+                <section class="s-search">
+                    <div class="d-search">
+                        <div class="img-search">
+                            <video class="" controls>
+                                <source src="<%= element.video%>" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="text-search">
+
+                            <ul class="u-search">
+
+
+                                <li>
+                                    <h2 class="search-title">English Title: <%= element.title_english%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-title">Native Title: <%= element.title_native%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">Similarity Rate: <%= element.similarity%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">Season Number: <%= element.season%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">Episode Number: <%= element.episode%>
+                                    </h2>
+                                </li>
+        
+                                <span id="dots">...</span>
+                                <span id="more">
+                                <li>
+                                    <h2 class="search-author">Matching Time: <%= element.at%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">Start Time: <%= element.from%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">End Time: <%= element.to%>
+                                    </h2>
+                                </li>
+                            </span>
+                            </ul>
+
+                            <button class="btn-details" onclick="myFunction()" id="myBtn">See More Details</button>
+
+                        </div>
+                    </div>
+                </section>
+                <% }) %>
+
+        </main>
+
+
+        <%- include("partials/footer.ejs")%>

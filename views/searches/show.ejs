@@ -1,0 +1,129 @@
+
+
+
+ <%- include("../partials/head.ejs")%>
+
+ <%- include("../partials/header.ejs")%>
+
+
+ <main class="search-main">
+
+    <% anime.forEach(element => { %>
+      <section class="s-search">
+        <div class="d-search">
+             <div class="img-search">
+                 <img class="s-img" src="<%= element.img_url %> " alt="">
+             </div>
+             <div class="text-search">
+                 
+                 <ul class="u-search">
+
+                   
+                     <li>
+                         <h2 class="search-title"><%= element.title %></h2> 
+                     </li>
+                     <li>
+                         <h2 class="search-title">Score: <%= element.score %></h2> 
+                     </li>
+                     <li>
+                         <h2 class="search-title">Start Date: <%= element.start_date %></h2> 
+                     </li>
+                     <li>
+                         <h2 class="search-author">End Date: <%= element.end_date %></h2> 
+                    </li>
+                 </ul>
+                 <form action="/search/details" method="GET">
+                  <input hidden type="text" name='anime' value="<%= element.title %>">
+                  <input hidden type="text" name='type' value="<%= element.type %>">
+                  <input hidden type="text" name='score' value="<%= element.score %>">
+                  <input hidden type="text" name='description' value="<%= element.description %>">
+                  <input hidden type="text" name='start_date' value="<%= element.start_date %>">
+                  <input hidden type="text" name='end_date' value="<%= element.end_date %>">
+                  <input hidden type="text" name='rank' value="<%= element.rank %>">
+                  <a href=""><button type="submit" class="btn-details">Details</button></a>
+                </form>
+                 
+             </div>
+         </div>
+  </section>
+    <% }) %>
+
+     <section class="s-search">
+        <div class="d-search">
+             <div class="img-search">
+                 <img class="s-img" src="/img/search-img.jpg" alt="">
+             </div>
+             <div class="text-search">
+                 
+                 <ul class="u-search">
+
+                     
+                     <li>
+                         <h2 class="search-title">Love Is War</h2> 
+                     </li>
+                     <li>
+                         <h2 class="search-title">Date:</h2> 
+                     </li>
+                     <li>
+                         <h2 class="search-author">demon</h2> 
+                    </li>
+                 </ul>
+
+                 <a href=""><button class="btn-details">Details</button></a>
+                 
+             </div>
+         </div>
+  </section>
+
+  <section class="s-search">
+    <div class="d-search">
+         <div class="img-search">
+             <img class="s-img" src="/img/search-img.jpg" alt="">
+         </div>
+         <div class="text-search">
+             
+             <ul class="u-search">
+  
+                 <li>
+                     <h2 class="search-title">Love Is War</h2> 
+                 </li>
+                 <li>
+                     <h2 class="search-title">Date:</h2> 
+                 </li>
+                 <li>
+                     <h2 class="search-author">demon</h2> 
+                </li>
+             </ul>
+
+             <a href=""><button class="btn-details">Details</button></a>
+             
+         </div>
+     </div>
+</section>
+
+ </main>
+
+  <section class="s-search">
+    <div class="d-search">
+      <div class="img-search">
+        <img class="s-img" src="/img/search-img.jpg" alt="" />
+      </div>
+      <div class="text-search">
+        <ul class="u-search">
+          <li>
+            <h2 class="search-title">Love Is War</h2>
+          </li>
+          <li>
+            <h2 class="search-title">Date:</h2>
+          </li>
+          <li>
+            <h2 class="search-author">demon</h2>
+          </li>
+        </ul>
+        <a href=""><button class="btn-details">Details</button></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+ <%- include("../partials/footer.ejs")%>
