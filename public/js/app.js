@@ -14,6 +14,9 @@ $( document ).ready(function() {
   $(".in").click(function () {
     $(".burger-outer-big").toggle(1000);
   });
+  $(".in").hover(function () {
+    $(".burger-test").toggle(400);
+  });
 });
 
 

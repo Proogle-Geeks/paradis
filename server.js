@@ -6,6 +6,7 @@ const cors = require('cors');
 const superagent = require('superagent');
 // const pg = require('pg');
 const override = require('method-override');
+const { render } = require('ejs');
 
 // installing - configration
 const app = express();
@@ -51,7 +52,7 @@ const handleDetails = (req, res) => {
   for (const [key, value] of Object.entries(query)) {
     animeData[key] = value;
   }
-  console.log(animeData);
+  // console.log(animeData);
   getAnimeTrailer(animeData['anime']).then((data) => {
     res.render('searches/detail', { videoId: data, animeObject: animeData });
   });
@@ -61,6 +62,12 @@ const handleDetails = (req, res) => {
 app.get('/', renderHome);
 app.get('/search', handleSearch);
 app.get('/search/details', handleDetails);
+app.get('/search/list', handleList);
+
+function handleList(req,res) {
+  res.render('searches/list')
+}
+
 
 // functions
 // get anime data that the user search for
