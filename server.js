@@ -39,7 +39,7 @@ const renderHome = (req, res) => {
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
   checkSearchQuery(anime, res);
-  console.log(anime);
+  // console.log(anime);
 };
 
 function checkSearchQuery(searchEntry, res) {
@@ -48,7 +48,7 @@ function checkSearchQuery(searchEntry, res) {
   if (regex.test(searchEntry)) {
     console.log('you searched for an image');
     getImageSearchData(searchEntry, res).then((data) => {
-      console.log(data);
+      // console.log(data);
       res.render('showImage', { anime: data });
     });
   } else {
@@ -66,7 +66,6 @@ const handleDetails = (req, res) => {
   for (const [key, value] of Object.entries(query)) {
     animeData[key] = value;
   }
-  // console.log(animeData);
   getAnimeTrailer(animeData['anime']).then((data) => {
     res.render('searches/detail', { videoId: data, animeObject: animeData });
   });
@@ -98,11 +97,9 @@ function getImageSearchData(anime, res) {
     .get(imageSearchURl)
     .query(imageSearchQuery)
     .then((data) => {
-      // console.log(data.body.docs)
       let similarResults = [];
       data.body.docs.map((element) => {
         similarResults.push(new AnimeImageSearch(element));
-        console.log(similarResults);
       });
       return similarResults.slice(0, 3);
     })
@@ -129,7 +126,6 @@ const getAnimeData = (anime) => {
 const getTopAnimes = () => {
   const url = 'https://api.jikan.moe/v3/top/anime/1';
   return superagent.get(url).then((data) => {
-    console.log(data.body.top);
     return data.body.top.map((element) => new Anime(element));
   });
 };
