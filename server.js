@@ -87,7 +87,7 @@ function handleQuotesCharacter(req, res) {
 
       res.status(200).send(quoteArray);
     })
-    .catch((erroe) => {
+    .catch((error) => {
       res.status(500).send({
         status: 500,
         response: 'sorry cannot connect with api ' + error,
@@ -121,19 +121,24 @@ function handleQuotesRandomly(req, res) {
       });
     });
 }
+
+
+
+
+// tested and it is work correct 
 // get the data from the sign-up form and inserting them to the DATABASE
 function handleSignup(req, res) {
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
   let email = req.body.email;
   let password = req.body.password;
-  console.log([first_name, last_name, email, password]);
+  // console.log([first_name, last_name, email, password]);
   bcrypt.hash(password, salt, (err, encrypted) => {
     password = encrypted;
     let sqlQuery = `insert into users(first_name, last_name, email,password) values ($1,$2,$3,$4)returning *`;
     let values = [first_name, last_name, email, password];
     client.query(sqlQuery, values).then((data) => {
-      console.log(data.rows);
+     
       res.redirect('/login-page');
     });
   });
@@ -142,9 +147,9 @@ function handleSignup(req, res) {
 function handleLoginPage(req, res) {
   sess = req.session;
   if (sess.email) {
-    res.redirect('/news');
+    res.redirect('/');
   } else {
-    res.render('login.ejs');
+    res.render('sign-in.ejs');
   }
 }
 // get data from log in form and check if user account exist or not
@@ -152,27 +157,29 @@ function handleLogin(req, res) {
   let email = req.body.email;
   let password = req.body.password;
   sess = req.session;
-  console.log(email, password);
+  // console.log(email, password);
 
   if (sess.email) {
-    res.redirect('/news');
+    res.redirect('/');
   } else {
     let sqlQuery = `select id, email, password from users where email = '${email}';`;
     client.query(sqlQuery).then((data) => {
       let pass = data.rows[0].password;
-      console.log(pass);
+      // console.log(pass);
       bcrypt.compare(password, pass, function (err, result) {
         if (result === true) {
           // redirect to location
           sess.email = email;
-          console.log({ result: result, email: email, password: password });
-          res.redirect('/news');
+          // console.log({ result: result, email: email, password: password });
+          res.redirect('/');
         } else {
-          res.send('Incorrect password');
+           res.redirect('/login-page', {errorMessage: 'Incorrect password'});
           // redirect to login page
         }
       });
-    });
+    }).catch(error=>{
+         res.redirect("/login-page", { errorMessage: "Account Does not Exists Please create new one" });
+    })
   }
 }
 // log-out and redirect to the main page
@@ -184,6 +191,10 @@ function handleLogout(req, res) {
     res.redirect('/login-page');
   });
 }
+
+
+
+
 // display update form
 function handleUpdate(req, res) {
   let email = req.params.email;
@@ -212,22 +223,23 @@ function handleUpdateInfo(req, res) {
     res.redirect('/news');
   });
 }
+
+// tested and it work 
 // add anime selected to the user list
 function handleAnime(req, res) {
   let title = req.body.title;
-  let synopsis = req.body.synopsis;
   let type = req.body.type;
-  let episodes = req.body.episodes;
   let score = req.body.score;
-  let image_url = req.body.image_url;
+  let video = req.body.video;
+  let image = req.body.image;
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
-  let rated = req.body.rated;
+  let description = req.body.description;
 
-  let sqlQuery = `insert into anime(title, synopsis, type, episodes, score, image_url, start_date,end_date,reated) 
-  values ('${title}','${synopsis}','${type}','${episodes}','${score}','${image_url}','${start_date}','${end_date}','${rated}')`;
+  let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
+  values ('${title}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
   client.query(sqlQuery).then((data) => {
-    console.log('anime data inserted' + data);
+    // console.log('anime data inserted' + data);
     let sql = `SELECT * FROM users where email = '${sess.email}'`;
     var user_id;
     client.query(sql).then((data) => {
@@ -240,12 +252,15 @@ function handleAnime(req, res) {
         let listValues = [user_id, anime_id];
         client.query(list, listValues).then((data) => {
           console.log('data added');
-          res.redirect('/anime-search');
+          res.redirect('/');
         });
       });
     });
   });
 }
+
+
+// tested and work correctly
 // get the user list and display it to him/her
 function handleMyList(req, res) {
   sess = req.session;
@@ -253,21 +268,23 @@ function handleMyList(req, res) {
     let sql = `select * from users where email ='${sess.email}'`;
     client.query(sql).then((data) => {
       let user_id = data.rows[0].id;
-      let sql = `SELECT a.title, a.image_url FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
+      let sql = `SELECT ul.id, a.title, a.image , a.video FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
       client.query(sql).then((data) => {
         console.log(data.rows);
-        res.render('list.ejs', { mylist: data.rows });
+        res.render("searches/list", { mylist: data.rows });
       });
     });
   } else {
-    res.redirect('/news');
+    res.redirect('/');
   }
 }
+
+
 // handle comment section get the data from the DATABASE and render the last 5 comments
 function handleCommitPage(req, res) {
   let sqlQuery = 'SELECT * from commits ORDER BY id DESC LIMIT 5';
   client.query(sqlQuery).then((data) => {
-    res.render('commit.ejs', { commit: data.rows });
+    res.render('searches/detail', { commit: data.rows });
   });
 }
 // get the data from the form and store it in the DB
@@ -275,16 +292,13 @@ function handleCommit(req, res) {
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
   let email = req.body.email;
-  let subject = req.body.subject;
   let message = req.body.message;
-  let status = 'unread';
-
-  let sql = `insert into commits(first_name, last_name, email, subject,message, status) values ('${first_name}','${last_name}','${email}','${subject}','${message}','${status}') `;
+  let sql = `insert into commits(first_name, last_name, email,message) values ('${first_name}','${last_name}','${email}','${message}') `;
   client.query(sql).then((data) => {
     console.log('data added');
     let sqlQuery = 'SELECT * from commits ORDER BY id DESC LIMIT 5';
     client.query(sqlQuery).then((data) => {
-      res.render('commit.ejs', { commit: data.rows });
+      res.redirect("/commit");
     });
   });
 }
@@ -306,16 +320,57 @@ const handleSearch = (req, res) => {
 };
 // handle the details for anime
 
+
+
 const handleDetails = (req, res) => {
   let query = req.query;
   let animeData = {};
   for (const [key, value] of Object.entries(query)) {
     animeData[key] = value;
   }
+  sess = req.session.email|| false;
+  
   getAnimeTrailer(animeData['anime']).then((data) => {
-    res.render('searches/detail', { videoId: data, animeObject: animeData });
+    res.render('searches/detail', { videoId: data, animeObject: animeData, bol: false, sess: sess });
   });
 };
+
+// tested and it work correctly
+// delete elemet from user list 
+function handelDeleteList(req,res){
+  let id = req.params.id;
+  let sql = `DELETE from user_list where id ='${id}'`;
+  client.query(sql).then(data=>{
+    console.log(data.rows);
+      res.redirect('/myList');
+  });
+}
+
+
+
+
+
+function handleDetailsMyList(req, res){
+   sess = req.session;
+   if (sess.email) {
+     let sql = `select * from users where email ='${sess.email}'`;
+     client.query(sql).then((data) => {
+       let user_id = data.rows[0].id;
+       let sql = `SELECT ul.id, a.title as anime,a.type,a.score ,a.image , a.video, a.start_date, a.end_date, a.description  FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
+       client.query(sql).then((data) => {
+         console.log(data.rows, sess.email);
+         res.render("searches/detail", {
+           animeObject: data.rows[0],
+           videoId: data.rows[0].video,
+           bol: true,
+           sess: sess.email,
+         });
+       });
+     });
+   } else {
+     res.redirect("/");
+   }
+}
 
 //===========
 // routes-path
@@ -343,33 +398,46 @@ app.post('/login', handleLogin);
 
 app.get('/logout', handleLogout);
 
-app.get('/update/:email', handleUpdate);
+app.get("/myList", handleMyList);
 
-app.post('/update-info', handleUpdateInfo);
-
-app.post('/anime', handleAnime);
-
-app.get('/myList', handleMyList);
-
-app.get('/commit', handleCommitPage);
-
-app.post('/commitData', handleCommit);
-// paths-routs
 app.get('/', renderHome);
+
 app.get('/search', handleSearch);
+
 app.get('/search/details', handleDetails);
+
 app.get('/about-us', (req, res) => {
   res.render('about-us');
 });
 app.get('/contact-us', (req, res) => {
   res.render('contact-us');
 });
-app.get('/sign-in', (req, res) => {
-  res.render('sign-in');
-});
-app.get('/list', (req, res) => {
-  res.render('searches/list');
-});
+
+app.post('/anime', handleAnime);
+
+app.delete('/myList/:id', handelDeleteList);
+
+app.post("/search/details/:id", handleDetailsMyList);
+
+
+
+
+
+app.get('/update/:email', handleUpdate);
+
+app.post('/update-info', handleUpdateInfo);
+
+app.get('/commit', handleCommitPage);
+
+app.post('/commitData', handleCommit);
+// paths-routs
+
+// app.get('/sign-in', (req, res) => {
+//   res.render('sign-in');
+// });
+// app.get('/list', (req, res) => {
+//   res.render('searches/list');
+// });
 
 //================
 // functions
