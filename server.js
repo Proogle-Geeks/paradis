@@ -179,10 +179,10 @@ function timeFormat(time) {
   var min = Math.floor(time % 3600 / 60);
   var sec = Math.floor(time % 3600 % 60);
 // organize how the format is displayed
-  var h= hour > 0 ? hour + (hour == 1 ? " hour, " : " hours, ") : "";
-  var min = min > 0 ? min + (min == 1 ? " minute, " : " minutes, ") : "";
-  var sec = sec > 0 ? sec + (sec == 1 ? " second" : " seconds") : "";
-  return h + min + sec; 
+  var hours= hour > 0 ? hour + (hour == 1 ? " hour, " : " hours, ") : "";
+  var minutes = min > 0 ? min + (min == 1 ? " min, " : " min, ") : "";
+  var seconds = sec > 0 ? sec + (sec == 1 ? " sec" : " sec") : "";
+  return hours + minutes + seconds; 
 }
 
 // Constructors
@@ -205,8 +205,10 @@ function AnimeImageSearch(animeImage) {
     this.episode = animeImage.episode || "Unknown";
   this.title_native = animeImage.title_native || "Unavailable";
   this.title_english = animeImage.title_english || "Unavailable";
+  this.from = timeFormat(animeImage.from)|| "Unknown";
+  this.to= timeFormat(animeImage.to)|| "Unknown";
   this.video = `https://media.trace.moe/video/${animeImage.anilist_id}/${encodeURIComponent(animeImage.filename)}?t=${animeImage.at}&token=${animeImage.tokenthumb}`
-  // this.videoUrl = `https://media.trace.moe/image/${anime.anilist_id}/${encodeURIComponent(anime.filename)}?t=${anime.at}&token=${anime.tokenthumb}`;
+  
 }
 
 function News(author, title, url, urlToImage, content, publishedAt) {

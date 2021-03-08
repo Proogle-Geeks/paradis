@@ -37,16 +37,25 @@
                                     <h2 class="search-author">Episode Number: <%= element.episode%>
                                     </h2>
                                 </li>
+        
                                 <span id="dots">...</span>
                                 <span id="more">
                                 <li>
                                     <h2 class="search-author">Matching Time: <%= element.at%>
                                     </h2>
                                 </li>
+                                <li>
+                                    <h2 class="search-author">Start Time: <%= element.from%>
+                                    </h2>
+                                </li>
+                                <li>
+                                    <h2 class="search-author">End Time: <%= element.to%>
+                                    </h2>
+                                </li>
                             </span>
                             </ul>
 
-                            <a href=""><button class="btn-details" onclick="myFunction()" id="myBtn">See More Details</button></a>
+                            <button class="btn-details" onclick="myFunction()" id="myBtn">See More Details</button>
 
                         </div>
                     </div>
