@@ -75,6 +75,15 @@ const handleDetails = (req, res) => {
 app.get('/', renderHome);
 app.get('/search', handleSearch);
 app.get('/search/details', handleDetails);
+app.get('/about-us', (req, res) => {
+  res.render('about-us');
+});
+app.get('/contact-us', (req, res) => {
+  res.render('contact-us');
+});
+app.get('/sign-in', (req, res) => {
+  res.render('sign-in');
+});
 
 // functions
 // get anime data that the user search for
