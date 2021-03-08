@@ -1,0 +1,35 @@
+<%-include("partials/head")%>
+<link rel="stylesheet" href="../public/style/sign-in.css">
+    <main>
+
+        <div id="sign-in-form-div">
+            <form id="sign-in-form" action="" method="POST">
+                <input class = "sign-in-input" name="email" type="text" placeholder="Enter Email" required><br>
+                <input class = "sign-in-input" name="password" type="password" placeholder="Enter Password" required><br>
+                <button type="submit">Log-in</button>
+            </form>
+            <div id="create-account">
+                <p>Create Account</p>
+                <button id="show-signup-form-btn">Sign Up</button>
+            </div>
+        </div>
+        
+        <div id="sign-up-form-div">
+            <form id="sign-up-form" action="" method="POST">
+                
+                <input class = "sign-in-input" name="first-name" type="text" placeholder="First Name" required><br>
+                <input class = "sign-in-input" name="last-name" type="text" placeholder="Last Name" required><br>
+                <input class = "sign-in-input" name="email" type="text" placeholder="Enter Email" required><br>
+                <input class = "sign-in-input" name="password" type="password" placeholder="Enter Password" required><br>
+                <input class = "sign-in-input" name="rpt-password" type="password" placeholder="Repeat Password" required><br>
+                <button id="create-account-btn" type="submit">Create Account</button>
+                <button id="cancel-btn">Cancel</button>
+            </form>
+        </div>
+
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="../public/js/sign-in.js"></script>
+    <%-include("partials/footer")%>

@@ -1,0 +1,21 @@
+<%-include("partials/head")%>
+<link rel="stylesheet" href="../public/style/contact-us.css">
+<main>
+    <div id="img-div">
+            <!-- <img src="https://i.pinimg.com/originals/91/67/98/916798bedc1ce352ce8a22ef15273d15.jpg" alt=""> -->
+    </div>
+    <div id="contact-us-div"> 
+        <form id="contact-us-form" action="">
+            <input name="first-name" type="text" placeholder="First Name">
+            <input name="last-name" type="text" placeholder="Last Name">
+            <input class="two-rows-input" name="email" type="text" placeholder="Email">
+            <input class="two-rows-input name=" subject" type="text" placeholder="Subject">
+            <textarea class="two-rows-input name=" message" id="" cols="30" rows="10"></textarea>
+            <button id="send-message-btn" class="two-rows-input type=" submit">Send Message</button>
+        </form>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="../public/js/sign-in.js"></script>
+<%-include("partials/footer")%>

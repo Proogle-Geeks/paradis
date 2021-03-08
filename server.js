@@ -21,14 +21,26 @@ const PORT = process.env.PORT;
 
 app.set('view engine', 'ejs');
 app.get('/',renderHome);
+app.get('/sign-in',renderSignIn);
+app.get('/contact-us',renderContactUs);
+app.get('/about-us',renderAboutUs);
 
 
 function renderHome(req,res) {
   res.render('index');
 }
 
+function renderSignIn(req,res) {
+  res.render('sign-in');
+}
 
+function renderContactUs(req,res){
+  res.render('contact-us');
+}
 
+function renderAboutUs(req,res){
+  res.render('about-us')
+}
 
 
 
