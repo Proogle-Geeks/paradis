@@ -57,7 +57,7 @@
               <h2><%= element.title %></h2>
             </li>
             <li class="l-news">
-              <p class="readmoreP"><%= element.description.substring(0, 200) %></p>
+              <p class="readmoreP"><%= element.content[0] %>...<%= element.content[1] %></p>
               
             </li>
             <li class="news-data">
@@ -65,7 +65,7 @@
             </li>
             <button class="btn-more">
               <span class="text">
-                <a href="<%= element.url %>">Resources</a>
+                <a href="<%= element.url %>">Resources </a>
               </span>
             </button>
             <button type="submit" class="btn-more2" id="continueReading">

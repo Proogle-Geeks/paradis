@@ -7,7 +7,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 const override = require('method-override');
 
-// installing - configration
+// installing - configuration
 const app = express();
 app.use(cors());
 require('dotenv').config();
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
-// handler funcitons
+// handler functions
 
 // render index.ejs in the home page
 const renderHome = (req, res) => {
@@ -37,18 +37,22 @@ const renderHome = (req, res) => {
 // show result of search in the search page
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
-  checkSearchQuery (anime,res); 
+  checkSearchQuery(anime, res);
   console.log(anime);
- 
+
 };
 
 
-function checkSearchQuery(searchEntry, res){
+function checkSearchQuery(searchEntry, res) {
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
   // I got the regex from stack overflow
-  if(regex.test(searchEntry)) {
+  if (regex.test(searchEntry)) {
     console.log("you searched for an image");
-    getImageSearchData(searchEntry, res)
+    getImageSearchData(searchEntry, res).then(data => {
+      console.log(data);
+      res.render('showImage', { anime: data })
+    })
+
   } else {
     console.log("you searched for an name");
     getAnimeData(searchEntry).then((data) => {
@@ -73,22 +77,23 @@ app.get('/search/details', handleDetails);
 // functions
 // get anime data that the user search for
 function getImageSearchData(anime, res) {
-  const imageSearchQuery = {  url: anime  }
+  const imageSearchQuery = { url: anime }
   const imageSearchURl = 'https://trace.moe/api/search';
-  superagent.get(imageSearchURl).query(imageSearchQuery).then(data => {
+  return superagent.get(imageSearchURl).query(imageSearchQuery).then(data => {
     // console.log(data.body.docs)
     let similarResults = [];
-    return data.body.docs.map(element=> {
-     similarResults.push(new AnimeImageSearch(element))
-     console.log(similarResults);
+    data.body.docs.map(element => {
+      similarResults.push(new AnimeImageSearch(element))
+      //  console.log(similarResults);
     });
+    return similarResults;
   }).catch((error) => {
     console.log('Error in getting data from trace.moe API: ', error);
   });
 }
 
 const getAnimeData = (anime) => {
-  
+
   // check if search entry is a url or an anime name
   const query = { q: anime };
   const url = 'https://api.jikan.moe/v3/search/anime';
@@ -151,7 +156,7 @@ function getNewsData() {
             article.title,
             article.url,
             article.urlToImage,
-            article.description,
+            article.content,
             article.publishedAt
           )
       );
@@ -160,9 +165,18 @@ function getNewsData() {
       console.log('error in getting news from News API: ', error)
     );
 }
-
+// functions for getting the right format
 function dateFormat(date) {
   return date.split('T')[0];
+}
+function percentFormat(num) {
+  return Math.round(num * 100) + '%'
+}
+function timeFormat(time) {
+  var minutes = Math.floor(time / 60);
+  var seconds = Math.floor(time - minutes * 60);
+  return `${minutes}:${seconds} minutes`
+
 }
 
 // Constructors
@@ -177,23 +191,22 @@ function Anime(anime) {
   this.rank = anime.rank;
 }
 
-function AnimeImageSearch(animeImage){
-  this.similarity= animeImage.similarity;
-  this.filename= animeImage.filename;
-  this.at = animeImage.at;
-  this.season = animeImage.season,
-  this.episode= animeImage.episode;
-  this.title_native =  animeImage.title_native
-  this.title_english = animeImage.title_english
-
+function AnimeImageSearch(animeImage) {
+  this.similarity = percentFormat(animeImage.similarity);
+  this.filename = animeImage.filename || "Unknown";
+  this.at = timeFormat(animeImage.at) || "Unknown";
+  this.season = animeImage.season || "Unknown",
+    this.episode = animeImage.episode || "Unknown";
+  this.title_native = animeImage.title_native || "Unavailable";
+  this.title_english = animeImage.title_english || "Unavailable";
 }
 
-function News(author, title, url, urlToImage, description, publishedAt) {
+function News(author, title, url, urlToImage, content, publishedAt) {
   this.author = author || 'Author Unknown';
   this.title = title || 'No title available';
   this.url = url || 'Not available';
   this.urlToImage = urlToImage || 'No image available';
-  this.description = description || 'No description available';
+  this.content = content.split("…") || 'No content available';
   this.publishedAt = dateFormat(publishedAt) || 'Publish Date unknown';
 }
 app.listen(PORT, () => {
