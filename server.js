@@ -4,7 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
-const pg = require('pg');
+// const pg = require('pg');
 const override = require('method-override');
 
 // installing - configuration
@@ -19,7 +19,7 @@ const PORT = process.env.PORT;
 
 // view-static
 app.set('view engine', 'ejs');
-app.use('/public', express.static('./public'));
+app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 // handler functions
@@ -63,9 +63,14 @@ function checkSearchQuery(searchEntry, res) {
 // handle the details for anime
 
 const handleDetails = (req, res) => {
-  let anime = req.query.anime;
-  getAnimeTrailer(anime).then((data) => {
-    res.render('searches/detail', { anime: data });
+  let query = req.query;
+  let animeData = {};
+  for (const [key, value] of Object.entries(query)) {
+    animeData[key] = value;
+  }
+  console.log(animeData);
+  getAnimeTrailer(animeData['anime']).then((data) => {
+    res.render('searches/detail', { videoId: data, animeObject: animeData });
   });
 };
 
@@ -168,7 +173,7 @@ function getNewsData() {
 }
 // functions for getting the right format
 function dateFormat(date) {
-  return date.split('T')[0];
+  return date ? date.split('T')[0] : date;
 }
 function percentFormat(num) {
   return Math.round(num * 100) + '%'
@@ -199,8 +204,9 @@ function Anime(anime) {
   this.img_url = anime.image_url;
   this.type = anime.type;
   this.score = anime.score;
-  this.start_date = anime.start_date;
-  this.end_date = anime.end_date || 'Until Now';
+  this.description = anime.synopsis;
+  this.start_date = dateFormat(anime.start_date);
+  this.end_date = dateFormat(anime.end_date) || 'Until Now';
   this.rank = anime.rank;
 }
 

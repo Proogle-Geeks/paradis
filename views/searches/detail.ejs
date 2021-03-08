@@ -1,0 +1,112 @@
+<%- include("../partials/head.ejs")%> <%- include("../partials/header.ejs")%>
+
+<main class="search-main">
+  <section class="s-search">
+    <div class="d-search">
+      <div class="img-search">
+        <iframe
+          src="https://www.youtube.com/embed/<%= videoId %> "
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="text-search">
+        <form action="">
+          <ul class="u-search">
+            <li class="search-title"><%= animeObject.anime %></li>
+
+            <li class="search-title"><%= animeObject.type %></li>
+            <li class="search-title"><%= animeObject.score %></li>
+
+            <li class="search-title">
+              <%= animeObject.start_date %> <%= animeObject.end_date %>
+            </li>
+
+            <li class="search-title">
+              <p><%= animeObject.description %></p>
+            </li>
+
+            <button class="btn-more">
+              <span class="text">Add to my list</span>
+            </button>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-search">
+    <div class="d-search">
+      <div class="img-search">
+        <iframe
+          src="https://www.youtube.com/embed/6TolbTZXDjI"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="text-search">
+        <form action="">
+          <ul class="u-search">
+            <li class="search-title">Love Is War</li>
+
+            <li class="search-title">Time :24 min</li>
+            <li class="search-title">demon</li>
+
+            <li class="search-title">Date:</li>
+
+            <li class="search-title">
+              <p>
+                The official website for the television anime of Kawo Tanuki and
+                artist Choco Aya's Dragon Goes House-Hunting (Dragon, Ie o Kau.
+                or Dragon's House-Hunting) manga revealed on Friday the third
+                promotional video, more cast members, the ending theme song, and
+                the April 4 premiere.
+              </p>
+            </li>
+
+            <button class="btn-more">
+              <span class="text">Add to my list</span>
+            </button>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-search">
+    <div class="d-search">
+      <div class="img-search">
+        <iframe
+          src="https://www.youtube.com/embed/6TolbTZXDjI"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="text-search">
+        <form action="">
+          <ul class="u-search">
+            <li class="search-title">Love Is War</li>
+
+            <li class="search-title">Time :24 min</li>
+            <li class="search-title">demon</li>
+
+            <li class="search-title">Date:</li>
+
+            <li class="search-title">
+              <p>
+                The official website for the television anime of Kawo Tanuki and
+                artist Choco Aya's Dragon Goes House-Hunting (Dragon, Ie o Kau.
+                or Dragon's House-Hunting) manga revealed on Friday the third
+                promotional video, more cast members, the ending theme song, and
+                the April 4 premiere.
+              </p>
+            </li>
+
+            <button class="btn-more">
+              <span class="text">Add to my list</span>
+            </button>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include("../partials/footer.ejs")%>
