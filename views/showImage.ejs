@@ -2,14 +2,15 @@
 
     <%- include("partials/header.ejs")%>
 
-
-
         <main class="search-main">
+            <h2>Possible Results: </h2>
             <% anime.forEach(element=>{ %>
                 <section class="s-search">
                     <div class="d-search">
                         <div class="img-search">
-                            <img class="s-img" src="/public/img/search-img.jpg" alt="">
+                            <video class="" controls>
+                                <source src="<%= element.video%>" type="video/mp4">
+                            </video>
                         </div>
                         <div class="text-search">
 
@@ -36,71 +37,21 @@
                                     <h2 class="search-author">Episode Number: <%= element.episode%>
                                     </h2>
                                 </li>
+                                <span id="dots">...</span>
+                                <span id="more">
                                 <li>
-                                    <h2 class="search-author">Exact time of the matching scene:: <%= element.at%>
+                                    <h2 class="search-author">Matching Time: <%= element.at%>
                                     </h2>
                                 </li>
+                            </span>
                             </ul>
 
-                            <a href=""><button class="btn-details">Details</button></a>
+                            <a href=""><button class="btn-details" onclick="myFunction()" id="myBtn">See More Details</button></a>
 
                         </div>
                     </div>
                 </section>
                 <% }) %>
-                    <section class="s-search">
-                        <div class="d-search">
-                            <div class="img-search">
-                                <img class="s-img" src="/public/img/search-img.jpg" alt="">
-                            </div>
-                            <div class="text-search">
-
-                                <ul class="u-search">
-
-
-                                    <li>
-                                        <h2 class="search-title">Love Is War</h2>
-                                    </li>
-                                    <li>
-                                        <h2 class="search-title">Date:</h2>
-                                    </li>
-                                    <li>
-                                        <h2 class="search-author">demon</h2>
-                                    </li>
-                                </ul>
-
-                                <a href=""><button class="btn-details">Details</button></a>
-
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="s-search">
-                        <div class="d-search">
-                            <div class="img-search">
-                                <img class="s-img" src="/public/img/search-img.jpg" alt="">
-                            </div>
-                            <div class="text-search">
-
-                                <ul class="u-search">
-
-
-                                    <li>
-                                        <h2 class="search-title">Love Is War</h2>
-                                    </li>
-                                    <li>
-                                        <h2 class="search-title">Date:</h2>
-                                    </li>
-                                    <li>
-                                        <h2 class="search-author">demon</h2>
-                                    </li>
-                                </ul>
-
-                                <a href=""><button class="btn-details">Details</button></a>
-
-                            </div>
-                        </div>
-                    </section>
 
         </main>
 

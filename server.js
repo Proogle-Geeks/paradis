@@ -84,9 +84,10 @@ function getImageSearchData(anime, res) {
     let similarResults = [];
     data.body.docs.map(element => {
       similarResults.push(new AnimeImageSearch(element))
-      //  console.log(similarResults);
+       console.log(similarResults);
+      
     });
-    return similarResults;
+    return similarResults.slice(0, 3);
   }).catch((error) => {
     console.log('Error in getting data from trace.moe API: ', error);
   });
@@ -173,10 +174,15 @@ function percentFormat(num) {
   return Math.round(num * 100) + '%'
 }
 function timeFormat(time) {
-  var minutes = Math.floor(time / 60);
-  var seconds = Math.floor(time - minutes * 60);
-  return `${minutes}:${seconds} minutes`
-
+  time = Number(time);
+  var hour = Math.floor(time / 3600);
+  var min = Math.floor(time % 3600 / 60);
+  var sec = Math.floor(time % 3600 % 60);
+// organize how the format is displayed
+  var h= hour > 0 ? hour + (hour == 1 ? " hour, " : " hours, ") : "";
+  var min = min > 0 ? min + (min == 1 ? " minute, " : " minutes, ") : "";
+  var sec = sec > 0 ? sec + (sec == 1 ? " second" : " seconds") : "";
+  return h + min + sec; 
 }
 
 // Constructors
@@ -199,6 +205,8 @@ function AnimeImageSearch(animeImage) {
     this.episode = animeImage.episode || "Unknown";
   this.title_native = animeImage.title_native || "Unavailable";
   this.title_english = animeImage.title_english || "Unavailable";
+  this.video = `https://media.trace.moe/video/${animeImage.anilist_id}/${encodeURIComponent(animeImage.filename)}?t=${animeImage.at}&token=${animeImage.tokenthumb}`
+  // this.videoUrl = `https://media.trace.moe/image/${anime.anilist_id}/${encodeURIComponent(anime.filename)}?t=${anime.at}&token=${anime.tokenthumb}`;
 }
 
 function News(author, title, url, urlToImage, content, publishedAt) {
