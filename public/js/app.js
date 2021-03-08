@@ -16,5 +16,19 @@ $( document ).ready(function() {
   });
 });
 
+// read more in the search for image results
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
 
-
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "See More Details";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "See less Details";
+    moreText.style.display = "inline";
+  }
+}
