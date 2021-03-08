@@ -6,6 +6,7 @@ const cors = require('cors');
 const superagent = require('superagent');
 // const pg = require('pg');
 const override = require('method-override');
+const { render } = require('ejs');
 
 // installing - configuration
 const app = express();
@@ -65,7 +66,7 @@ const handleDetails = (req, res) => {
   for (const [key, value] of Object.entries(query)) {
     animeData[key] = value;
   }
-  console.log(animeData);
+  // console.log(animeData);
   getAnimeTrailer(animeData['anime']).then((data) => {
     res.render('searches/detail', { videoId: data, animeObject: animeData });
   });
@@ -83,6 +84,9 @@ app.get('/contact-us', (req, res) => {
 });
 app.get('/sign-in', (req, res) => {
   res.render('sign-in');
+});
+app.get('/list', (req, res) => {
+  res.render('searches/list');
 });
 
 // functions
