@@ -129,6 +129,7 @@ const getAnimeData = (anime) => {
 const getTopAnimes = () => {
   const url = 'https://api.jikan.moe/v3/top/anime/1';
   return superagent.get(url).then((data) => {
+    console.log(data.body.top);
     return data.body.top.map((element) => new Anime(element));
   });
 };

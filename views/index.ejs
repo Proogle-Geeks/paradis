@@ -9,7 +9,7 @@
           <section class="mainSection">
             <div class="main-div">
               <div class="anime-des">
-                <form action="">
+                <form action="/search/details" method="GET">
                   <ul>
                     <li>
                       <h1 class="title"><%= element.title %></h1>
@@ -22,7 +22,43 @@
                     </li>
                     <li class="not-title">End Date: <%= element.end_date %></li>
                     <li>
-                      <button class="btn-title">
+                      <input
+                        hidden
+                        type="text"
+                        name="anime"
+                        value="<%= element.title %>"
+                      />
+                      <input
+                        hidden
+                        type="text"
+                        name="type"
+                        value="<%= element.type %>"
+                      />
+                      <input
+                        hidden
+                        type="text"
+                        name="score"
+                        value="<%= element.score %>"
+                      />
+                      <input
+                        hidden
+                        type="text"
+                        name="description"
+                        value="<%= element.description %>"
+                      />
+                      <input
+                        hidden
+                        type="text"
+                        name="start_date"
+                        value="<%= element.start_date %>"
+                      />
+                      <input
+                        hidden
+                        type="text"
+                        name="end_date"
+                        value="<%= element.end_date %>"
+                      />
+                      <button type="submit" class="btn-title">
                         <span class="text">See More</span>
                       </button>
                     </li>
