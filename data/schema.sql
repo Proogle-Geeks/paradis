@@ -1,11 +1,8 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS news;
 DROP TABLE IF EXISTS quote;
 DROP TABLE IF EXISTS anime;
 DROP TABLE IF EXISTS user_list;
-
-
-
+DROP TABLE IF EXISTS commits;
 
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY NOT NULL,
@@ -15,16 +12,6 @@ CREATE TABLE IF NOT EXISTS users(
     password  TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS news(
-    id SERIAL PRIMARY KEY NOT NULL,
-    author VARCHAR(255) ,
-    title VARCHAR(255),
-    description TEXT,
-    article_url VARCHAR(500),
-    image VARCHAR(500),
-    published VARCHAR(50)
-);
-
 CREATE TABLE IF NOT EXISTS quote(
     id SERIAL PRIMARY KEY NOT NULL,
     anime VARCHAR(255),
@@ -32,6 +19,7 @@ CREATE TABLE IF NOT EXISTS quote(
     quote TEXT,
     type VARCHAR(100)
 );
+
 CREATE TABLE IF NOT EXISTS anime(
     id SERIAL PRIMARY KEY NOT NULL,
     title VARCHAR(255),
@@ -49,4 +37,14 @@ CREATE TABLE IF NOT EXISTS user_list(
     id SERIAL PRIMARY KEY NOT NULL,
     user_id SERIAL  NOT NULL REFERENCES users(id),
     anime_id SERIAL  NOT NULL REFERENCES anime(id)
+);
+
+CREATE TABLE IF NOT EXISTS commits(
+    id SERIAL PRIMARY KEY NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(500) NOT NULL UNIQUE,
+    subject VARCHAR(255) NOT NULL,
+    message TEXT,
+    status VARCHAR(50) NOT NULL
 );
