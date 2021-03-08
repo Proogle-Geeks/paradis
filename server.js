@@ -9,56 +9,33 @@ const override = require('method-override');
 const session = require('express-session');
 let pg = require('pg');
 const bcrypt = require('bcrypt');
-var salt = 10; //any random value
+const { render } = require('ejs');
 // create app
 
-let app = express();
+// installing - configuration
+const app = express();
 app.use(cors());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-app.set('view engin', 'ejs');
 require('dotenv').config();
-app.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: true }));
+app.use(override('_method'));
 
 const PORT = process.env.PORT;
+
+// view-static
+app.set('view engine', 'ejs');
+app.use(express.static('./public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: true }));
+
+var salt = 10; // for password encryption which is any random number
 var sess;
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
-// Get quotes by anime title
-app.get('/quotes-title', handleQuotesTitle);
+//==========
+// handler functions
+//==========
 
-// Get quotes by anime character
-app.get('/quotes-by-character', handleQuotesCharacter);
-
-// Get quotes by anime character
-app.get('/quotes-randomly', handleQuotesRandomly);
-
-// Get anime info by anime name
-app.get('/anime-search', handleSearch);
-
-app.get('/signup-page', handleSignupPage);
-
-app.post('/signup', handleSignup);
-
-app.get('/login-page', handleLoginPage);
-
-app.post('/login', handleLogin);
-
-app.get('/logout', handleLogout);
-
-app.get('/update/:email', handleUpdate);
-
-app.post('/update-info', handleUpdateInfo);
-
-app.post('/anime', handleAnime);
-
-app.get('/myList', handleMyList);
-
-app.get('/commit', handleCommitPage);
-
-app.post('/commitData', handleCommit);
-
+// get data from quotes API by title
 function handleQuotesTitle(req, res) {
   let url = 'https://animechan.vercel.app/api/quotes/anime';
   let query = {
@@ -88,7 +65,7 @@ function handleQuotesTitle(req, res) {
       });
     });
 }
-
+// handle quotes API by character
 function handleQuotesCharacter(req, res) {
   let url = 'https://animechan.vercel.app/api/quotes/character';
   let query = {
@@ -117,7 +94,7 @@ function handleQuotesCharacter(req, res) {
       });
     });
 }
-
+// handle quotes API randomly
 function handleQuotesRandomly(req, res) {
   let url = 'https://animechan.vercel.app/api/quotes';
 
@@ -144,67 +121,7 @@ function handleQuotesRandomly(req, res) {
       });
     });
 }
-
-function handleSearch(req, res) {
-  let url = 'https://api.jikan.moe/v3/search/anime';
-  let query = {
-    q: 'onePiece',
-  };
-  superagent
-    .get(url)
-    .query(query)
-    .then((data) => {
-      let result = JSON.parse(data.text).results;
-      let animeArray = [];
-      result.forEach((element) => {
-        let title = element.title;
-        let synopsis = element.synopsis;
-        let type = element.type;
-        let episodes = element.episodes;
-        let score = element.score;
-        let image_url = element.image_url;
-        let start_date = element.start_date;
-        let end_date = element.end_date;
-        let rated = element.rated;
-
-        let anime = new Search(
-          title,
-          synopsis,
-          type,
-          episodes,
-          score,
-          image_url,
-          start_date,
-          end_date,
-          rated
-        );
-        animeArray.push(anime);
-      });
-      sess = req.session;
-      if (sess.email) {
-        console.log('your email in session is ' + sess.email);
-
-        res.render('anime.ejs', {
-          newsArray: animeArray,
-          email_in_session: sess.email,
-        });
-      } else {
-        console.log('your email is not in session is ');
-        res.redirect('/login-page');
-      }
-    })
-    .catch((error) => {
-      res.status(500).send({
-        status: 500,
-        response: 'sorry cannot connect with api ' + error,
-      });
-    });
-}
-
-function handleSignupPage(req, res) {
-  res.render('index.ejs');
-}
-
+// get the data from the sign-up form and inserting them to the DATABASE
 function handleSignup(req, res) {
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
@@ -221,7 +138,7 @@ function handleSignup(req, res) {
     });
   });
 }
-
+// check if the user is loging in else redirect to log-in page
 function handleLoginPage(req, res) {
   sess = req.session;
   if (sess.email) {
@@ -230,7 +147,7 @@ function handleLoginPage(req, res) {
     res.render('login.ejs');
   }
 }
-
+// get data from log in form and check if user account exist or not
 function handleLogin(req, res) {
   let email = req.body.email;
   let password = req.body.password;
@@ -258,7 +175,7 @@ function handleLogin(req, res) {
     });
   }
 }
-
+// log-out and redirect to the main page
 function handleLogout(req, res) {
   req.session.destroy((err) => {
     if (err) {
@@ -267,7 +184,7 @@ function handleLogout(req, res) {
     res.redirect('/login-page');
   });
 }
-
+// display update form
 function handleUpdate(req, res) {
   let email = req.params.email;
   let sqlQuery = `SELECT * FROM users where email = '${email}'`;
@@ -280,7 +197,7 @@ function handleUpdate(req, res) {
       res.send('Incorrect password' + error);
     });
 }
-
+// update user data in the DATABASE
 function handleUpdateInfo(req, res) {
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
@@ -295,7 +212,7 @@ function handleUpdateInfo(req, res) {
     res.redirect('/news');
   });
 }
-
+// add anime selected to the user list
 function handleAnime(req, res) {
   let title = req.body.title;
   let synopsis = req.body.synopsis;
@@ -329,7 +246,7 @@ function handleAnime(req, res) {
     });
   });
 }
-
+// get the user list and display it to him/her
 function handleMyList(req, res) {
   sess = req.session;
   if (sess.email) {
@@ -346,12 +263,14 @@ function handleMyList(req, res) {
     res.redirect('/news');
   }
 }
+// handle comment section get the data from the DATABASE and render the last 5 comments
 function handleCommitPage(req, res) {
   let sqlQuery = 'SELECT * from commits ORDER BY id DESC LIMIT 5';
   client.query(sqlQuery).then((data) => {
     res.render('commit.ejs', { commit: data.rows });
   });
 }
+// get the data from the form and store it in the DB
 function handleCommit(req, res) {
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
@@ -369,6 +288,258 @@ function handleCommit(req, res) {
     });
   });
 }
+// render index.ejs in the home page
+const renderHome = (req, res) => {
+  getTopAnimes().then((data) => {
+    getNewsData().then((animeNews) => {
+      // console.log(data);
+      res.render('index', { anime: data, news: animeNews });
+    });
+  });
+};
+
+// show result of search in the search page
+const handleSearch = (req, res) => {
+  let anime = req.query.anime;
+  checkSearchQuery(anime, res);
+  // console.log(anime);
+};
+// handle the details for anime
+
+const handleDetails = (req, res) => {
+  let query = req.query;
+  let animeData = {};
+  for (const [key, value] of Object.entries(query)) {
+    animeData[key] = value;
+  }
+  getAnimeTrailer(animeData['anime']).then((data) => {
+    res.render('searches/detail', { videoId: data, animeObject: animeData });
+  });
+};
+
+//===========
+// routes-path
+//==========
+
+// Get quotes by anime title
+app.get('/quotes-title', handleQuotesTitle);
+
+// Get quotes by anime character
+app.get('/quotes-by-character', handleQuotesCharacter);
+
+// Get quotes by anime character
+app.get('/quotes-randomly', handleQuotesRandomly);
+
+// Get anime info by anime name
+// app.get('/anime-search', handleSearch);
+
+// app.get('/signup-page', handleSignupPage);
+
+app.post('/signup', handleSignup);
+
+app.get('/login-page', handleLoginPage);
+
+app.post('/login', handleLogin);
+
+app.get('/logout', handleLogout);
+
+app.get('/update/:email', handleUpdate);
+
+app.post('/update-info', handleUpdateInfo);
+
+app.post('/anime', handleAnime);
+
+app.get('/myList', handleMyList);
+
+app.get('/commit', handleCommitPage);
+
+app.post('/commitData', handleCommit);
+// paths-routs
+app.get('/', renderHome);
+app.get('/search', handleSearch);
+app.get('/search/details', handleDetails);
+app.get('/about-us', (req, res) => {
+  res.render('about-us');
+});
+app.get('/contact-us', (req, res) => {
+  res.render('contact-us');
+});
+app.get('/sign-in', (req, res) => {
+  res.render('sign-in');
+});
+app.get('/list', (req, res) => {
+  res.render('searches/list');
+});
+
+//================
+// functions
+// ===============
+
+function checkSearchQuery(searchEntry, res) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  // I got the regex from stack overflow
+  if (regex.test(searchEntry)) {
+    console.log('you searched for an image');
+    getImageSearchData(searchEntry, res).then((data) => {
+      // console.log(data);
+      res.render('showImage', { anime: data });
+    });
+  } else {
+    console.log('you searched for an name');
+    getAnimeData(searchEntry).then((data) => {
+      res.render('searches/show', { anime: data });
+    });
+  }
+}
+
+// get anime data that the user search for
+function getImageSearchData(anime, res) {
+  const imageSearchQuery = { url: anime };
+  const imageSearchURl = 'https://trace.moe/api/search';
+  return superagent
+    .get(imageSearchURl)
+    .query(imageSearchQuery)
+    .then((data) => {
+      let similarResults = [];
+      data.body.docs.map((element) => {
+        similarResults.push(new AnimeImageSearch(element));
+      });
+      return similarResults.slice(0, 3);
+    })
+    .catch((error) => {
+      console.log('Error in getting data from trace.moe API: ', error);
+    });
+}
+
+const getAnimeData = (anime) => {
+  // check if search entry is a url or an anime name
+  const query = { q: anime };
+  const url = 'https://api.jikan.moe/v3/search/anime';
+  return superagent
+    .get(url)
+    .query(query)
+    .then((data) => {
+      return data.body.results.map((element) => new Anime(element));
+    })
+    .catch((error) => {
+      console.log('Error in getting data from Jikan API: ', error);
+    });
+};
+// get top rated anime
+const getTopAnimes = () => {
+  const url = 'https://api.jikan.moe/v3/top/anime/1';
+  return superagent.get(url).then((data) => {
+    return data.body.top.map((element) => new Anime(element));
+  });
+};
+
+// get Anime trailer for youtube
+const getAnimeTrailer = (anime) => {
+  const url = 'https://youtube.googleapis.com/youtube/v3/search';
+  const query = {
+    part: 'snippet',
+    q: `${anime} trailer`,
+    key: process.env.YOUTUBE_KEY,
+  };
+  return superagent
+    .get(url)
+    .query(query)
+    .then((data) => {
+      return data.body.items[0].id.videoId;
+    })
+    .catch((error) => {
+      console.log('error from getting data from youtube API', error);
+    });
+};
+function getNewsData() {
+  let newsQuery = {
+    apiKey: process.env.apiKey,
+    q: 'anime',
+    qInTitle: 'anime',
+    language: 'en',
+    sortBy: 'popularity',
+    pageSize: 3,
+  };
+  let newsUrl = 'https://newsapi.org/v2/everything';
+  return superagent
+    .get(newsUrl)
+    .query(newsQuery)
+    .then((data) => {
+      // console.log(data.body.articles);
+      let articles = data.body.articles;
+      return articles.map(
+        (article) =>
+          new News(
+            article.author,
+            article.title,
+            article.url,
+            article.urlToImage,
+            article.content,
+            article.publishedAt
+          )
+      );
+    })
+    .catch((error) =>
+      console.log('error in getting news from News API: ', error)
+    );
+}
+// functions for getting the right format
+function dateFormat(date) {
+  return date ? date.split('T')[0] : date;
+}
+function percentFormat(num) {
+  return Math.round(num * 100) + '%';
+}
+function timeFormat(time) {
+  time = Number(time);
+  var hour = Math.floor(time / 3600);
+  var min = Math.floor((time % 3600) / 60);
+  var sec = Math.floor((time % 3600) % 60);
+  // organize how the format is displayed
+  var hours = hour > 0 ? hour + (hour === 1 ? ' hour, ' : ' hours, ') : '';
+  var minutes = min > 0 ? min + (min === 1 ? ' min, ' : ' min, ') : '';
+  var seconds = sec > 0 ? sec + (sec === 1 ? ' sec' : ' sec') : '';
+  return hours + minutes + seconds;
+}
+
+// Constructors
+
+function Anime(anime) {
+  this.title = anime.title;
+  this.img_url = anime.image_url;
+  this.type = anime.type;
+  this.score = anime.score;
+  this.description = anime.synopsis;
+  this.start_date = dateFormat(anime.start_date);
+  this.end_date = dateFormat(anime.end_date) || 'Until Now';
+  this.rank = anime.rank;
+}
+
+function AnimeImageSearch(animeImage) {
+  this.similarity = percentFormat(animeImage.similarity);
+  this.filename = animeImage.filename || 'Unknown';
+  this.at = timeFormat(animeImage.at) || 'Unknown';
+  this.season = animeImage.season || 'Unknown';
+  this.episode = animeImage.episode || 'Unknown';
+  this.title_native = animeImage.title_native || 'Unavailable';
+  this.title_english = animeImage.title_english || 'Unavailable';
+  this.from = timeFormat(animeImage.from) || 'Unknown';
+  this.to = timeFormat(animeImage.to) || 'Unknown';
+  this.video = `https://media.trace.moe/video/${
+    animeImage.anilist_id
+  }/${encodeURIComponent(animeImage.filename)}?t=${animeImage.at}&token=${
+    animeImage.tokenthumb
+  }`;
+}
+
+function News(author, title, url, urlToImage, content, publishedAt) {
+  this.author = author || 'Author Unknown';
+  this.title = title || 'No title available';
+  this.url = url || 'Not available';
+  this.urlToImage = urlToImage || 'No image available';
+  this.content = content.split('…') || 'No content available';
+  this.publishedAt = dateFormat(publishedAt) || 'Publish Date unknown';
+}
 
 function Quote(anime, character, quotes, type) {
   this.anime = anime;
@@ -376,29 +547,6 @@ function Quote(anime, character, quotes, type) {
   this.quotes = quotes;
   this.type = type;
 }
-
-function Search(
-  title,
-  synopsis,
-  type,
-  episodes,
-  score,
-  image_url,
-  start_date,
-  end_date,
-  rated
-) {
-  this.title = title;
-  this.synopsis = synopsis;
-  this.type = type;
-  this.episodes = episodes;
-  this.score = score;
-  this.image_url = image_url;
-  this.start_date = start_date;
-  this.end_date = end_date;
-  this.rated = rated;
-}
-// const client = new pg.Client(process.env.DATABASE_URL);
 
 client
   .connect()
@@ -410,6 +558,3 @@ client
   .catch((error) => {
     console.log('error in connect to database ' + error);
   });
-// app.listen(PORT, () => {
-//     console.log('the app is listening to ' + PORT);
-// });

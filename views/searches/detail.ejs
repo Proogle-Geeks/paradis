@@ -1,0 +1,80 @@
+<%- include("../partials/head.ejs")%>
+  <%- include("../partials/header.ejs")%>
+
+    <main class="search-main">
+      <section class="s-search">
+        <div class="d-search">
+          <div class="img-search">
+            <iframe src="https://www.youtube.com/embed/<%= videoId %> " allowfullscreen></iframe>
+          </div>
+          <div class="text-search">
+            <form action="">
+              <ul class="u-search">
+                <li class="search-title">
+                  <%= animeObject.anime %>
+                </li>
+
+                <li class="search-title">
+                  <%= animeObject.type %>
+                </li>
+                <li class="search-title">
+                  <%= animeObject.score %>
+                </li>
+
+                <li class="search-title">
+                  <%= animeObject.start_date %>
+                    <%= animeObject.end_date %>
+                </li>
+
+                <li class="search-title">
+                  <p>
+                    <%= animeObject.description %>
+                  </p>
+                </li>
+
+                <button class="btn-more">
+                  <span class="text">Add to my list</span>
+                </button>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-search">
+
+        <div class="d-form-big">
+
+        
+        <div class="d-data">
+
+          <h1>Ibrahim</h1>
+          <p>This is so bad anime !!!</p>
+
+        </div>
+
+        <div class="d-form">
+          <form action="">
+
+            <label >First Name :</label>
+            <input class="f-name" type="text">
+
+            <label>Last Name :</label>
+            <input class="l-name" type="text">
+
+            <label>Email :</label>
+            <input class="email" type="text">
+
+            <label>Message</label>
+            <textarea class="txt-area"></textarea>
+
+            <button type="submit" class="btn-send">Send</button>
+
+          </form>
+        </div>
+      </div>
+      </section>
+
+    </main>
+
+    <%- include("../partials/footer.ejs")%>
