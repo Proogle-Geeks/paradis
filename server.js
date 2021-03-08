@@ -184,6 +184,13 @@ function timeFormat(time) {
   var seconds = sec > 0 ? sec + (sec == 1 ? " sec" : " sec") : "";
   return hours + minutes + seconds; 
 }
+// function secure(url) {
+//   if (url[5] != 's') {
+//       var i = url.split("")
+//       i.splice(4, 0, 's');
+//   }
+//   return i.join("");
+// }
 
 // Constructors
 
