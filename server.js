@@ -25,8 +25,6 @@ var sess;
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
-app.get('/news', handleNews);
-
 // Get quotes by anime title
 app.get('/quotes-title', handleQuotesTitle);
 
@@ -60,65 +58,6 @@ app.get('/myList', handleMyList);
 app.get('/commit', handleCommitPage);
 
 app.post('/commitData', handleCommit);
-
-// Get anime by category
-// app.get('/anime-by-category', handleAnimeCategory);
-
-function handleNews(req, res) {
-  let api = '7e6689dfe5cb47e8a8a7f6f47bda4506';
-  let url = 'http://newsapi.org/v2/everything';
-  let query = {
-    q: 'anime',
-    from: '2021-02-14',
-    sortBy: 'publishedAt',
-    apiKey: api,
-    limit: 50,
-  };
-  superagent
-    .get(url)
-    .query(query)
-    .then((data) => {
-      let news = data.body.articles;
-      let newsArray = [];
-      news.forEach((element) => {
-        let author = element.author;
-        let title = element.title;
-        let description = element.description;
-        let article_url = element.url;
-        let image = element.urlToImage;
-        let published = element.publishedAt.split('T');
-
-        let newsObj = new News(
-          author,
-          title,
-          description,
-          article_url,
-          image,
-          published[0]
-        );
-        newsArray.push(newsObj);
-      });
-
-      sess = req.session;
-      if (sess.email) {
-        console.log('your email in session is ' + sess.email);
-
-        res.render('news.ejs', {
-          newsArray: newsArray,
-          email_in_session: sess.email,
-        });
-      } else {
-        console.log('your email is not in session is ');
-        res.redirect('/login-page');
-      }
-    })
-    .catch((error) => {
-      res.status(500).send({
-        status: 500,
-        response: 'sorry cannot connect with api ' + error,
-      });
-    });
-}
 
 function handleQuotesTitle(req, res) {
   let url = 'https://animechan.vercel.app/api/quotes/anime';
@@ -429,29 +368,6 @@ function handleCommit(req, res) {
       res.render('commit.ejs', { commit: data.rows });
     });
   });
-}
-
-// //error
-// function handleAnimeCategory(req, res){
-//     let url = 'https://kitsu.io/api/edge/anime';
-
-//     let query = {
-//         filter[categories] :'action'
-//     }
-//     superagent.get(url).query(query).then(data=>{
-//         res.status(200).send(JSON.parse(data.text).data);
-//     }).catch(error=>{
-//         res.status(500).send({status: 500, response: 'sorry cannot connect with api '+ error});
-//     });
-// }
-
-function News(author, title, description, article_url, image, published) {
-  this.author = author;
-  this.title = title;
-  this.description = description;
-  this.article_url = article_url;
-  this.image = image;
-  this.published = published;
 }
 
 function Quote(anime, character, quotes, type) {
