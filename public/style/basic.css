@@ -539,9 +539,8 @@ iframe{
     background-color: #eeeeee;
     padding: 10px;
 
-<<<<<<< HEAD
-#more {display: none;}
-=======
+/* #more {display: none;} */
+
 }
 .d-data  {
     background-color: #eeeeee;
@@ -686,6 +685,26 @@ font-weight: 1600px;
 
 
 
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+  }
+  
+  .separator:not(:empty)::before {
+    margin-right: .25em;
+  }
+  
+  .separator:not(:empty)::after {
+    margin-left: .25em;
+  }
 
 
 
@@ -700,6 +719,4 @@ font-weight: 1600px;
 
 
 
-
->>>>>>> 1a60e9bcee68abe1a719bed8bfaf9115782ad598
 
