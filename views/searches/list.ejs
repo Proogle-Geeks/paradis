@@ -15,8 +15,7 @@
                         <div class="d-img-l">
                             <img class="l-img" src="<%= element.image%>" alt="">
                         </div>
-                        <% } %>
-                        <% if (element.video) { %>
+                        <% }  else if (element.video) { %>
                             <div class="d-img-l">
                             <iframe src="https://www.youtube.com/embed/<%=  element.video %> " allowfullscreen></iframe>
                             </div>
