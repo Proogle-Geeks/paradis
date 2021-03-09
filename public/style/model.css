@@ -16,7 +16,7 @@ font-family: 'Vollkorn', serif;
     font-family: 'Vollkorn', serif;
 }
 .news-author, .news-data{
-    font-size: 1vw;
+    font-size: 1em;
     color:rgb(90, 79, 79)
 }
 /* Animating the headline  */
@@ -136,13 +136,11 @@ font-family: 'Vollkorn', serif;
 		transform: translateY(-48vh) scaleY(4);
 	}
 }
-
 /* Other styles */
-
-
 .fixed {
 	position: fixed;
 	top: 40px;
 	left: 50%;
 	transform: translateX(-50%);
 }
+
