@@ -1,38 +1,11 @@
 body{
 
-    background-color: #142946;
     background-image: url(/img/backg.png);
     background-repeat: no-repeat;
     background-position: top;
     background-size: 170vh;
     background-attachment: fixed;
 
-
-}
-/* body {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-    height: 100%;
-} */
-body:before {
-    /* content: url(/img/background.jpg); */
-    /* position: fixed; */
-    /* background: url(/img/background.jpg); */
-    /* background-size: contain; */
-    /* background-repeat: no-repeat; */
-    /* background-size: 170vh; */
-    /* width: 100%; */
-    /* height: 100%; */
-    /* z-index: -1;  */
-    /* Keep the background behind the content */
-    /* height: 20%; width: 20%;  */
-    /* Using Glen Maddern's trick /via @mente */
-    
-    /* don't forget to use the prefixes you need */
-    /* transform: scale(5); */
-    /* transform-origin: 500px , top 500px ,  left 500px; */
-    /* filter: blur(3px); */
-    
 }
 a{
     display: block;
@@ -200,7 +173,7 @@ i{
 }
 .burger-outer{
     position: fixed;
-    background-color: #457b9d;
+    background-color: #F24141;
     margin-right: 10px;
     display: none;
     z-index: 12;
@@ -213,7 +186,7 @@ i{
 .burger{
    
     position: fixed;
-    background-color: #1d3557;
+    background-color: #c03131;
     margin-right: 10px;
     display: none;
     z-index: 13;
@@ -226,7 +199,7 @@ i{
 }
 .burger-test{
     position: fixed;
-    background-color: #6293d3;
+    background-color: #F24141;
     z-index: 13;
     width: 400px;
     height: 400px;
@@ -267,16 +240,7 @@ i{
     color: #121212;
 
 }
-.mainSection{
 
-    width: 100%;
-    height: 500px;
-    display: grid;
-    grid-template-columns:  1fr 20fr 1fr;
-    grid-template-rows:  1fr 20fr 1fr;
-    margin-top: 50px;
-
-}
 .main-div{
 
     align-self: stretch;
@@ -284,7 +248,7 @@ i{
     grid-row: 2 / 3;
     display: grid;
     grid-template-columns:  repeat(12,1fr)  ;
-    grid-template-rows: repeat(10,1fr)  ; 
+    grid-template-rows: repeat(19,1fr)  ; 
 
     
 }
@@ -340,7 +304,8 @@ i{
 
 .d-news{
 
-    margin: 50px 0;
+
+    margin: 50px 5px;
     display: grid;
     border-radius: 10px;
 }
@@ -494,11 +459,9 @@ i{
     grid-column: 1 / 4;
 }
 .search-main{
-    display: grid;
     margin: 60px 0;
 }
 .s-search{
-    grid-column: 1 / 3;
     display: grid;
     grid-template-columns:  4% 92% 4%;
     margin-bottom: 60px;
@@ -745,7 +708,7 @@ font-weight: 1600px;
     font-size: 2em;
     line-height: 80px;
     text-align: center;
-    background-color: rgba(151, 33, 33, 0.685);
+    background-color: rgb(151, 33, 33);
     color: #eeeeee;
 }
 
@@ -758,36 +721,12 @@ font-weight: 1600px;
         display: none;
     }
     body{
-        background-color: rgb(221, 81, 26);
         background-size: cover;
-
-        
-        /* -webkit-filter: blur(5px); */
-
     }
-    .mainSection{
-
-        width: 100%;
-        height: 80vh;
-        display: grid;
-        grid-template-columns:  2fr 9fr 14fr;
-        grid-template-rows:  5fr 8fr 5fr;
-        margin-top: 80px;
-
+    .flex-direction-nav a, .flex-direction-nav a:before {
     
-    }
-    .main-div{
-
-        grid-column: 2 / 3;
-        grid-row: 2 / 3;
-
-      }
-
-    
-      .flex-direction-nav a, .flex-direction-nav a:before {
-       
         display: inline-block!important;
-      }
+    }
 
       .nav-inv1{
         display: block;
@@ -809,38 +748,13 @@ font-weight: 1600px;
       .nav-inv{
           display: none;
       }
-
-
-
-    .s-search{
-        grid-column: 1 / 3;
-        display: grid;
-        justify-content: space-around; 
-        grid-template-columns:  2%  24% 24% 24% 24% 2%;
-        margin-bottom: 60px;
-        background-color: lightcoral;
-        
-    }
-     
-    .d-search{
-        display: grid;
-        border-radius: 10px;
-        background-color: rgb(0, 0, 0);
-        grid-column: 2 / 3;
-    
-    }
    
-    .dnews{
-       width: 20%;
-       height: 300px;
-       margin: 50px;
-    }
     .m-news{
-        display: grid;
-        grid-template-columns:  repeat(4 , 22%) ;
-        row-gap: 100px;
-        column-gap: 2%;
+        display: flex;
     
+    }
+    .s-news{
+        width: 30%;
     }
     .login-btn a{
         color: #eeeeee;
@@ -882,7 +796,56 @@ font-weight: 1600px;
         z-index: 10; 
         
     }
+    .d-news{
+        margin: 50px;
+    }
    
+    .main-div{
+        grid-template-rows: 14% 40% 8% ; 
+    }
+    .anime-des{
+        grid-column: 6 / 12;
+    }
+    .title{
+        font-size: 1.8em;
+        font-weight: 800;
+        padding: 8px;
+    }
+    .not-title{
+        font-size: 1.8em;
+        padding-top: 15px;
+    }
+    .btn-title{
+        margin:50px 25px 10px 0;
+    }
+    .list-main{
+        margin: 50px 0;
+        display: flex;
+    }
+
+    .s-list{
+        display: flex;
+        margin: 0 20px;
+
+    }
+    .d-list-l{
+        width: 25%;
+    }
+    .search-main{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+    }
+    .s-search{
+        width: 15%;
+    }
+    .img-search, .s-img{
+        height: 300px;
+    }
+    .d-search{
+        background-color: coral;
+    }
 
 
 
