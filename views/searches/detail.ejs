@@ -8,16 +8,7 @@
             <iframe src="https://www.youtube.com/embed/<%= videoId %> " allowfullscreen></iframe>
           </div>
           <div class="text-search">
-            <form action="/anime" method="POST">
-              <input type="hidden" name="title" value="<%= animeObject.anime %>">
-              <input type="hidden" name="type" value="<%= animeObject.type %>">
-              <input type="hidden" name="score" value="<%= animeObject.score %>">
-              <input type="hidden" name="video" value="<%= videoId %>">
-              <input type="hidden" name="start_date" value="<%= animeObject.start_date %>" >
-              <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
-              <input type="hidden" name="description" value="<%= animeObject.description %>">
-              <input type="hidden" name="image" value="<%= animeObject.image %>">
-              <ul class="u-search" >
+            <ul class="u-search" >
                 <li class="search-title">
                   <%= animeObject.anime %>
                 </li>
@@ -39,20 +30,34 @@
                     <%= animeObject.description %>
                   </p>
                 </li>
-                <% if (bol) { %>
-                <form action="/mylist/<%= animeObject.id%>?_method=DELETE" method="POST">
-                  <button class="delete" type="submit" class="btn-list">
-                    <span class="text"></span><i class="fas fa-trash"></i></span>
-                  </button>
-                </form>
-                <% }else{%>
-                  <button class="btn-more">
-                    <span class="text">Add to my list</span>
-                  </button>
-              <% } %>
-                
+               
+                  <% if (bol) { %>
+                  <form action="/mylist/<%= animeObject.id%>?_method=DELETE" method="POST">
+                    <button class="delete" type="submit" class="btn-list">
+                      <span class="text"></span><i class="fas fa-trash"></i></span>
+                    </button>
+                  </form>
+                  <% }else{%>
+                    <form action="/anime" method="POST">
+                      <input type="hidden" name="title" value="<%= animeObject.anime %>">
+                      <input type="hidden" name="type" value="<%= animeObject.type %>">
+                      <input type="hidden" name="score" value="<%= animeObject.score %>">
+                      <input type="hidden" name="video" value="<%= videoId %>">
+                      <input type="hidden" name="start_date" value="<%= animeObject.start_date %>">
+                      <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
+                      <input type="hidden" name="description" value="<%= animeObject.description %>">
+                      <input type="hidden" name="image" value="<%= animeObject.image %>">
+                      <p style="color:red;">
+                        <%= message %>
+                      </p>
+
+                      <button class="btn-more">
+                        <span class="text">Add to my list</span>
+                      </button>
+                    </form>
+                  <% } %>
               </ul>
-            </form>
+            
           </div>
         </div>
       </section>
@@ -95,101 +100,4 @@
       </section>
 
     </main>
-
-
-    <main class="search-main">
-      <section class="s-search">
-        <div class="d-search">
-          <div class="img-search">
-            <iframe src="https://www.youtube.com/embed/<%= videoId %> " allowfullscreen></iframe>
-          </div>
-          <div class="text-search">
-            <form action="/anime" method="POST">
-              <input type="hidden" name="title" value="<%= animeObject.anime %>">
-              <input type="hidden" name="type" value="<%= animeObject.type %>">
-              <input type="hidden" name="score" value="<%= animeObject.score %>">
-              <input type="hidden" name="video" value="<%= videoId %>">
-              <input type="hidden" name="start_date" value="<%= animeObject.start_date %>" >
-              <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
-              <input type="hidden" name="description" value="<%= animeObject.description %>">
-              <input type="hidden" name="image" value="<%= animeObject.image %>">
-              <ul class="u-search" >
-                <li class="search-title">
-                  <%= animeObject.anime %>
-                </li>
-
-                <li class="search-title">
-                  <%= animeObject.type %>
-                </li>
-                <li class="search-title">
-                  <%= animeObject.score %>
-                </li>
-
-                <li class="search-title">
-                  <%= animeObject.start_date %>
-                    <%= animeObject.end_date %>
-                </li>
-
-                <li class="search-title">
-                  <p>
-                    <%= animeObject.description %>
-                  </p>
-                </li>
-                <% if(sess){ %> 
-                  <% if (bol) { %>
-                  <form action="/mylist/<%= animeObject.id%>?_method=DELETE" method="POST">
-                    <button class="delete" type="submit" class="btn-list">
-                      <span class="text"></span><i class="fas fa-trash"></i></span>
-                    </button>
-                  </form>
-                  <% }else{ %>
-                    <button class="btn-more">
-                      <span class="text">Add to my list</span>
-                    </button>
-                <% } %>
-              <% } %>
-                
-              </ul>
-            </form>
-          </div>
-        </div>
-      </section>
-      <section class="s-search">
-
-        <div class="d-form-big">
-
-        <% commit.forEach(element => { %>
-        <div class="d-data">
-        
-          <h1><%= element.first_name%>  <%= element.last_name%></h1>
-          <p><%= element.message%></p>
-        
-        </div>
-        <% }) %>
-        
-
-        <div class="d-form">
-          <form action="">
-
-            <label >First Name :</label>
-            <input class="f-name" type="text" name="first_name">
-
-            <label>Last Name :</label>
-            <input class="l-name" type="text" name="last_name">
-
-            <label>Email :</label>
-            <input class="email" type="text" name="email">
-
-            <label>Message</label>
-            <textarea class="txt-area" name="message"></textarea>
-
-            <button type="submit" class="btn-send">Send</button>
-
-          </form>
-        </div>
-      </div>
-      </section>
-
-    </main>
-
     <%- include("../partials/footer.ejs")%>
