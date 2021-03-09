@@ -1,0 +1,21 @@
+/* Fonts  */
+/* font-family: 'Redressed', cursive; */
+/* Headers  */
+.title, .news-title{
+    font-family: 'Redressed', cursive;
+}
+/* Text  */
+.not-title, .l-news, .news-data, .login-btn, .news-author{
+    /* font-family: 'Redressed', cursive; */
+font-family: 'Vollkorn', serif;
+}
+/* Buttons  */
+.text{
+    /* font-family: 'Crimson Text', serif;
+    font-family: 'Redressed', cursive; */
+    font-family: 'Vollkorn', serif;
+}
+.news-author, .news-data{
+    font-size: 1vw;
+    color:rgb(90, 79, 79)
+}
