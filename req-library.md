@@ -13,5 +13,5 @@
     - npm install -g nodemon
 7. session 
     - npm install express-session
-8. bcryp
-    - npm install bcryp
+8. bcrypt
+    - npm install bcrypt
