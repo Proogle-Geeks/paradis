@@ -8,8 +8,7 @@
             <iframe src="https://www.youtube.com/embed/<%= videoId %> " allowfullscreen></iframe>
           </div>
           <div class="text-search">
-            <form action="">
-              <ul class="u-search">
+            <ul class="u-search" >
                 <li class="search-title">
                   <%= animeObject.anime %>
                 </li>
@@ -31,15 +30,40 @@
                     <%= animeObject.description %>
                   </p>
                 </li>
+               
+                  <% if (bol) { %>
+                  <form action="/mylist/<%= animeObject.id%>?_method=DELETE" method="POST">
+                    <button class="delete" type="submit" class="btn-list">
+                      <span class="text"></span><i class="fas fa-trash"></i></span>
+                    </button>
+                  </form>
+                  <% }else{%>
+                    <form action="/anime" method="POST">
+                      <input type="hidden" name="title" value="<%= animeObject.anime %>">
+                      <input type="hidden" name="type" value="<%= animeObject.type %>">
+                      <input type="hidden" name="score" value="<%= animeObject.score %>">
+                      <input type="hidden" name="video" value="<%= videoId %>">
+                      <input type="hidden" name="start_date" value="<%= animeObject.start_date %>">
+                      <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
+                      <input type="hidden" name="description" value="<%= animeObject.description %>">
+                      <input type="hidden" name="image" value="<%= animeObject.image %>">
+                      <p style="color:red;">
+                        <%= message %>
+                      </p>
 
-                <button class="btn-more">
-                  <span class="text">Add to my list</span>
-                </button>
+                      <button class="btn-more">
+                        <span class="text">Add to my list</span>
+                      </button>
+                    </form>
+                  <% } %>
               </ul>
-            </form>
+            
           </div>
         </div>
       </section>
+
+
+
 
       <section class="s-search">
 
@@ -76,5 +100,4 @@
       </section>
 
     </main>
-
     <%- include("../partials/footer.ejs")%>
