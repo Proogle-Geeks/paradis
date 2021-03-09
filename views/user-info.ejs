@@ -7,36 +7,31 @@
             <div id="user-info-div">
                 <ul>
                     <li>
-                        <b>First Name: </b> 
+                        <b>First Name: <%= user.first_name %> </b> 
                     </li>
                     <li>
-                        <b>Last Name: </b> 
+                        <b>Last Name: <%= user.last_name %></b> 
                     </li>
                     <li>
-                        <b>Email Address: </b> 
+                        <b>Email Address: <%= user.email %></b> 
                     </li>
                     <li>
-                        <b>Anime in My List: </b>
+                        <b>Anime in My List: <%= count %></b>
                     </li>
                 </ul>
-                <form action="" method="POST">
+                <form action="/delete-user/<%= user.email %>?_method=DELETE" method="POST">
                     <button id="delete-account-btn" type="submit">Delete Account</button>
                 </form>
                 <button id="show-update-form-btn">Update Info</button>
             </div>
 
             <div id="update-info-form-div">
-                <form id="update-info-form" action="" method="POST">
-                    <input class="update-info-input" name="first-name" type="text" placeholder="First Name"
+                <form id="update-info-form" action="/update-info" method="POST">
+                    <input class="update-info-input" name="first-name" type="text"  value="<%= user.first_name %> "
                         required /><br />
-                    <input class="update-info-input" name="last-name" type="text" placeholder="Last Name"
+                    <input class="update-info-input" name="last-name" type="text" value="<%= user.last_name %> "
                         required /><br />
-                    <input class="update-info-input" name="email" type="text" placeholder="Enter Email"
-                        required /><br />
-                    <input class="update-info-input" name="password" type="password" placeholder="Enter New Password"
-                        required /><br />
-                    <input class="update-info-input" name="rpt-password" type="password"
-                        placeholder="Repeat New Password" required /><br />
+                        <input class="update-info-input" name="email" type="email"   value="<%= user.email %> " required /><br />
                     <button id="update-account-btn" type="submit">Update Account</button>
                     <button id="cancel-btn">Cancel</button>
                 </form>
