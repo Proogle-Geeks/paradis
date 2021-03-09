@@ -1,5 +1,6 @@
 'use strict';
 
+
 $(document).ready(function () {
   $('.in').click(function () {
     $('.burger').toggle(1800);
@@ -13,21 +14,24 @@ $(document).ready(function () {
   $('.in').hover(function () {
     $('.burger-test').toggle(400);
   });
+
+
+  $('.btn-details0').click(function () {
+    $('.more-txt0').toggle(600);
+    $('.less-txt0').toggle(600);
+    $(this).text($(this).text() == 'see less details' ? 'see more details' : 'see less details');
+
+  });
+  $('.btn-details1').click(function () {
+    $('.more-txt1').toggle(600);
+    $('.less-txt1').toggle(600);
+    $(this).text($(this).text() == 'see less details' ? 'see more details' : 'see less details');
+  });
+  $('.btn-details2').click(function () {
+    $('.more-txt2').toggle(600);
+    $('.less-txt2').toggle(600);
+    $(this).text($(this).text() == 'see less details' ? 'see more details' : 'see less details');
+  });
+ 
+  
 });
-
-// read more in the search for image results
-function myFunction() {
-  var dots = document.getElementById('dots');
-  var moreText = document.getElementById('more');
-  var btnText = document.getElementById('myBtn');
-
-  if (dots.style.display === 'none') {
-    dots.style.display = 'inline';
-    btnText.innerHTML = 'See More Details';
-    moreText.style.display = 'none';
-  } else {
-    dots.style.display = 'none';
-    btnText.innerHTML = 'See less Details';
-    moreText.style.display = 'inline';
-  }
-}

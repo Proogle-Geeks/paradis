@@ -135,6 +135,7 @@ html[xmlns] .flexslider .slides {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  display: none;
 }
 .flex-direction-nav a:before {
   font-family: "flexslider-icon";
@@ -143,6 +144,7 @@ html[xmlns] .flexslider .slides {
   content: url('/img/l-arrow.png');
   color: rgba(0, 0, 0, 0.8);
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  display: none;
 }
 img{
   background-size: cover;
@@ -156,18 +158,18 @@ img{
   left: -50px;
 }
 .flex-direction-nav .flex-next {
-  right: -50px;
+  /* right: -50px; */
   text-align: right;
 }
 .flexslider:hover .flex-direction-nav .flex-prev {
-  opacity: 0;
+  opacity: 0.7;
   left: 10px;
 }
 .flexslider:hover .flex-direction-nav .flex-prev:hover {
   opacity: 1;
 }
 .flexslider:hover .flex-direction-nav .flex-next {
-  opacity: 0;
+  opacity: 0.5;
   right: 10px;
 }
 .flexslider:hover .flex-direction-nav .flex-next:hover {
