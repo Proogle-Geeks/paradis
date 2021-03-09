@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS commits(
     id SERIAL PRIMARY KEY NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(500) NOT NULL UNIQUE,
-    message TEXT
- 
+    email VARCHAR(500) NOT NULL,
+    message TEXT,
+    anime_id SERIAL  NOT NULL REFERENCES anime(id)
 );
 CREATE TABLE IF NOT EXISTS quote(
     id SERIAL PRIMARY KEY NOT NULL,
