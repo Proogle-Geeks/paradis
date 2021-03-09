@@ -31,8 +31,6 @@ app.use(
 var salt = 10; // for password encryption which is any random number
 var sess;
 
-
-
 const client = new pg.Client(process.env.DATABASE_URL);
 
 //==========
@@ -149,7 +147,7 @@ function handleLoginPage(req, res) {
   if (sess.email) {
     res.redirect('/');
   } else {
-    res.render("sign-in", { logout: check(req) });
+    res.render('sign-in', { logout: check(req) });
   }
 }
 // get data from log in form and check if user account exist or not
@@ -197,15 +195,9 @@ function handleLogout(req, res) {
   });
 }
 
-
-
-
-
-
 // tested and it work
 // add anime selected to the user list
 function handleAnime(req, res) {
- 
   let anime = req.body.title;
   let type = req.body.type;
   let score = req.body.score;
@@ -223,18 +215,16 @@ function handleAnime(req, res) {
     end_date: end_date,
     description: description,
   };
-     
+
   sess = req.session;
 
   if (sess.email) {
     let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
     values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
     client.query(sqlQuery).then((data) => {
-  
       let sql = `SELECT * FROM users where email = '${sess.email}'`;
       var user_id;
       client.query(sql).then((data) => {
-
         user_id = data.rows[0].id;
         let anime_id;
         let sqlAnime = 'SELECT id FROM anime ORDER BY id DESC LIMIT 1';
@@ -254,7 +244,7 @@ function handleAnime(req, res) {
       animeObject: animeData,
       bol: false,
       message: 'Please Login before added',
-      logout: check(req)
+      logout: check(req),
     });
   }
 }
@@ -268,8 +258,13 @@ function handleMyList(req, res) {
       let user_id = data.rows[0].id;
       let sql = `SELECT ul.id ,a.title as anime, a.image , a.video FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
       client.query(sql).then((data) => {
-    
-        res.render('searches/list', { mylist: data.rows, logout: check(req) });
+        let unique = Object.values(
+          data.rows.reduce(
+            (acc, cur) => Object.assign(acc, { [cur.id]: cur }),
+            {}
+          )
+        );
+        res.render('searches/list', { mylist: unique, logout: check(req) });
       });
     });
   } else {
@@ -281,7 +276,7 @@ const renderHome = (req, res) => {
   getTopAnimes().then((data) => {
     getNewsData().then((animeNews) => {
       // console.log(data);
-      res.render("index", { anime: data, news: animeNews, logout: check(req) });
+      res.render('index', { anime: data, news: animeNews, logout: check(req) });
     });
   });
 };
@@ -302,11 +297,11 @@ const handleDetails = (req, res) => {
   sess = req.session;
 
   getAnimeTrailer(animeData['anime']).then((data) => {
-    res.render("searches/detail", {
+    res.render('searches/detail', {
       videoId: data,
       animeObject: animeData,
       bol: false,
-      message: "",
+      message: '',
       commit: [],
       logout: check(req),
     });
@@ -341,11 +336,11 @@ function handleDetailsMyList(req, res) {
           let anime_id = data.rows[0].id;
           let commitSql = `select * from commits where anime_id = '${anime_id}'`;
           client.query(commitSql).then((data) => {
-            res.render("searches/detail", {
+            res.render('searches/detail', {
               animeObject: animeObject,
               videoId: video,
               bol: true,
-              message: "",
+              message: '',
               commit: data.rows,
               logout: check(req),
             });
@@ -377,7 +372,7 @@ function handleCommitPage(req, res) {
     console.log('in commit data', sess.email);
     let sql = `select count(video) from anime where video ='${video}'`;
     client.query(sql).then((data) => {
-      console.log("data im commit ", data.rows[0].count);
+      console.log('data im commit ', data.rows[0].count);
       if (data.rows[0].count === 0) {
         let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
           values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
@@ -392,11 +387,11 @@ function handleCommitPage(req, res) {
             client.query(commitSql).then((data) => {
               let sqlQuery = `SELECT * from commits ORDER BY id DESC LIMIT 5 where anime_id = '${anime_id}'`;
               client.query(sqlQuery).then((data) => {
-                res.render("searches/detail", {
+                res.render('searches/detail', {
                   videoId: dataAnime.video,
                   animeObject: dataAnime,
                   bol: false,
-                  message: "",
+                  message: '',
                   commit: data.rows,
                   logout: check(req),
                 });
@@ -413,11 +408,11 @@ function handleCommitPage(req, res) {
           client.query(commitSql).then((data) => {
             let sqlQuery = `SELECT * FROM commits WHERE anime_id='${anime_id}' ORDER BY id DESC LIMIT 5;`;
             client.query(sqlQuery).then((data) => {
-              res.render("searches/detail", {
+              res.render('searches/detail', {
                 videoId: dataAnime.video,
                 animeObject: dataAnime,
                 bol: false,
-                message: "",
+                message: '',
                 commit: data.rows,
                 logout: check(req),
               });
@@ -447,10 +442,7 @@ function handleCommit(req, res) {
   });
 }
 
-
-
-
-// tested and work correctly 
+// tested and work correctly
 // update user data in the DATABASE
 function handleUpdateInfo(req, res) {
   let first_name = req.body.first_name;
@@ -468,35 +460,32 @@ function handleUpdateInfo(req, res) {
 }
 // tested and work correctly
 // display user info to the profile page
-function handleUserInfo(req, res){
+function handleUserInfo(req, res) {
   sess = req.session;
-  let sql =`SELECT * FROM users WHERE email = '${sess.email}'`;
-  client.query(sql).then(data=>{
+  let sql = `SELECT * FROM users WHERE email = '${sess.email}'`;
+  client.query(sql).then((data) => {
     let id = data.rows[0].id;
     let userData = data.rows[0];
     let countSql = `SELECT count(ul.id) FROM user_list ul, users u WHERE ul.user_id = '${id}'`;
-    client.query(countSql).then(data=>{
-         res.render("user-info", {
-           user: userData,
-           count: data.rows[0].count,
-           logout: check(req),
-         });
-    })
-  })
-
- 
+    client.query(countSql).then((data) => {
+      res.render('user-info', {
+        user: userData,
+        count: data.rows[0].count,
+        logout: check(req),
+      });
+    });
+  });
 }
 
-function handleDeleteUser(req,res){
-    req.session.destroy((err) => {
-      if (err) {
-        return console.log(err);
-      }
-        let email = req.params.email;
-        let sql = `DELETE FROM users WHERE email='${email}'`;
-      res.redirect("/");
-    });
- 
+function handleDeleteUser(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log(err);
+    }
+    let email = req.params.email;
+    let sql = `DELETE FROM users WHERE email='${email}'`;
+    res.redirect('/');
+  });
 }
 //===========
 // routes-path
@@ -533,10 +522,10 @@ app.get('/search', handleSearch);
 app.get('/search/details', handleDetails);
 
 app.get('/about-us', (req, res) => {
-  res.render("about-us", { logout: check(req) });
+  res.render('about-us', { logout: check(req) });
 });
 app.get('/contact-us', (req, res) => {
-  res.render("contact-us", { logout: check(req) });
+  res.render('contact-us', { logout: check(req) });
 });
 
 app.post('/anime', handleAnime);
@@ -562,7 +551,6 @@ app.delete('/delete-user/:email', handleDeleteUser);
 // });
 
 app.get('/user-info', handleUserInfo);
-
 
 //================
 // functions
@@ -695,10 +683,9 @@ function timeFormat(time) {
   return hours + minutes + seconds;
 }
 
-
-function check(req){
+function check(req) {
   sess = req.session;
-  if(sess.email){
+  if (sess.email) {
     return true;
   }
   return false;
