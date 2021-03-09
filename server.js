@@ -229,7 +229,7 @@ function handleAnime(req, res) {
           let listValues = [user_id, anime_id];
           client.query(list, listValues).then((data) => {
             console.log("data added");
-            res.redirect("/");
+            res.redirect("/mylist");
           });
         });
       });
@@ -382,7 +382,7 @@ function handleCommitPage(req, res) {
 
               let commitSql = `insert into commits(first_name,last_name,email,message,anime_id) values ('${first_name}','${last_name}','${email}','${message}','${anime_id}')`;
               client.query(commitSql).then((data) => {
-                let sqlQuery = `SELECT * from commits ORDER BY id DESC LIMIT 5 where  anime_id = '${anime_id}`;
+                let sqlQuery = `SELECT * from commits ORDER BY id DESC LIMIT 5 where  anime_id = '${anime_id}'`;
                 client.query(sqlQuery).then((data) => {
                   res.render("searches/detail", {
                     videoId: dataAnime.video,
