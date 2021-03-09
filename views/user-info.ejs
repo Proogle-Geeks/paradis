@@ -1,0 +1,50 @@
+<%-include("partials/head")%>
+    <%-include("partials/header")%>
+        <link rel="stylesheet" href="/style/user-info.css">
+
+        <main>
+
+            <div id="user-info-div">
+                <ul>
+                    <li>
+                        <b>First Name: </b> 
+                    </li>
+                    <li>
+                        <b>Last Name: </b> 
+                    </li>
+                    <li>
+                        <b>Email Address: </b> 
+                    </li>
+                    <li>
+                        <b>Anime in My List: </b>
+                    </li>
+                </ul>
+                <form action="" method="POST">
+                    <button id="delete-account-btn" type="submit">Delete Account</button>
+                </form>
+                <button id="show-update-form-btn">Update Info</button>
+            </div>
+
+            <div id="update-info-form-div">
+                <form id="update-info-form" action="" method="POST">
+                    <input class="update-info-input" name="first-name" type="text" placeholder="First Name"
+                        required /><br />
+                    <input class="update-info-input" name="last-name" type="text" placeholder="Last Name"
+                        required /><br />
+                    <input class="update-info-input" name="email" type="text" placeholder="Enter Email"
+                        required /><br />
+                    <input class="update-info-input" name="password" type="password" placeholder="Enter New Password"
+                        required /><br />
+                    <input class="update-info-input" name="rpt-password" type="password"
+                        placeholder="Repeat New Password" required /><br />
+                    <button id="update-account-btn" type="submit">Update Account</button>
+                    <button id="cancel-btn">Cancel</button>
+                </form>
+            </div>
+
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="/js/sign-in.js"></script>
+
+        <%-include("partials/footer")%>

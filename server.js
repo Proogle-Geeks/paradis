@@ -371,6 +371,10 @@ app.get('/list', (req, res) => {
   res.render('searches/list');
 });
 
+app.get('/user-info', (req,res)=>{
+  res.render('user-info');
+})
+
 //================
 // functions
 // ===============
