@@ -278,7 +278,6 @@ function handleMyList(req, res) {
 const renderHome = (req, res) => {
   getTopAnimes().then((data) => {
     getNewsData().then((animeNews) => {
-      // console.log(data);
       res.render('index', { anime: data, news: animeNews, logout: check(req) });
     });
   });
