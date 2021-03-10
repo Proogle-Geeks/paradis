@@ -135,7 +135,7 @@ function handleSignup(req, res) {
   // console.log([first_name, last_name, email, password]);
   bcrypt.hash(password, salt, (err, encrypted) => {
     password = encrypted;
-    let sqlQuery = `insert into users(first_name, last_name, email,password) values ($1,$2,$3,$4)returning *`;
+    let sqlQuery = `INSERT INTO users(first_name, last_name, email,password) VALUES ($1,$2,$3,$4)returning *`;
     let values = [first_name, last_name, email, password];
     client.query(sqlQuery, values).then((data) => {
      
@@ -162,7 +162,7 @@ function handleLogin(req, res) {
   if (sess.email) {
     res.redirect('/');
   } else {
-    let sqlQuery = `select id, email, password from users where email = '${email}';`;
+    let sqlQuery = `SELECT id, email, password FROM users WHERE email = '${email}';`;
     client.query(sqlQuery).then((data) => {
       let pass = data.rows[0].password;
       // console.log(pass);
@@ -213,19 +213,19 @@ function handleAnime(req, res) {
   let animeData = {anime:anime, type:type, score:score, image:image, start_date:start_date, end_date:end_date, description:description};
   sess = req.session;
   if(sess.email){
-    let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
-    values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
+    let sqlQuery = `INSERT INTO anime(title, type, score, video,image, start_date,end_date,description) 
+    VALUES ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}');`;
     client.query(sqlQuery).then((data) => {
       // console.log('anime data inserted' + data);
-      let sql = `SELECT * FROM users where email = '${sess.email}'`;
+      let sql = `SELECT * FROM users WHERE email = '${sess.email}'`;
       var user_id;
       client.query(sql).then((data) => {
         user_id = data.rows[0].id;
         let anime_id;
-        let sqlAnime = "SELECT id FROM anime ORDER BY id DESC LIMIT 1";
+        let sqlAnime = "SELECT id FROM anime ORDER BY id DESC LIMIT 1 ;";
         client.query(sqlAnime).then((data) => {
           anime_id = data.rows[0].id;
-          let list = `INSERT INTO user_list(user_id, anime_id) values ($1, $2)`;
+          let list = `INSERT INTO user_list(user_id, anime_id) VALUES($1, $2);`;
           let listValues = [user_id, anime_id];
           client.query(list, listValues).then((data) => {
             console.log("data added");
@@ -250,10 +250,10 @@ function handleAnime(req, res) {
 function handleMyList(req, res) {
   sess = req.session;
   if (sess.email) {
-    let sql = `select * from users where email ='${sess.email}'`;
+    let sql = `SELECT * FROM users WHERE email ='${sess.email}'`;
     client.query(sql).then((data) => {
       let user_id = data.rows[0].id;
-      let sql = `SELECT ul.id, a.title, a.image , a.video FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
+      let sql = `SELECT ul.id, a.title, a.image , a.video FROM user_list ul, users u, anime a WHERE ul.user_id= '${user_id}' and ul.anime_id= a.id ;`;
       client.query(sql).then((data) => {
         console.log(data.rows);
         res.render("searches/list", { mylist: data.rows });
@@ -304,7 +304,7 @@ const handleDetails = (req, res) => {
 // delete elemet from user list 
 function handelDeleteList(req,res){
   let id = req.params.id;
-  let sql = `DELETE from user_list where id ='${id}'`;
+  let sql = `DELETE FROM user_list WHERE id ='${id}';`;
   client.query(sql).then(data=>{
     console.log(data.rows);
       res.redirect('/myList');
@@ -316,17 +316,17 @@ function handleDetailsMyList(req, res){
   sess = req.session;
   let anime_id = req.params.id;
   if (sess.email) {
-    let sql = `select * from users where email ='${sess.email}'`;
+    let sql = `select * FROM users WHERE email ='${sess.email}';`;
     client.query(sql).then((data) => {
       let user_id = data.rows[0].id;
-      let sql = `SELECT ul.id, a.title as anime,a.type,a.score ,a.image , a.video, a.start_date, a.end_date, a.description  FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id and ul.id=${anime_id}`;
+      let sql = `SELECT ul.id, a.title as anime,a.type,a.score ,a.image , a.video, a.start_date, a.end_date, a.description  FROM user_list ul, users u, anime a WHERE ul.user_id= '${user_id}' and ul.anime_id= a.id and ul.id=${anime_id};`;
       client.query(sql).then((data) => {
         let animeObject = data.rows[0];
         let video = data.rows[0].video;
-        let animeSql= `select * from anime where video='${video}'`;
+        let animeSql= `SELECT * FROM anime WHERE video='${video};'`;
         client.query(animeSql).then(data=>{
           let anime_id = data.rows[0].id;
-          let commitSql = `select * from commits where anime_id = '${anime_id}'`;
+          let commitSql = `SELECT * FROM commits WHERE anime_id = '${anime_id}';`;
           client.query(commitSql).then(data=>{
             res.render("searches/detail", {
               animeObject: animeObject,
@@ -367,22 +367,22 @@ function handleCommitPage(req, res) {
   sess = req.session;
   if(sess.email){
     console.log('in commit data', sess.email);
-      let sql = `select count(video) from anime where video ='${video}'`;
+      let sql = `SELECT count(video) FROM anime WHERE video ='${video}'`;
       client.query(sql).then((data) => {
         if (data.rows[0].count === 0) {
-          let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
-          values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
+          let sqlQuery = `INSERT INTO anime(title, type, score, video,image, start_date,end_date,description) 
+          values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}');`;
           client.query(sqlQuery).then((data) => {
-            let getSql = `select * from anime order by id desc limit 1`;
+            let getSql = `SELECT * FROM anime ORDER BY id desc limit 1`;
             client.query(getSql).then((data) => {
               let dataAnime = data.rows[0];
 
               let anime_id = data.rows[0].id;
               
 
-              let commitSql = `insert into commits(first_name,last_name,email,message,anime_id) values ('${first_name}','${last_name}','${email}','${message}','${anime_id}')`;
+              let commitSql = `INSERT INTO commits(first_name,last_name,email,message,anime_id) VALUES ('${first_name}','${last_name}','${email}','${message}','${anime_id}');`;
               client.query(commitSql).then((data) => {
-                let sqlQuery = `SELECT * from commits ORDER BY id DESC LIMIT 5 where  anime_id = '${anime_id}'`;
+                let sqlQuery = `SELECT * FROM commits ORDER BY id DESC LIMIT 5 WHERE anime_id ='${anime_id}';`;
                 client.query(sqlQuery).then((data) => {
                   res.render("searches/detail", {
                     videoId: dataAnime.video,
@@ -396,14 +396,14 @@ function handleCommitPage(req, res) {
             });
           });
         } else {
-          let sql = `select * from anime where video ='${video}'`;
+          let sql = `SELECT * from anime WHERE video ='${video}'`;
           client.query(sql).then((data) => {
             let dataAnime = data.rows[0];
             let anime_id = data.rows[0].id;
-            let commitSql = `insert into commits(first_name,last_name,email,message,anime_id) values ('${first_name}','${last_name}','${email}','${message}','${anime_id}')`;
+            let commitSql = `INSERT INTO commits(first_name,last_name,email,message,anime_id) VALUES ('${first_name}','${last_name}','${email}','${message}','${anime_id}');`;
             client.query(commitSql).then((data) => {
               let sqlQuery =
-                `SELECT * from commits ORDER BY id DESC LIMIT 5 where  anime_id = '${anime_id}' `;
+                `SELECT * FROM commits ORDER BY id DESC LIMIT 5 WHERE anime_id ='${anime_id}'; `;
               client.query(sqlQuery).then((data) => {
                 res.render("searches/detail", {
                   videoId: dataAnime.video,
@@ -431,10 +431,10 @@ function handleCommit(req, res) {
   let last_name = req.body.last_name;
   let email = req.body.email;
   let message = req.body.message;
-  let sql = `insert into commits(first_name, last_name, email,message) values ('${first_name}','${last_name}','${email}','${message}') `;
+  let sql = `INSERT INTO commits(first_name, last_name, email,message) VALUES ('${first_name}','${last_name}','${email}','${message}') `;
   client.query(sql).then((data) => {
     console.log('data added');
-    let sqlQuery = 'SELECT * from commits ORDER BY id DESC LIMIT 5';
+    let sqlQuery = 'SELECT * FROM commits ORDER BY id DESC LIMIT 5';
     client.query(sqlQuery).then((data) => {
       res.redirect("/search/details");
     });
@@ -447,7 +447,7 @@ function handleCommit(req, res) {
 // display update form
 function handleUpdate(req, res) {
   let email = req.params.email;
-  let sqlQuery = `SELECT * FROM users where email = '${email}'`;
+  let sqlQuery = `SELECT * FROM users WHERE email = '${email}'`;
   client
     .query(sqlQuery)
     .then((data) => {
@@ -464,7 +464,7 @@ function handleUpdateInfo(req, res) {
   let email = req.body.email;
   sess = req.session;
   console.log('email from session ' + sess.email);
-  let sqlQuery = `UPDATE users SET first_name='${first_name}', last_name='${last_name}', email='${email}' where email = '${sess.email}'`;
+  let sqlQuery = `UPDATE users SET first_name='${first_name}', last_name='${last_name}', email='${email}' WHERE email = '${sess.email}';`;
 
   client.query(sqlQuery).then((data) => {
     sess.email = email;

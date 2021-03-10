@@ -1,57 +1,104 @@
-main {
+body {
+    background-image: none;
+    background-color: white;
+}
+
+#team-bio{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     margin: auto;
+    margin-top: 10%;
+    width: 80%;
+}
+
+.member a{
+    color: black;
+    font-size: 20px;
+    float: left;
+    margin-right: 30px;
+    position: relative;
+    bottom: 50px;
+}
+
+a:hover{
+    color: #a20a0a;
+}
+
+p{
+    margin: 20px 0;
+    font-size: 23px;
+}
+
+.member img {
+    width: 70%;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    bottom: 65px;
+    margin: 35px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: white;
+    box-shadow: 0 4px 8px 0 rgba(53, 53, 53, 0.2), 0 6px 20px 0 rgba(58, 58, 58, 0.19);
+    float: left;
+
+}
+
+.member{
+    width: 200px;
+    background-color: white;
+    border-radius: 5px;
+    border-color:#a20a0a ;
+    float: left;
+    margin: 0px 15px 100px 15px;
+    box-shadow: 0 4px 8px 0 rgba(128, 128, 128, 0.2), 0 6px 20px 0 rgba(109, 109, 109, 0.19);
+    text-align: center;
+    padding: 10px;
+    height: 300px;
+    margin-right: 5%;
+    margin-left: 5%;
+
+}
+
+h2 , h1{
+    margin: 5% auto 5% auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 250%;
+}
+
+h2 {
+    font-size: 170%;
+}
+
+.first-p{
     text-align: center;
     width: 80%;
-    display: grid;
-    grid-row: 30% 70%;
+    margin: 7% auto 9% auto;
 }
 
-h3 {
-    font-weight: bold;
-    margin: 7% auto 7% auto;
+.names {
+    font-size: 23px;
+    position: relative;
+    padding-bottom :10px; ;
+    bottom: 70px;
+
 }
 
-h4 {
-    margin: 5% auto 5% auto;
-}
-
-#about-us-div {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5,1fr);
-}
-
-.person-card {
-    padding: 25%;
-    padding-top: 10%;
+.bio {
+    position: relative;
+    bottom: 70px;
     text-align: center;
-    margin: auto;
-    height: 50%;
-    background-color: darkgrey;
-    box-shadow:grey 1px 1px 1px;
+    font-size: 14px;
 }
 
-.person-img {
-    border-radius: 50%;
-    width: 40%;
-    height: 40%;
-}
-
-.social-links-icons {
-    transition: 0.5s ease;
-    background: rgba(234, 243, 233, 0.7);
-    opacity: 0;
-}
-
-.person-card:hover .social-links-icons {
-    opacity: 1;
-}
-
-.description {
-    height: 20%;
-    overflow: hidden;
-}
-
-.social-links-icons a {
-    display: inline;
+.social-links a {
+    margin: 8.3%;
+    text-align: center;
+    /* margin: 0; */
+    /* text-align: center;
+    margin-right: 0; */
 }
