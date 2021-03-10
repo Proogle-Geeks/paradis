@@ -13,7 +13,11 @@
             <button class="login-btn-p login-btn" ><a href="/user-info"> Profile</a></button>
             <button class="login-btn-c login-btn" ><a href="/contact-us">contact-us</a></button>
             <button class="login-btn-a login-btn" ><a href="/about-us"> About Us</a></button>
-            <button class="login-btn" ><a href="/login-page">Login</a> </button>
+            <% if (!logout) { %>
+                <button class="login-btn" ><a href="/login-page">Login</a> </button>
+            <% }else{ %>
+                <button class="login-btn" ><a href="/logout">logout</a> </button>
+            <% } %> 
         </ul>
     
     </nav>

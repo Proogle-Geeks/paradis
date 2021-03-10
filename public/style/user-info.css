@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Roboto');
+
+body {
+    font-family: 'Vollkorn', serif;
+}
+
 #user-info-div, #update-info-form-div {
     margin: auto;
     text-align: center;
@@ -9,7 +15,7 @@
     padding-bottom: 2%;
     border-radius: 10px;
     width: 90%;
-    background-color: rgba(255, 255, 255, 0.507);
+    background-color: #012e40c7;
     animation: animatezoomin 0.5s;
 }
 
@@ -17,6 +23,7 @@
     margin: 5%;
     font-size: larger;
     text-align: left;
+    color: whitesmoke;
 }
 
 input, button {
@@ -26,13 +33,23 @@ input, button {
     margin: 4%;
     padding: 2.5%;
     border: 0;
-    background-color: silver;
+    background-color: #024959;
+    font-family: 'Vollkorn', serif;
+    color: whitesmoke;
+}
+
+input {
+    font-size: larger;
 }
 
 input:focus , button:active {
     opacity:1;
     outline: none;
 }
+
+::placeholder { 
+    color: whitesmoke;
+}    
 
 #show-update-form-btn {
     width: 20%;
@@ -41,7 +58,7 @@ input:focus , button:active {
 #update-info-form-div {
     padding-top: 2%;
     padding-bottom: 2%; 
-    background-color: rgba(255, 255, 255, 0.575);
+    background-color: #012e40c7;
     width:90%;
     border-radius: 10px;
     display: none;
@@ -65,7 +82,7 @@ button:hover {
 
 #cancel-btn, #delete-account-btn {
     background-color:rgba(218, 17, 17, 0.849);
-    color: white;
+    color: whitesmoke;
     width: 20%;
 }
 
