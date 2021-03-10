@@ -1,23 +1,60 @@
-<footer>
-    <div class="footer big-footer">
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="test col-sm-12 col-md-6">
+        <h6>Who Are we</h6>
+        <p class="text-justify">We are a group of developers who share a great deal of love for anime and a passion for coding. We gather our expertise to provide you the best experience you can hope for! Feel free to contact us and tell us your thoughts</p>
+      </div>
+      <div class="test col-xs-6 col-md-3">
+        <h6>Categories</h6>
+        <ul class="footer-links">
+          <li><a href="#slide">Top Rated show</a></li>
+          <li><a href="#linkNews">Trending News</a></li>
+          <li><a href="/myList">My Watch list</a></li>
+          <li><a href="/user-info">My account</a></li>
+        </ul>
+      </div>
 
-        <!-- <div><h2>copy rights  © for team proogle geeks</h2></div> -->
-        <div class="footer-child"><a href="/"><i class="fas fa-home"></i></a></div>
-        <div class="footer-child"><a href="/myList"><i class="fas fa-list-ul"></i></a></div>
-         <div class="footer-child"><a href="/user-info"><i class="far fa-newspaper"></i></a></div>
-        <div class="footer-child"><a href="/login-page"><i class="fas fa-user"></i></a></div>
-    </div> 
-    <div class="footer-copy"><h2>copy rights  © for team proogle geeks</h2></div>
+      <div class=" test col-xs-6 col-md-3">
+        <h6>Quick Links</h6>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+          <li><a href="/login-page">Log-in</a></li>
+          <li><a href="/signup-page">Sign-up</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="container1">
+    <div class="row">
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by <a href="https://github.com/Proogle-Geeks/paradis">proogle Geeks</a>
+        </p>
+      </div>
+
+      <!-- <div class="col-md-4 col-sm-6 col-xs-12">
+        <ul class="social-icons">
+          <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+          <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
 </footer>
 
 
 
 
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/js/app.js"></script>
 
-    <!-- jQuery -->
+<!-- jQuery -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
 
@@ -25,20 +62,18 @@
 <script defer src="/js/jquery.flexslider.js"></script>
 
 <script type="text/javascript">
-$(function(){
-  SyntaxHighlighter.all();
-});
-$(window).load(function(){
-  $('.flexslider').flexslider({
-    animation: "slide",
-    start: function(slider){
-      $('body').removeClass('loading');
-    }
+  $(function () {
+    SyntaxHighlighter.all();
   });
-});
+  $(window).load(function () {
+    $('.flexslider').flexslider({
+      animation: "slide",
+      start: function (slider) {
+        $('body').removeClass('loading');
+      }
+    });
+  });
 </script>
 </body>
+
 </html>
-
-
-
