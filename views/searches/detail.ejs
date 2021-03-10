@@ -1,6 +1,5 @@
 <%- include("../partials/head.ejs")%>
   <%- include("../partials/header.ejs")%>
-
     <main class="search-main">
       <section class="s-search">
         <div class="d-search">
@@ -38,23 +37,23 @@
                     </button>
                   </form>
                   <% }else{%>
-                    <form action="/anime" method="POST">
-                      <input type="hidden" name="title" value="<%= animeObject.anime %>">
-                      <input type="hidden" name="type" value="<%= animeObject.type %>">
-                      <input type="hidden" name="score" value="<%= animeObject.score %>">
-                      <input type="hidden" name="video" value="<%= videoId %>">
-                      <input type="hidden" name="start_date" value="<%= animeObject.start_date %>">
-                      <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
-                      <input type="hidden" name="description" value="<%= animeObject.description %>">
-                      <input type="hidden" name="image" value="<%= animeObject.image %>">
-                      <p style="color:red;">
-                        <%= message %>
-                      </p>
-
-                      <button class="btn-more" name="addtolist">
-                        <span class="text">Add to my list</span>
-                      </button>
-                    </form>
+                      <form id="comment-form" action="/anime" method="POST">
+                        <input type="hidden" name="title" value="<%= animeObject.anime %>">
+                        <input type="hidden" name="type" value="<%= animeObject.type %>">
+                        <input type="hidden" name="score" value="<%= animeObject.score %>">
+                        <input type="hidden" name="video" value="<%= videoId %>">
+                        <input type="hidden" name="start_date" value="<%= animeObject.start_date %>">
+                        <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
+                        <input type="hidden" name="description" value="<%= animeObject.description %>">
+                        <input type="hidden" name="image" value="<%= animeObject.image %>">
+                        <p style="color:red;">
+                          <%= message %>
+                        </p>
+  
+                        <button class="btn-more" name="addtolist">
+                          <span class="text">Add to my list</span>
+                        </button>
+                      </form>
                   <% } %>
               </ul>
             
@@ -93,17 +92,17 @@
             <input type="hidden" name="description_commit" value="<%= animeObject.description %>">
             <input type="hidden" name="image_commit" value="<%= animeObject.image %>">
 
-            <label >First Name :</label>
-            <input class="f-name" type="text" name="first_name">
+            
+            <input class="f-name" type="text" name="first_name" placeholder="First Name">
 
-            <label>Last Name :</label>
-            <input class="l-name" type="text" name="last_name">
+            
+            <input class="l-name" type="text" name="last_name" placeholder="Last Name">
 
-            <label>Email :</label>
-            <input class="email" type="email" name="email">
+           
+            <input class="email" type="email" name="email" placeholder="Email">
 
-            <label>Message</label>
-            <textarea class="txt-area" name="message"></textarea>
+            
+            <textarea class="txt-area" name="message" placeholder="Message"></textarea>
 
             <button type="submit" name="commit" class="btn-send">Send</button>
 
