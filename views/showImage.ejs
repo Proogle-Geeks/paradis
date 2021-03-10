@@ -2,13 +2,13 @@
 
     <%- include("partials/header.ejs")%>
 
-        <main class="search-main">
-            <h2>Possible Results: </h2>
-            <% anime.forEach(element=>{ %>
-                <section class="s-search">
+        <main class="search-main-img">
+
+            <% anime.map((element,idx)=>{ %>
+                <section class="s-search s-search-vid">
                     <div class="d-search">
-                        <div class="img-search">
-                            <video class="" controls>
+                        <div class="vid-search">
+                            <video class="vid-img" controls>
                                 <source src="<%= element.video%>" type="video/mp4">
                             </video>
                         </div>
@@ -38,8 +38,8 @@
                                     </h2>
                                 </li>
         
-                                <span id="dots">...</span>
-                                <span id="more">
+                                <span class="less-txt<%= idx %>" id="dots">....</span>
+                                <span class="more-txt<%= idx %>" id="more">
                                 <li>
                                     <h2 class="search-author">Matching Time: <%= element.at%>
                                     </h2>
@@ -55,7 +55,7 @@
                             </span>
                             </ul>
 
-                            <button class="btn-details" onclick="myFunction()" id="myBtn">See More Details</button>
+                            <button class="btn-details<%= idx %> btn-details"  id="myBtn">See More Details</button>
 
                         </div>
                     </div>

@@ -51,7 +51,7 @@
                         <%= message %>
                       </p>
 
-                      <button class="btn-more">
+                      <button class="btn-more" name="addtolist">
                         <span class="text">Add to my list</span>
                       </button>
                     </form>
@@ -84,14 +84,14 @@
             <p style="color:red;">
               <%= message %>
             </p>
-            <input type="hidden" name="title" value="<%= animeObject.anime %>">
-            <input type="hidden" name="type" value="<%= animeObject.type %>">
-            <input type="hidden" name="score" value="<%= animeObject.score %>">
-            <input type="hidden" name="video" value="<%= videoId %>">
-            <input type="hidden" name="start_date" value="<%= animeObject.start_date %>">
-            <input type="hidden" name="end_date" value="<%= animeObject.end_date %>">
-            <input type="hidden" name="description" value="<%= animeObject.description %>">
-            <input type="hidden" name="image" value="<%= animeObject.image %>">
+            <input type="hidden" name="title_commit" value="<%= animeObject.anime %>">
+            <input type="hidden" name="type_commit" value="<%= animeObject.type %>">
+            <input type="hidden" name="score_commit" value="<%= animeObject.score %>">
+            <input type="hidden" name="video_commit" value="<%= videoId %>">
+            <input type="hidden" name="start_date_commit" value="<%= animeObject.start_date %>">
+            <input type="hidden" name="end_date_commit" value="<%= animeObject.end_date %>">
+            <input type="hidden" name="description_commit" value="<%= animeObject.description %>">
+            <input type="hidden" name="image_commit" value="<%= animeObject.image %>">
 
             <label >First Name :</label>
             <input class="f-name" type="text" name="first_name">
@@ -105,7 +105,7 @@
             <label>Message</label>
             <textarea class="txt-area" name="message"></textarea>
 
-            <button type="submit" class="btn-send">Send</button>
+            <button type="submit" name="commit" class="btn-send">Send</button>
 
           </form>
         </div>

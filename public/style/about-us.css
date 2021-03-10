@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Roboto');
+
 body {
-    background-image: none;
-    background-color: white;
+    font-family: 'Vollkorn', serif;
+    color: whitesmoke;
+    text-shadow: 2px 2px black;
 }
 
-#team-bio{
+#team-bio {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -12,8 +15,8 @@ body {
     width: 80%;
 }
 
-.member a{
-    color: black;
+.member a {
+    color: whitesmoke;
     font-size: 20px;
     float: left;
     margin-right: 30px;
@@ -21,13 +24,13 @@ body {
     bottom: 50px;
 }
 
-a:hover{
+a:hover {
     color: #a20a0a;
 }
 
-p{
+p {
     margin: 20px 0;
-    font-size: 23px;
+    font-size: 21px;
 }
 
 .member img {
@@ -39,42 +42,35 @@ p{
     margin: 35px;
     border-width: 3px;
     border-style: solid;
-    border-color: white;
-    box-shadow: 0 4px 8px 0 rgba(53, 53, 53, 0.2), 0 6px 20px 0 rgba(58, 58, 58, 0.19);
+    border-color: #012e40c7;
+    box-shadow: 0 4px 8px 0 #f24141af, 0 6px 20px 0 #f24141af;
     float: left;
-
 }
 
-.member{
+.member {
     width: 200px;
-    background-color: white;
-    border-radius: 5px;
+    background-color: #f24141af;
+    border-radius: 10px;
     border-color:#a20a0a ;
     float: left;
     margin: 0px 15px 100px 15px;
-    box-shadow: 0 4px 8px 0 rgba(128, 128, 128, 0.2), 0 6px 20px 0 rgba(109, 109, 109, 0.19);
+    box-shadow: 0 4px 8px 0 #012e40b7, 0 6px 20px 0 #012e40b7;
     text-align: center;
     padding: 10px;
     height: 300px;
     margin-right: 5%;
     margin-left: 5%;
-
-}
-
-h2 , h1{
-    margin: 5% auto 5% auto;
-    text-align: center;
-}
-
-h1 {
-    font-size: 250%;
+    color: whitesmoke;
 }
 
 h2 {
+    margin: 5% auto 5% auto;
+    text-align: center;
     font-size: 170%;
+    font-weight: bolder;
 }
 
-.first-p{
+.first-p {
     text-align: center;
     width: 80%;
     margin: 7% auto 9% auto;
@@ -98,7 +94,4 @@ h2 {
 .social-links a {
     margin: 8.3%;
     text-align: center;
-    /* margin: 0; */
-    /* text-align: center;
-    margin-right: 0; */
 }

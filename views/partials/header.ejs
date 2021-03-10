@@ -1,37 +1,75 @@
+
 <header>
     <div class="burger-test"></div>
-    <nav>
+
+    <nav class="nav-inv1">
         
-        <ul class="nav-ul">
             
+        <ul class="nav-ul-res">
             <li><img class="logo" src="/img/logo.png" alt=""></li>
-            <li ><button class="login-btn" ><a href="/login-page">Login</a> <span></span>  </button></li>
+            <h1></h1>
+            <button class="login-btn-h login-btn" ><a href="/"> Home</a></button>
+            <button class="login-btn-m login-btn" ><a href="/mylist">My-List</a></button>
+            <button class="login-btn-p login-btn" ><a href="/user-info"> Profile</a></button>
+            <button class="login-btn-c login-btn" ><a href="/contact-us">contact-us</a></button>
+            <button class="login-btn-a login-btn" ><a href="/about-us"> About Us</a></button>
+            <button class="login-btn" ><a href="/login-page">Login</a> </button>
+        </ul>
+    
+    </nav>
+
+    <nav class="nav-inv">
+        
+
+        <ul class="nav-ul">
+
+            <li><img class="logo" src="/img/logo1.png" alt=""></li>
+           <% if (!logout) { %>
+            <li><button class="login-btn"><a href="/login-page">Login</a> <span></span> </button></li>
             <li class="bur-in"><i class="in fas fa-bars"></i></li>
+           <% } else{%>
+            <li><button class="login-btn"><a href="/logout">Logout</a> <span></span> </button></li>
+            <li class="bur-in"><i class="in fas fa-bars"></i></li>
+            <% }%>
             
+           
         </ul>
     </nav>
 
+    
+
+
     <form action='/search' method='GET' class="search">
-        
-            <input class="in-text search-bar" type="text" name="anime">
-            <button class="search-btn-img" type="submit"><i class="fas fa-camera"></i></i></button>
-            <button class="search-btn" type="submit">Search <i class="fas fa-search"></i></button>
+
+        <input class="in-text search-bar" type="text" name="anime">
+        <button class="search-btn-img" type="submit"><i class="fas fa-camera"></i></i></button>
+        <button class="search-btn" type="submit">Search <i class="fas fa-search"></i></button>
     </form>
 
-    
+
     <div class="burger-outer-big"></div>
     <div class="burger-outer"></div>
 
-    
-    
+
+
     <div class="burger">
         <ul class="u-menu">
-            <a class="h-menu1 li-m" href="/"><li ><i class="fas fa-home"></i> Home</li></a>
-            <a class="h-menu2 li-m" href="/myList"><li ><i class="fas fa-list-ul"></i> My-List</li></a>
-            <a class="h-menu3 li-m" href="/"><li ><i class="far fa-newspaper"></i> Profile</li></a>
-            <a class="h-menu4 li-m" href="/contact-us"><li ><i class="fas fa-question"></i> contact-us</li></a>
-            <a class="h-menu5 li-m" href="/about-us"><li ><i class="fas fa-info-circle"></i> About Us</li></a>
+            <a class="h-menu1 li-m" href="/">
+                <li><i class="fas fa-home"></i> Home</li>
+            </a>
+            <a class="h-menu2 li-m" href="/myList">
+                <li><i class="fas fa-list-ul"></i> My-List</li>
+            </a>
+            <a class="h-menu3 li-m" href="/user-info">
+                <li><i class="far fa-newspaper"></i> Profile</li>
+            </a>
+            <a class="h-menu4 li-m" href="/contact-us">
+                <li><i class="fas fa-question"></i> contact-us</li>
+            </a>
+            <a class="h-menu5 li-m" href="/about-us">
+                <li><i class="fas fa-info-circle"></i> About Us</li>
+            </a>
         </ul>
     </div>
-    
+
 </header>

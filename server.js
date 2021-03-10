@@ -24,7 +24,9 @@ const PORT = process.env.PORT;
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'ssshhhhh', saveUninitialized: false, resave: false }));
+app.use(
+  session({ secret: 'ssshhhhh', saveUninitialized: false, resave: false })
+);
 
 var salt = 10; // for password encryption which is any random number
 var sess;
@@ -122,10 +124,7 @@ function handleQuotesRandomly(req, res) {
     });
 }
 
-
-
-
-// tested and it is work correct 
+// tested and it is work correct
 // get the data from the sign-up form and inserting them to the DATABASE
 function handleSignup(req, res) {
   let first_name = req.body.first_name;
@@ -138,7 +137,6 @@ function handleSignup(req, res) {
     let sqlQuery = `INSERT INTO users(first_name, last_name, email,password) VALUES ($1,$2,$3,$4)returning *`;
     let values = [first_name, last_name, email, password];
     client.query(sqlQuery, values).then((data) => {
-     
       res.redirect('/login-page');
     });
   });
@@ -149,7 +147,7 @@ function handleLoginPage(req, res) {
   if (sess.email) {
     res.redirect('/');
   } else {
-    res.render('sign-in.ejs');
+    res.render('sign-in', { logout: check(req) });
   }
 }
 // get data from log in form and check if user account exist or not
@@ -162,24 +160,29 @@ function handleLogin(req, res) {
   if (sess.email) {
     res.redirect('/');
   } else {
-    let sqlQuery = `SELECT id, email, password FROM users WHERE email = '${email}';`;
-    client.query(sqlQuery).then((data) => {
-      let pass = data.rows[0].password;
-      // console.log(pass);
-      bcrypt.compare(password, pass, function (err, result) {
-        if (result === true) {
-          // redirect to location
-          sess.email = email;
-          // console.log({ result: result, email: email, password: password });
-          res.redirect('/');
-        } else {
-           res.redirect('/login-page', {errorMessage: 'Incorrect password'});
-          // redirect to login page
-        }
+    let sqlQuery = `select id, email, password from users where email = '${email}';`;
+    client
+      .query(sqlQuery)
+      .then((data) => {
+        let pass = data.rows[0].password;
+        // console.log(pass);
+        bcrypt.compare(password, pass, function (err, result) {
+          if (result === true) {
+            // redirect to location
+            sess.email = email;
+            // console.log({ result: result, email: email, password: password });
+            res.redirect('/');
+          } else {
+            res.redirect('/login-page', { errorMessage: 'Incorrect password' });
+            // redirect to login page
+          }
+        });
+      })
+      .catch((error) => {
+        res.redirect('/login-page', {
+          errorMessage: 'Account Does not Exists Please create new one',
+        });
       });
-    }).catch(error=>{
-         res.redirect("/login-page", { errorMessage: "Account Does not Exists Please create new one" });
-    })
   }
 }
 // log-out and redirect to the main page
@@ -188,18 +191,11 @@ function handleLogout(req, res) {
     if (err) {
       return console.log(err);
     }
-    res.redirect('/login-page');
+    res.redirect('/');
   });
 }
 
-
-
-
-
-
-
-
-// tested and it work 
+// tested and it work
 // add anime selected to the user list
 function handleAnime(req, res) {
   let anime = req.body.title;
@@ -210,40 +206,47 @@ function handleAnime(req, res) {
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
   let description = req.body.description;
-  let animeData = {anime:anime, type:type, score:score, image:image, start_date:start_date, end_date:end_date, description:description};
+  let animeData = {
+    anime: anime,
+    type: type,
+    score: score,
+    image: image,
+    start_date: start_date,
+    end_date: end_date,
+    description: description,
+  };
+
   sess = req.session;
-  if(sess.email){
-    let sqlQuery = `INSERT INTO anime(title, type, score, video,image, start_date,end_date,description) 
-    VALUES ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}');`;
+
+  if (sess.email) {
+    let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
+    values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
     client.query(sqlQuery).then((data) => {
-      // console.log('anime data inserted' + data);
-      let sql = `SELECT * FROM users WHERE email = '${sess.email}'`;
+      let sql = `SELECT * FROM users where email = '${sess.email}'`;
       var user_id;
       client.query(sql).then((data) => {
         user_id = data.rows[0].id;
         let anime_id;
-        let sqlAnime = "SELECT id FROM anime ORDER BY id DESC LIMIT 1 ;";
+        let sqlAnime = 'SELECT id FROM anime ORDER BY id DESC LIMIT 1';
         client.query(sqlAnime).then((data) => {
           anime_id = data.rows[0].id;
           let list = `INSERT INTO user_list(user_id, anime_id) VALUES($1, $2);`;
           let listValues = [user_id, anime_id];
           client.query(list, listValues).then((data) => {
-            console.log("data added");
-            res.redirect("/mylist");
+            res.redirect('/mylist');
           });
         });
       });
     });
+  } else {
+    res.render('searches/detail', {
+      videoId: video,
+      animeObject: animeData,
+      bol: false,
+      message: 'Please Login before added',
+      logout: check(req),
+    });
   }
-  else{
-      res.render("searches/detail", {
-        videoId: video,
-        animeObject: animeData,
-        bol: false,
-        message: 'Please Login before added  ',
-      });
-  }
- 
 }
 // tested and work correctly
 // get the user list and display it to him/her
@@ -253,10 +256,15 @@ function handleMyList(req, res) {
     let sql = `SELECT * FROM users WHERE email ='${sess.email}'`;
     client.query(sql).then((data) => {
       let user_id = data.rows[0].id;
-      let sql = `SELECT ul.id, a.title, a.image , a.video FROM user_list ul, users u, anime a WHERE ul.user_id= '${user_id}' and ul.anime_id= a.id ;`;
+      let sql = `SELECT ul.id ,a.title as anime, a.image , a.video FROM user_list ul, users u, anime a where ul.user_id= '${user_id}' and ul.anime_id= a.id`;
       client.query(sql).then((data) => {
-        console.log(data.rows);
-        res.render("searches/list", { mylist: data.rows });
+        let unique = Object.values(
+          data.rows.reduce(
+            (acc, cur) => Object.assign(acc, { [cur.id]: cur }),
+            {}
+          )
+        );
+        res.render('searches/list', { mylist: unique, logout: check(req) });
       });
     });
   } else {
@@ -268,7 +276,7 @@ const renderHome = (req, res) => {
   getTopAnimes().then((data) => {
     getNewsData().then((animeNews) => {
       // console.log(data);
-      res.render('index', { anime: data, news: animeNews });
+      res.render('index', { anime: data, news: animeNews, logout: check(req) });
     });
   });
 };
@@ -288,31 +296,31 @@ const handleDetails = (req, res) => {
   }
   sess = req.session;
 
-
   getAnimeTrailer(animeData['anime']).then((data) => {
-    res.render("searches/detail", {
+    res.render('searches/detail', {
       videoId: data,
       animeObject: animeData,
       bol: false,
-      message: "",
-      commit: []
+      message: '',
+      commit: [],
+      logout: check(req),
     });
   });
 };
 
 // tested and it work correctly
-// delete elemet from user list 
-function handelDeleteList(req,res){
+// delete elemet from user list
+function handelDeleteList(req, res) {
   let id = req.params.id;
-  let sql = `DELETE FROM user_list WHERE id ='${id}';`;
-  client.query(sql).then(data=>{
+  let sql = `DELETE from user_list where id ='${id}'`;
+  client.query(sql).then((data) => {
     console.log(data.rows);
-      res.redirect('/myList');
+    res.redirect('/myList');
   });
 }
 
 // tested and it work correctly
-function handleDetailsMyList(req, res){
+function handleDetailsMyList(req, res) {
   sess = req.session;
   let anime_id = req.params.id;
   if (sess.email) {
@@ -323,107 +331,100 @@ function handleDetailsMyList(req, res){
       client.query(sql).then((data) => {
         let animeObject = data.rows[0];
         let video = data.rows[0].video;
-        let animeSql= `SELECT * FROM anime WHERE video='${video};'`;
-        client.query(animeSql).then(data=>{
+        let animeSql = `select * from anime where video='${video}'`;
+        client.query(animeSql).then((data) => {
           let anime_id = data.rows[0].id;
-          let commitSql = `SELECT * FROM commits WHERE anime_id = '${anime_id}';`;
-          client.query(commitSql).then(data=>{
-            res.render("searches/detail", {
+          let commitSql = `select * from commits where anime_id = '${anime_id}'`;
+          client.query(commitSql).then((data) => {
+            res.render('searches/detail', {
               animeObject: animeObject,
               videoId: video,
               bol: true,
-              message: "",
+              message: '',
               commit: data.rows,
+              logout: check(req),
             });
-          })
-        })
-
-        
+          });
+        });
       });
     });
   } else {
-    res.redirect("/");
+    res.redirect('/');
+  }
 }
-}
-
-
-
-
-
 
 // handle comment section get the data from the DATABASE and render the last 5 comments
 function handleCommitPage(req, res) {
-  let anime = req.body.title;
-  let type = req.body.type;
-  let score = req.body.score;
-  let video = req.body.video;
-  let image = req.body.image;
-  let start_date = req.body.start_date;
-  let end_date = req.body.end_date;
+  let anime = req.body.title_commit;
+  let type = req.body.type_commit;
+  let score = req.body.score_commit;
+  let video = req.body.video_commit;
+  let image = req.body.image_commit;
+  let start_date = req.body.start_date_commit;
+  let end_date = req.body.end_date_commit;
+  let description = req.body.description_commit;
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
   let email = req.body.email;
   let message = req.body.message;
   sess = req.session;
-  if(sess.email){
+  if (sess.email) {
     console.log('in commit data', sess.email);
-      let sql = `SELECT count(video) FROM anime WHERE video ='${video}'`;
-      client.query(sql).then((data) => {
-        if (data.rows[0].count === 0) {
-          let sqlQuery = `INSERT INTO anime(title, type, score, video,image, start_date,end_date,description) 
-          values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}');`;
-          client.query(sqlQuery).then((data) => {
-            let getSql = `SELECT * FROM anime ORDER BY id desc limit 1`;
-            client.query(getSql).then((data) => {
-              let dataAnime = data.rows[0];
-
-              let anime_id = data.rows[0].id;
-              
-
-              let commitSql = `INSERT INTO commits(first_name,last_name,email,message,anime_id) VALUES ('${first_name}','${last_name}','${email}','${message}','${anime_id}');`;
-              client.query(commitSql).then((data) => {
-                let sqlQuery = `SELECT * FROM commits ORDER BY id DESC LIMIT 5 WHERE anime_id ='${anime_id}';`;
-                client.query(sqlQuery).then((data) => {
-                  res.render("searches/detail", {
-                    videoId: dataAnime.video,
-                    animeObject: dataAnime,
-                    bol: false,
-                    message: "",
-                    commit: data.rows,
-                  });
-                });
-              });
-            });
-          });
-        } else {
-          let sql = `SELECT * from anime WHERE video ='${video}'`;
-          client.query(sql).then((data) => {
+    let sql = `select count(video) from anime where video ='${video}'`;
+    client.query(sql).then((data) => {
+      console.log('data im commit ', data.rows[0].count);
+      if (data.rows[0].count === 0) {
+        let sqlQuery = `insert into anime(title, type, score, video,image, start_date,end_date,description) 
+          values ('${anime}','${type}','${score}','${video}','${image}','${start_date}','${end_date}','${description}')`;
+        client.query(sqlQuery).then((data) => {
+          let getSql = `select * from anime order by id desc limit 1`;
+          client.query(getSql).then((data) => {
             let dataAnime = data.rows[0];
+
             let anime_id = data.rows[0].id;
-            let commitSql = `INSERT INTO commits(first_name,last_name,email,message,anime_id) VALUES ('${first_name}','${last_name}','${email}','${message}','${anime_id}');`;
+
+            let commitSql = `insert into commits(first_name,last_name,email,message,anime_id) values ('${first_name}','${last_name}','${email}','${message}','${anime_id}')`;
             client.query(commitSql).then((data) => {
-              let sqlQuery =
-                `SELECT * FROM commits ORDER BY id DESC LIMIT 5 WHERE anime_id ='${anime_id}'; `;
+              let sqlQuery = `SELECT * from commits ORDER BY id DESC LIMIT 5 where anime_id = '${anime_id}'`;
               client.query(sqlQuery).then((data) => {
-                res.render("searches/detail", {
+                res.render('searches/detail', {
                   videoId: dataAnime.video,
                   animeObject: dataAnime,
                   bol: false,
-                  message: "",
+                  message: '',
                   commit: data.rows,
+                  logout: check(req),
                 });
               });
             });
           });
-        }
-      });
-  }else{
-    res.redirect("/search/details");
+        });
+      } else {
+        let sql = `select * from anime where video ='${video}'`;
+        client.query(sql).then((data) => {
+          let dataAnime = data.rows[0];
+          let anime_id = data.rows[0].id;
+          let commitSql = `insert into commits(first_name,last_name,email,message,anime_id) values ('${first_name}','${last_name}','${email}','${message}','${anime_id}')`;
+          client.query(commitSql).then((data) => {
+            let sqlQuery = `SELECT * FROM commits WHERE anime_id='${anime_id}' ORDER BY id DESC LIMIT 5;`;
+            client.query(sqlQuery).then((data) => {
+              res.render('searches/detail', {
+                videoId: dataAnime.video,
+                animeObject: dataAnime,
+                bol: false,
+                message: '',
+                commit: data.rows,
+                logout: check(req),
+              });
+            });
+          });
+        });
+      }
+    });
+  } else {
+    res.redirect('/search/details');
   }
-
 }
-
-
 
 // get the data from the form and store it in the DB
 function handleCommit(req, res) {
@@ -434,29 +435,14 @@ function handleCommit(req, res) {
   let sql = `INSERT INTO commits(first_name, last_name, email,message) VALUES ('${first_name}','${last_name}','${email}','${message}') `;
   client.query(sql).then((data) => {
     console.log('data added');
-    let sqlQuery = 'SELECT * FROM commits ORDER BY id DESC LIMIT 5';
+    let sqlQuery = 'SELECT * FROM commits ORDER BY id DESC LIMIT 5;';
     client.query(sqlQuery).then((data) => {
-      res.redirect("/search/details");
+      res.redirect('/search/details');
     });
   });
 }
 
-
-
-
-// display update form
-function handleUpdate(req, res) {
-  let email = req.params.email;
-  let sqlQuery = `SELECT * FROM users WHERE email = '${email}'`;
-  client
-    .query(sqlQuery)
-    .then((data) => {
-      res.render('update.ejs', { users: data.rows });
-    })
-    .catch((error) => {
-      res.send('Incorrect password' + error);
-    });
-}
+// tested and work correctly
 // update user data in the DATABASE
 function handleUpdateInfo(req, res) {
   let first_name = req.body.first_name;
@@ -469,11 +455,38 @@ function handleUpdateInfo(req, res) {
   client.query(sqlQuery).then((data) => {
     sess.email = email;
     console.log('the data from sql ' + data);
-    res.redirect('/news');
+    res.redirect('/');
+  });
+}
+// tested and work correctly
+// display user info to the profile page
+function handleUserInfo(req, res) {
+  sess = req.session;
+  let sql = `SELECT * FROM users WHERE email = '${sess.email}'`;
+  client.query(sql).then((data) => {
+    let id = data.rows[0].id;
+    let userData = data.rows[0];
+    let countSql = `SELECT count(ul.id) FROM user_list ul, users u WHERE ul.user_id = '${id}'`;
+    client.query(countSql).then((data) => {
+      res.render('user-info', {
+        user: userData,
+        count: data.rows[0].count,
+        logout: check(req),
+      });
+    });
   });
 }
 
-
+function handleDeleteUser(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log(err);
+    }
+    let email = req.params.email;
+    let sql = `DELETE FROM users WHERE email='${email}'`;
+    res.redirect('/');
+  });
+}
 //===========
 // routes-path
 //==========
@@ -500,7 +513,7 @@ app.post('/login', handleLogin);
 
 app.get('/logout', handleLogout);
 
-app.get("/myList", handleMyList);
+app.get('/myList', handleMyList);
 
 app.get('/', renderHome);
 
@@ -509,29 +522,25 @@ app.get('/search', handleSearch);
 app.get('/search/details', handleDetails);
 
 app.get('/about-us', (req, res) => {
-  res.render('about-us');
+  res.render('about-us', { logout: check(req) });
 });
 app.get('/contact-us', (req, res) => {
-  res.render('contact-us');
+  res.render('contact-us', { logout: check(req) });
 });
 
 app.post('/anime', handleAnime);
 
 app.delete('/myList/:id', handelDeleteList);
 
-app.post("/search/details/:id", handleDetailsMyList);
-
-
-
-
-
-app.get('/update/:email', handleUpdate);
+app.post('/search/details/:id', handleDetailsMyList);
 
 app.post('/update-info', handleUpdateInfo);
 
 app.post('/commit', handleCommitPage);
 
 app.post('/commitData', handleCommit);
+
+app.delete('/delete-user/:email', handleDeleteUser);
 // paths-routs
 
 // app.get('/sign-in', (req, res) => {
@@ -541,9 +550,7 @@ app.post('/commitData', handleCommit);
 //   res.render('searches/list');
 // });
 
-app.get('/user-info', (req,res)=>{
-  res.render('user-info');
-})
+app.get('/user-info', handleUserInfo);
 
 //================
 // functions
@@ -676,6 +683,13 @@ function timeFormat(time) {
   return hours + minutes + seconds;
 }
 
+function check(req) {
+  sess = req.session;
+  if (sess.email) {
+    return true;
+  }
+  return false;
+}
 // Constructors
 
 function Anime(anime) {
