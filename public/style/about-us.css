@@ -11,7 +11,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 4%;
     width: 80%;
 }
 
@@ -24,9 +24,6 @@ body {
     bottom: 50px;
 }
 
-a:hover {
-    color: #a20a0a;
-}
 
 p {
     margin: 20px 0;
@@ -53,18 +50,16 @@ p {
     border-radius: 10px;
     border-color:#a20a0a ;
     float: left;
-    margin: 0px 15px 100px 15px;
     box-shadow: 0 4px 8px 0 #012e40b7, 0 6px 20px 0 #012e40b7;
     text-align: center;
     padding: 10px;
     height: 300px;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin: 8% 8%;
     color: whitesmoke;
 }
 
 h2 {
-    margin: 5% auto 5% auto;
+    margin:40px auto ;
     text-align: center;
     font-size: 170%;
     font-weight: bolder;
@@ -73,7 +68,7 @@ h2 {
 .first-p {
     text-align: center;
     width: 80%;
-    margin: 7% auto 9% auto;
+    margin: 4% 8%;
 }
 
 .names {
@@ -94,4 +89,17 @@ h2 {
 .social-links a {
     margin: 8.3%;
     text-align: center;
+}
+.social-links a:hover {
+    color: #a20a0a;
+}
+
+@media (min-width:560px){
+
+.member {
+
+    margin: 3% 8%;
+
+
+}
 }
