@@ -1,12 +1,11 @@
-<%- include("partials/head.ejs")%>
-  <%- include("partials/header.ejs")%>
+<%- include("partials/head.ejs")%> <%- include("partials/header.ejs")%>
 
 <main id="slide">
   <section class="slider">
     <div class="flexslider">
       <ul class="slides">
         <% anime.forEach(element=> { %>
-          
+
         <li>
           <section class="mainSection">
             <div class="main-div">
@@ -67,11 +66,9 @@
                   </ul>
                 </form>
               </div>
-
               <div class="anime-img">
                 <img class="list-img" src="<%= element.img_url %>" alt="" />
               </div>
-
             </div>
           </section>
         </li>
@@ -80,138 +77,54 @@
     </div>
   </section>
 
-
-              <li>
-                <section class="mainSection">
-                  <div class="main-div">
-                    <div class="anime-des">
-                      <form action="/search/details" method="GET">
-                        <ul>
-                          <li>
-                            <h1 class="title">
-                              <%= element.title %>
-                            </h1>
-                          </li>
-                          <li class="not-title">Score: <%= element.score %>
-                          </li>
-                          <li class="not-title">Rank: <%= element.rank %>
-                          </li>
-                          <li class="not-title">Type: <%= element.type %>
-                          </li>
-                          <li class="not-title">
-                            Start Date: <%= element.start_date %>
-                          </li>
-                          <li class="not-title">End Date: <%= element.end_date %>
-                          </li>
-                          <li>
-                            <input hidden type="text" name="anime" value="<%= element.title %>" />
-                            <input hidden type="text" name="type" value="<%= element.type %>" />
-                            <input hidden type="text" name="score" value="<%= element.score %>" />
-                            <input hidden type="text" name="description" value="<%= element.description %>" />
-                            <input hidden type="text" name="start_date" value="<%= element.start_date %>" />
-                            <input hidden type="text" name="end_date" value="<%= element.end_date %>" />
-                            <button type="submit" class="btn-title">
-                              <span class="text">See More</span>
-                            </button>
-                          </li>
-                        </ul>
-                      </form>
-                    </div>
-                    <div class="anime-img">
-                      <img class="list-img" src="<%= element.img_url %>" alt="" />
-                    </div>
-                  </div>
-                </section>
-              </li>
-              <% }) %>
-  <div class="separator">Latest News</div>
-  <!-- Adding news data from API  
-  <% news.forEach(element=> { %>
-  <section class="s-news">
-    <div class="d-news">
-      <div class="img-news">
-        <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
-      </div>
-      <div class="text-news">
-        <form action="">
-          <ul class="u-news">
-            <li class="news-author">
-              <h2>Author: <%= element.author %></h2>
-            </li>
-            <li class="news-title">
-              <h2><%= element.title %></h2>
-            </li>
-            <li class="l-news">
-              <p class="readmoreP"><%= element.content[0] %>...<%= element.content[1] %></p>
-              
-            </li>
-            <li class="news-data">
-              <h2>Published at: <%= element.publishedAt %></h2>
-            </li>
-            <button class="btn-more">
-              <span class="text">
-                <a href="<%= element.url %>">Resources </a>
-              </span>
-            </button>
-            <button type="submit" class="btn-more2" id="continueReading">
-              <span class="text">Continue Reading</span>
-            </button> -->
-
-          </ul>
+  <div class="word">
+    <span>N</span>
+    <span>E</span>
+    <span>W</span>
+    <span>S</span>
+  </div>
+  <!-- </div> -->
+  <main class="m-news">
+    <!-- Adding news data from API  -->
+    <% news.forEach(element=> { %>
+    <section class="s-news">
+      <div class="d-news">
+        <div class="img-news">
+          <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
         </div>
-      </section>
-
-
-    </main>
-  
-
-      <div class="word ">
-        <span>N</span>
-        <span>E</span>
-        <span>W</span>
-        <span>S</span>
+        <div class="text-news">
+          <form action="">
+            <ul class="u-news">
+              <li class="news-title">
+                <h2><%= element.title %></h2>
+              </li>
+              <li class="news-author">
+                <h2>Author: <%= element.author %></h2>
+              </li>
+              <li class="news-data">
+                <h2>Published at: <%= element.publishedAt %></h2>
+              </li>
+              <li class="l-news">
+                <p class="readmoreP">
+                  <%= element.content[0] %>...
+                  <span class="text">
+                    <a
+                      href="<%= element.url %>"
+                      class="continueReading"
+                      title="Continue Reading"
+                    >
+                      <%= element.content[1] %></a
+                    >
+                  </span>
+                </p>
+              </li>
+            </ul>
+          </form>
+        </div>
       </div>
-    <!-- </div> -->
-    <main class="m-news">
-      <!-- Adding news data from API  -->
-      <% news.forEach(element=> { %>
-        <section class="s-news">
-          <div class="d-news">
-            <div class="img-news">
-              <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
-            </div>
-            <div class="text-news">
-              <form action="">
-                <ul class="u-news">
-                  <li class="news-title">
-                    <h2>
-                      <%= element.title %>
-                    </h2>
-                  </li>
-                  <li class="news-author">
-                    <h2>Author: <%= element.author %>
-                    </h2>
-                  </li>
-                  <li class="news-data">
-                    <h2>Published at: <%= element.publishedAt %>
-                    </h2>
-                  </li>
-                  <li class="l-news">
-                    <p class="readmoreP">
-                      <%= element.content[0] %>...
-                          <span class="text">
-                            <a href="<%= element.url %>"  class="continueReading" title="Continue Reading"> <%= element.content[1] %></a>
-                          </span>
-                    </p>
+    </section>
+    <% }); %>
+  </main>
 
-                  </li>
-                              
-                </ul>
-              </form>
-            </div>
-          </div>
-        </section>
-        <% }); %>
-    </main>
-
-    <%- include("partials/footer.ejs")%>
+  <%- include("partials/footer.ejs")%>
+</main>
