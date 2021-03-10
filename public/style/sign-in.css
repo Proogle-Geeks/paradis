@@ -97,3 +97,35 @@ button:hover {
     font-size: small;
     margin-right: 20%;
 }
+
+
+@media (min-width:560px){
+
+    #sign-in-form-div,#sign-up-form-div  {
+        width: 35%;
+    }
+    #sign-in-form {
+        width: 100%;
+        margin: 0;
+    }
+    .sign-in-input{
+        border-radius: 15px;
+        width: 85%;
+    }
+    #sign-in-form button {
+        margin-left: 40%;
+    }
+    #create-account-div{
+        width: 60%;
+    }
+    #create-account-div p{
+        padding: 0 0 10px 50px;
+    }
+
+
+
+
+
+
+
+}
