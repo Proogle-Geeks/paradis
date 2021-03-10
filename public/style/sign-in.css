@@ -101,8 +101,9 @@ button:hover {
 
 @media (min-width:560px){
 
-    #sign-in-form-div,#sign-up-form-div  {
+    #sign-in-form-div,#sign-up-form-div,#user-info-div  {
         width: 35%;
+        margin: 50px auto 100px auto;
     }
     #sign-in-form {
         width: 100%;

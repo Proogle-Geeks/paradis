@@ -1,4 +1,7 @@
 
+*{
+    outline: 0;
+}
 body{
 
     background-image: url(/img/bgBlured.png);
@@ -662,9 +665,9 @@ font-size: 20px;
 font-weight: 1600px;
 }
 .list-de{
-    width: 150%;
+    width: 145%;
     padding: 12px 0 ;
-    margin: 10px 0 10px 10px;
+    margin: 10px 0 10px 8px;
     border-radius: 5px;
     position: relative;
     border: 0;
@@ -867,7 +870,7 @@ font-weight: 1600px;
         outline: 0;
     }
     .list-main{
-        margin: 50px 0;
+        margin: 50px 0 200px 0;
     }
 
     .s-list{
@@ -884,6 +887,17 @@ font-weight: 1600px;
         flex-wrap: wrap;
         justify-content: space-around;
 
+    }
+    .search-main-details{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .s-search-details{
+        width: 25%!important;
+        margin-top: 50px;
+        
     }
     .s-search{
         width: 17%;
@@ -903,11 +917,15 @@ font-weight: 1600px;
         justify-content: space-around;
         margin: 120px 0 160px 0 ;
     }
+    
     .s-search-vid{
         width: 25%;
     }
-    
    
+
+
+
+
 
 
 }
