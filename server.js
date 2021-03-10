@@ -284,7 +284,7 @@ const renderHome = (req, res) => {
 // show result of search in the search page
 const handleSearch = (req, res) => {
   let anime = req.query.anime;
-  checkSearchQuery(anime, res);
+  checkSearchQuery(anime, res, req);
   // console.log(anime);
 };
 // handle the details for anime
@@ -556,7 +556,7 @@ app.get('/user-info', handleUserInfo);
 // functions
 // ===============
 
-function checkSearchQuery(searchEntry, res) {
+function checkSearchQuery(searchEntry, res, req) {
   var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
   // I got the regex from stack overflow
   if (regex.test(searchEntry)) {
@@ -568,7 +568,7 @@ function checkSearchQuery(searchEntry, res) {
   } else {
     console.log('you searched for an name');
     getAnimeData(searchEntry).then((data) => {
-      res.render('searches/show', { anime: data });
+      res.render('searches/show', { anime: data, logout: check(req) });
     });
   }
 }
