@@ -1,11 +1,22 @@
-#sign-in-form-div, #sign-up-form-div {
+#user-info-div, #update-info-form-div {
     margin: auto;
     text-align: center;
     width: 100%;
 }
 
-input {
-    background-color: silver;
+#user-info-div {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.507);
+    animation: animatezoomin 0.5s;
+}
+
+#user-info-div ul li {
+    margin: 5%;
+    font-size: larger;
+    text-align: left;
 }
 
 input, button {
@@ -23,16 +34,15 @@ input:focus , button:active {
     outline: none;
 }
 
-#show-signup-form-btn {
+#show-update-form-btn {
     width: 20%;
 }
 
-#sign-up-form-div {
+#update-info-form-div {
     padding-top: 2%;
-    padding-bottom: 2%;
-    background-color: rgba(128, 128, 128, 0.801);
-    /* opacity: 0.8; */
-    width:70%;
+    padding-bottom: 2%; 
+    background-color: rgba(255, 255, 255, 0.575);
+    width:90%;
     border-radius: 10px;
     display: none;
     position: relative;
@@ -53,22 +63,16 @@ button:hover {
     to {transform: scale(1)}
 }
 
-#cancel-btn {
+#cancel-btn, #delete-account-btn {
     background-color:rgba(218, 17, 17, 0.849);
     color: white;
     width: 20%;
 }
 
-#create-account-div {
-    margin-top: 4%;
+#delete-account-btn, #show-update-form-btn{
+    width: 30%;
 }
 
-#create-account-div button {
-    margin-top: 1%;
-}
-
-#create-account-div p {
-    color: white;
-    font-size: small;
-    margin-right: 20%;
+b {
+    font-weight: bold;
 }

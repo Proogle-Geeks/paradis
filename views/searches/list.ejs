@@ -7,6 +7,66 @@
         <main class="list-main">
 
             <section class="s-list">
+                <% mylist.forEach(element=>{%>
+                    <div class="d-list-l">
+
+                        
+                        <% if (element.image) { %>
+                        <div class="d-img-l">
+                            <img class="l-img" src="<%= element.image%>" alt="">
+                        </div>
+                        <% }  else if (element.video) { %>
+                            <div class="d-img-l">
+                            <iframe src="https://www.youtube.com/embed/<%=  element.video %> " allowfullscreen></iframe>
+                            </div>
+                            <% } %>
+
+                        <div class="list-text">
+
+                            <h1 class="list-name"><%= element.anime%></h1>
+
+                            <form action="/search/details/<%= element.id%>" method="POST">
+                                <button class="list-de" type="submit" class="btn-list">
+                                    <span class="text">Details</span>
+                                </button>
+                            </form>
+                            <form action="/mylist/<%= element.id%>?_method=DELETE"  method="POST">
+                                <button class="delete" type="submit" class="btn-list">
+                                    <span class="text"><i class="fas fa-trash"></i></span>
+                                </button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                    <%}) %>
+
+
+                        <!-- <div class="d-list-l">
+
+                    <div class="d-img-l">
+                        <img class="l-img" src="/img/list.jpg" alt="">
+                    </div>
+
+                    <div class="list-text">
+
+                        <h1 class="list-name">Naruto</h1>
+
+                        <form action="">
+                            <button class="list-de" type="submit" class="btn-list">
+                                <span class="text">Details</span>
+                            </button>
+                        </form>
+
+                        <form action="">
+                            <button class="delete" type="submit" class="btn-list">
+                                <span class="text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div>
 
                 <div class="d-list-l">
 
@@ -15,183 +75,131 @@
                     </div>
 
                     <div class="list-text">
-                        
+
                         <h1 class="list-name">Naruto</h1>
 
-                            <form  action="">
-                                    <button class="list-de" type="submit" class="btn-list">
-                                        <span class="text">Details</span>
-                                    </button>  
-                            </form>
-
-                            <form  action="">
-                                <button class="delete" type="submit" class="btn-list">
-                                    <span class="text"><i class="fas fa-trash"></i></span>
-                                </button>
-                            </form>
-                        
-                        
-                    </div>
-               </div>
-
-               <div class="d-list-l">
-
-                <div class="d-img-l">
-                    <img class="l-img" src="/img/list.jpg" alt="">
-                </div>
-
-                <div class="list-text">
-                    
-                    <h1 class="list-name">Naruto</h1>
-
-                        <form  action="">
-                                <button class="list-de" type="submit" class="btn-list">
-                                    <span class="text">Details</span>
-                                </button>  
+                        <form action="">
+                            <button class="list-de" type="submit" class="btn-list">
+                                <span class="text">Details</span>
+                            </button>
                         </form>
 
-                        <form  action="">
+                        <form action="">
                             <button class="delete" type="submit" class="btn-list">
                                 <span class="text"><i class="fas fa-trash"></i></span>
                             </button>
                         </form>
-                    
-                    
+
+
+                    </div>
                 </div>
-           </div>
 
-           <div class="d-list-l">
+                <div class="d-list-l">
 
-            <div class="d-img-l">
-                <img class="l-img" src="/img/list.jpg" alt="">
-            </div>
+                    <div class="d-img-l">
+                        <img class="l-img" src="/img/list.jpg" alt="">
+                    </div>
 
-            <div class="list-text">
-                
-                <h1 class="list-name">Naruto</h1>
+                    <div class="list-text">
 
-                    <form  action="">
+                        <h1 class="list-name">Naruto</h1>
+
+                        <form action="">
                             <button class="list-de" type="submit" class="btn-list">
                                 <span class="text">Details</span>
-                            </button>  
-                    </form>
+                            </button>
+                        </form>
 
-                    <form  action="">
-                        <button class="delete" type="submit" class="btn-list">
-                            <span class="text"><i class="fas fa-trash"></i></span>
-                        </button>
-                    </form>
-                
-                
-            </div>
-       </div>
-
-       <div class="d-list-l">
-
-        <div class="d-img-l">
-            <img class="l-img" src="/img/list.jpg" alt="">
-        </div>
-
-        <div class="list-text">
-            
-            <h1 class="list-name">Naruto</h1>
-
-                <form  action="">
-                        <button class="list-de" type="submit" class="btn-list">
-                            <span class="text">Details</span>
-                        </button>  
-                </form>
-
-                <form  action="">
-                    <button class="delete" type="submit" class="btn-list">
-                        <span class="text"><i class="fas fa-trash"></i></span>
-                    </button>
-                </form>
-            
-            
-        </div>
-   </div>
+                        <form action="">
+                            <button class="delete" type="submit" class="btn-list">
+                                <span class="text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </form>
 
 
-   <div class="d-list-l">
-
-    <div class="d-img-l">
-        <img class="l-img" src="/img/list.jpg" alt="">
-    </div>
-
-    <div class="list-text">
-        
-        <h1 class="list-name">Naruto</h1>
-
-            <form  action="">
-                    <button class="list-de" type="submit" class="btn-list">
-                        <span class="text">Details</span>
-                    </button>  
-            </form>
-
-            <form  action="">
-                <button class="delete" type="submit" class="btn-list">
-                    <span class="text"><i class="fas fa-trash"></i></span>
-                </button>
-            </form>
-        
-        
-    </div>
-</div>
+                    </div>
+                </div>
 
 
-<div class="d-list-l">
+                <div class="d-list-l">
 
-    <div class="d-img-l">
-        <img class="l-img" src="/img/list.jpg" alt="">
-    </div>
+                    <div class="d-img-l">
+                        <img class="l-img" src="/img/list.jpg" alt="">
+                    </div>
 
-    <div class="list-text">
-        
-        <h1 class="list-name">Naruto</h1>
+                    <div class="list-text">
 
-            <form  action="">
-                    <button class="list-de" type="submit" class="btn-list">
-                        <span class="text">Details</span>
-                    </button>  
-            </form>
+                        <h1 class="list-name">Naruto</h1>
 
-            <form  action="">
-                <button class="delete" type="submit" class="btn-list">
-                    <span class="text"><i class="fas fa-trash"></i></span>
-                </button>
-            </form>
-        
-        
-    </div>
-</div>
+                        <form action="">
+                            <button class="list-de" type="submit" class="btn-list">
+                                <span class="text">Details</span>
+                            </button>
+                        </form>
+
+                        <form action="">
+                            <button class="delete" type="submit" class="btn-list">
+                                <span class="text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </form>
 
 
-<div class="d-list-l">
+                    </div>
+                </div>
 
-    <div class="d-img-l">
-        <img class="l-img" src="/img/list.jpg" alt="">
-    </div>
 
-    <div class="list-text">
-        
-        <h1 class="list-name">Naruto</h1>
+                <div class="d-list-l">
 
-            <form  action="">
-                    <button class="list-de" type="submit" class="btn-list">
-                        <span class="text">Details</span>
-                    </button>  
-            </form>
+                    <div class="d-img-l">
+                        <img class="l-img" src="/img/list.jpg" alt="">
+                    </div>
 
-            <form  action="">
-                <button class="delete" type="submit" class="btn-list">
-                    <span class="text"><i class="fas fa-trash"></i></span>
-                </button>
-            </form>
-        
-        
-    </div>
-</div>
+                    <div class="list-text">
+
+                        <h1 class="list-name">Naruto</h1>
+
+                        <form action="">
+                            <button class="list-de" type="submit" class="btn-list">
+                                <span class="text">Details</span>
+                            </button>
+                        </form>
+
+                        <form action="">
+                            <button class="delete" type="submit" class="btn-list">
+                                <span class="text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div>
+
+
+                <div class="d-list-l">
+
+                    <div class="d-img-l">
+                        <img class="l-img" src="/img/list.jpg" alt="">
+                    </div>
+
+                    <div class="list-text">
+
+                        <h1 class="list-name">Naruto</h1>
+
+                        <form action="">
+                            <button class="list-de" type="submit" class="btn-list">
+                                <span class="text">Details</span>
+                            </button>
+                        </form>
+
+                        <form action="">
+                            <button class="delete" type="submit" class="btn-list">
+                                <span class="text"><i class="fas fa-trash"></i></span>
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div> -->
 
 
 

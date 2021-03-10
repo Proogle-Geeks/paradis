@@ -80,6 +80,7 @@
     </div>
   </section>
 
+
               <li>
                 <section class="mainSection">
                   <div class="main-div">
@@ -123,6 +124,39 @@
                 </section>
               </li>
               <% }) %>
+  <div class="separator">Latest News</div>
+  <!-- Adding news data from API  
+  <% news.forEach(element=> { %>
+  <section class="s-news">
+    <div class="d-news">
+      <div class="img-news">
+        <img class="img-news-img" src="<%= element.urlToImage %>" alt="" />
+      </div>
+      <div class="text-news">
+        <form action="">
+          <ul class="u-news">
+            <li class="news-author">
+              <h2>Author: <%= element.author %></h2>
+            </li>
+            <li class="news-title">
+              <h2><%= element.title %></h2>
+            </li>
+            <li class="l-news">
+              <p class="readmoreP"><%= element.content[0] %>...<%= element.content[1] %></p>
+              
+            </li>
+            <li class="news-data">
+              <h2>Published at: <%= element.publishedAt %></h2>
+            </li>
+            <button class="btn-more">
+              <span class="text">
+                <a href="<%= element.url %>">Resources </a>
+              </span>
+            </button>
+            <button type="submit" class="btn-more2" id="continueReading">
+              <span class="text">Continue Reading</span>
+            </button> -->
+
           </ul>
         </div>
       </section>
