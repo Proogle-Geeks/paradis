@@ -2,10 +2,10 @@
 
     <%- include("partials/header.ejs")%>
 
-        <main class="search-main">
+        <main class="search-main-img">
 
             <% anime.map((element,idx)=>{ %>
-                <section class="s-search">
+                <section class="s-search s-search-vid">
                     <div class="d-search">
                         <div class="vid-search">
                             <video class="vid-img" controls>
@@ -38,7 +38,7 @@
                                     </h2>
                                 </li>
         
-                                <span class="less-txt<%= idx %>" id="dots">...</span>
+                                <span class="less-txt<%= idx %>" id="dots">....</span>
                                 <span class="more-txt<%= idx %>" id="more">
                                 <li>
                                     <h2 class="search-author">Matching Time: <%= element.at%>
