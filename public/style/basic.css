@@ -1,3 +1,4 @@
+
 body{
 
     background-image: url(/img/bgBlured.png);
@@ -538,8 +539,6 @@ iframe{
     background-color: #eeeeee;
     padding: 10px;
 }
-
-
 #more {
     display: none;
 
@@ -556,6 +555,7 @@ iframe{
     padding: 0 10px ;
     width: 100%;
     font-size: 18px;
+    overflow: hidden;
 } 
 .d-data p   {
     border: #121212 solid 1px;
@@ -627,7 +627,6 @@ iframe{
 }
 .s-list{
     grid-column: 2 / 3;
-
     display: grid;
     grid-template-columns: 49% 49%;
     column-gap: 2%;
@@ -653,6 +652,7 @@ iframe{
     padding: 5px;
     display: grid;
     border-radius:0 0 10px 10px;
+    height: 140px;
 
 }
 .list-name{
@@ -664,7 +664,7 @@ font-weight: 1600px;
 .list-de{
     width: 150%;
     padding: 12px 0 ;
-    margin: 10px 0;
+    margin: 10px 0 10px 10px;
     border-radius: 5px;
     position: relative;
     border: 0;
@@ -730,6 +730,12 @@ font-weight: 1600px;
 .search-main-img{
     margin-top: 70px;
 }
+.scroll{
+    height: 95px;
+    overflow:scroll;
+    padding-bottom: 81px;
+}
+
 
 @media (min-width:560px){
 
@@ -844,7 +850,7 @@ font-weight: 1600px;
     }
     .anime-des{
         grid-column: 6 / 11;
-        grid-row: 1 / 18;
+        grid-row: 1 / 16;
     }
     .title{
         font-size: 1.8em;
@@ -858,19 +864,20 @@ font-weight: 1600px;
     .btn-title{
         margin:50px 25px 10px 0;
         border: 0;
+        outline: 0;
     }
     .list-main{
         margin: 50px 0;
-        display: flex;
     }
 
     .s-list{
         display: flex;
         margin: 0 20px;
+        flex-wrap: wrap;
 
     }
     .d-list-l{
-        width: 25%;
+        width: 15%;
     }
     .search-main{
         display: flex;
@@ -880,6 +887,7 @@ font-weight: 1600px;
     }
     .s-search{
         width: 17%;
+        min-width: 400px;
     }
     .img-search{
         height: 200px;
