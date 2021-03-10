@@ -1,11 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Roboto');
+
 #sign-in-form-div, #sign-up-form-div {
     margin: auto;
     text-align: center;
     width: 100%;
 }
 
-input {
-    background-color: silver;
+body {
+    font-family: 'Vollkorn', serif;
+}
+
+#sign-in-form-div {
+    margin: auto;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 90%;
+    background-color: #012e40c7;
+    border-radius: 10px;
+    animation: animatezoomin 0.5s;
 }
 
 input, button {
@@ -15,7 +28,13 @@ input, button {
     margin: 4%;
     padding: 2.5%;
     border: 0;
-    background-color: silver;
+    background-color: #024959;
+    color: whitesmoke;
+    font-family: 'Vollkorn', serif;
+}
+
+input {
+    font-size: larger;
 }
 
 input:focus , button:active {
@@ -23,16 +42,22 @@ input:focus , button:active {
     outline: none;
 }
 
+::placeholder { 
+    color: whitesmoke;
+}    
+
 #show-signup-form-btn {
     width: 20%;
 }
 
 #sign-up-form-div {
+    margin: auto;
+    text-align: center;
     padding-top: 2%;
     padding-bottom: 2%;
-    background-color: rgba(128, 128, 128, 0.801);
+    background-color: #012e40c7;
     /* opacity: 0.8; */
-    width:70%;
+    width:90%;
     border-radius: 10px;
     display: none;
     position: relative;
@@ -55,7 +80,7 @@ button:hover {
 
 #cancel-btn {
     background-color:rgba(218, 17, 17, 0.849);
-    color: white;
+    color: whitesmoke;
     width: 20%;
 }
 
@@ -68,7 +93,7 @@ button:hover {
 }
 
 #create-account-div p {
-    color: white;
+    color: whitesmoke;
     font-size: small;
     margin-right: 20%;
 }

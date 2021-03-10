@@ -3,7 +3,7 @@ $('.login-btn').css('display','none')
 
 $('#show-signup-form-btn').click(()=>{
     $('#sign-up-form-div').css('display','block');
-    $('#sign-in-form').css('display','none');
+    $('#sign-in-form-div').css('display','none');
     $('#show-signup-form-btn').css('display','none');
     $('p').css('display','none');
     // $(window).click(event =>{
@@ -13,7 +13,7 @@ $('#show-signup-form-btn').click(()=>{
 
 $('#cancel-btn').click(()=>{
     $('#sign-up-form-div').css('display','none');
-    $('#sign-in-form').css('display','block');
+    $('#sign-in-form-div').css('display','block');
     $('#show-signup-form-btn').css('display','inline');
     $('p').css('display','block');
 })

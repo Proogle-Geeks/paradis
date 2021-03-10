@@ -1,57 +1,97 @@
-main {
+@import url('https://fonts.googleapis.com/css?family=Anton|Roboto');
+
+body {
+    font-family: 'Vollkorn', serif;
+    color: whitesmoke;
+    text-shadow: 2px 2px black;
+}
+
+#team-bio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     margin: auto;
+    margin-top: 10%;
+    width: 80%;
+}
+
+.member a {
+    color: whitesmoke;
+    font-size: 20px;
+    float: left;
+    margin-right: 30px;
+    position: relative;
+    bottom: 50px;
+}
+
+a:hover {
+    color: #a20a0a;
+}
+
+p {
+    margin: 20px 0;
+    font-size: 21px;
+}
+
+.member img {
+    width: 70%;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    bottom: 65px;
+    margin: 35px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #012e40c7;
+    box-shadow: 0 4px 8px 0 #f24141af, 0 6px 20px 0 #f24141af;
+    float: left;
+}
+
+.member {
+    width: 200px;
+    background-color: #f24141af;
+    border-radius: 10px;
+    border-color:#a20a0a ;
+    float: left;
+    margin: 0px 15px 100px 15px;
+    box-shadow: 0 4px 8px 0 #012e40b7, 0 6px 20px 0 #012e40b7;
+    text-align: center;
+    padding: 10px;
+    height: 300px;
+    margin-right: 5%;
+    margin-left: 5%;
+    color: whitesmoke;
+}
+
+h2 {
+    margin: 5% auto 5% auto;
+    text-align: center;
+    font-size: 170%;
+    font-weight: bolder;
+}
+
+.first-p {
     text-align: center;
     width: 80%;
-    display: grid;
-    grid-row: 30% 70%;
+    margin: 7% auto 9% auto;
 }
 
-h3 {
-    font-weight: bold;
-    margin: 7% auto 7% auto;
+.names {
+    font-size: 23px;
+    position: relative;
+    padding-bottom :10px; ;
+    bottom: 70px;
+
 }
 
-h4 {
-    margin: 5% auto 5% auto;
-}
-
-#about-us-div {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5,1fr);
-}
-
-.person-card {
-    padding: 25%;
-    padding-top: 10%;
+.bio {
+    position: relative;
+    bottom: 70px;
     text-align: center;
-    margin: auto;
-    height: 50%;
-    background-color: darkgrey;
-    box-shadow:grey 1px 1px 1px;
+    font-size: 14px;
 }
 
-.person-img {
-    border-radius: 50%;
-    width: 40%;
-    height: 40%;
-}
-
-.social-links-icons {
-    transition: 0.5s ease;
-    background: rgba(234, 243, 233, 0.7);
-    opacity: 0;
-}
-
-.person-card:hover .social-links-icons {
-    opacity: 1;
-}
-
-.description {
-    height: 20%;
-    overflow: hidden;
-}
-
-.social-links-icons a {
-    display: inline;
+.social-links a {
+    margin: 8.3%;
+    text-align: center;
 }
