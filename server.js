@@ -563,7 +563,7 @@ function checkSearchQuery(searchEntry, res, req) {
     console.log('you searched for an image');
     getImageSearchData(searchEntry, res).then((data) => {
       // console.log(data);
-      res.render('showImage', { anime: data });
+      res.render('showImage', { anime: data, logout: check(req) });
     });
   } else {
     console.log('you searched for an name');
