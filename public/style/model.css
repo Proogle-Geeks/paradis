@@ -235,13 +235,16 @@ font-family: 'Vollkorn', serif;
 
 
 
-
 @media (max-width:560px)
 {
   .container{
 	display: none;
 	  /* visibility: hidden; */
   }
+
+
+  
+  
 }
 
 .text-justify{

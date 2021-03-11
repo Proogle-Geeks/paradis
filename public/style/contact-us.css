@@ -53,3 +53,13 @@ input:focus , textarea:focus, button:active {
     padding: 1.5%;
     width: 50%;
 }
+
+
+@media (min-width:560px){
+
+   .c-main{
+       margin-bottom: 360px;
+   }
+
+
+}
