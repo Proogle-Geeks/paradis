@@ -93,3 +93,11 @@ button:hover {
 b {
     font-weight: bold;
 }
+
+@media (min-width:560px){
+
+    #user-info-div  {
+        width: 35%;
+        margin: 50px auto 100px auto;
+    }
+}
